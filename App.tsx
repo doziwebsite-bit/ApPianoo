@@ -10,6 +10,7 @@ import Store from './pages/Store';
 import Media from './pages/Media';
 import Services from './pages/Services';
 import Cart from './pages/Cart';
+import Login from './pages/Login'; // Import Login
 import Dashboard from './pages/Dashboard';
 import { ENV } from './constants';
 
@@ -30,6 +31,7 @@ const App: React.FC = () => {
                   <Route path="/media" element={<Media />} />
                   <Route path="/services" element={<Services />} />
                   <Route path="/cart" element={<Cart />} />
+                  <Route path="/login" element={<Login />} /> {/* Add Login Route */}
                   <Route path="/dashboard" element={<Dashboard />} />
                   <Route path="*" element={<Navigate to="/" replace />} />
                 </Routes>
