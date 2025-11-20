@@ -1,11 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
-import { FEATURED_PRODUCTS, ASSETS } from '../constants';
+import { ArrowRight, Play } from 'lucide-react'; // Import Play icon
+import { FEATURED_PRODUCTS, ASSETS, MEDIA_ITEMS } from '../constants';
 import { useCart } from '../context/CartContext';
 
 const Home: React.FC = () => {
   const { addToCart } = useCart();
+
+  // Get the first video of standard aspect ratio
+  const featuredVideo = MEDIA_ITEMS.find(item => item.type === 'video' && item.aspectRatio === 'video');
 
   return (
     <div className="w-full">
@@ -49,56 +52,59 @@ const Home: React.FC = () => {
       </section>
 
       {/* Featured Products */}
-      <section className="py-24 bg-white/40 dark:bg-black/40 backdrop-blur-sm border-t border-b border-gray-200/20 dark:border-gray-800/20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="font-serif text-4xl md:text-5xl font-bold mb-4">Partitions à la une</h2>
-            <div className="w-24 h-1 bg-black dark:bg-white mx-auto opacity-20 rounded-full"></div>
-          </div>
+      {FEATURED_PRODUCTS.length > 0 && (
+        <section className="py-24 bg-white/40 dark:bg-black/40 backdrop-blur-sm border-t border-b border-gray-200/20 dark:border-gray-800/20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16">
+              <h2 className="font-serif text-4xl md:text-5xl font-bold mb-4">Partitions à la une</h2>
+              <div className="w-24 h-1 bg-black dark:bg-white mx-auto opacity-20 rounded-full"></div>
+            </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-            {FEATURED_PRODUCTS.slice(0, 3).map((product) => (
-              <div key={product.id} className="group flex flex-col bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md border border-white/20 dark:border-white/5 shadow-lg hover:shadow-2xl transition-all duration-500">
-                <div className="relative aspect-[4/5] overflow-hidden bg-gray-100 dark:bg-gray-800">
-                  <img 
-                    src={product.coverImage} 
-                    alt={product.title} 
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 grayscale group-hover:grayscale-0" 
-                  />
-                  <div className="absolute top-4 right-4">
-                     <span className="bg-white dark:bg-black text-black dark:text-white px-3 py-1 text-xs font-bold uppercase tracking-wider shadow-sm">
-                        {product.difficulty}
-                     </span>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+              {FEATURED_PRODUCTS.slice(0, 3).map((product) => (
+                <div key={product.id} className="group flex flex-col bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md border border-white/20 dark:border-white/5 shadow-lg hover:shadow-2xl transition-all duration-500">
+                  <div className="relative aspect-[4/5] overflow-hidden bg-gray-100 dark:bg-gray-800">
+                    <img 
+                      src={product.coverImage} 
+                      alt={product.title} 
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 grayscale group-hover:grayscale-0" 
+                    />
+                    <div className="absolute top-4 right-4">
+                      <span className="bg-white dark:bg-black text-black dark:text-white px-3 py-1 text-xs font-bold uppercase tracking-wider shadow-sm">
+                          {product.difficulty}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="p-8 flex flex-col flex-grow">
+                    <h3 className="font-serif text-2xl font-bold mb-1">{product.title}</h3>
+                    <p className="text-sm font-medium opacity-60 mb-4 uppercase tracking-wider">{product.artist}</p>
+                    <p className="text-sm opacity-70 mb-6 leading-relaxed">{product.description}</p>
+                    <div className="mt-auto flex items-center justify-between pt-4 border-t border-gray-100 dark:border-gray-800">
+                      <span className="font-serif font-bold text-xl">${product.price}</span>
+                      <button 
+                        onClick={() => addToCart(product)}
+                        className="bg-transparent border border-black dark:border-white text-black dark:text-white px-6 py-2 text-sm font-bold uppercase tracking-wider hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all"
+                      >
+                        Ajouter
+                      </button>
+                    </div>
                   </div>
                 </div>
-                <div className="p-8 flex flex-col flex-grow">
-                  <h3 className="font-serif text-2xl font-bold mb-1">{product.title}</h3>
-                  <p className="text-sm font-medium opacity-60 mb-4 uppercase tracking-wider">{product.artist}</p>
-                  <p className="text-sm opacity-70 mb-6 leading-relaxed">{product.description}</p>
-                  <div className="mt-auto flex items-center justify-between pt-4 border-t border-gray-100 dark:border-gray-800">
-                    <span className="font-serif font-bold text-xl">${product.price}</span>
-                    <button 
-                      onClick={() => addToCart(product)}
-                      className="bg-transparent border border-black dark:border-white text-black dark:text-white px-6 py-2 text-sm font-bold uppercase tracking-wider hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all"
-                    >
-                      Ajouter
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
 
-          <div className="text-center mt-16">
-            <Link 
-              to="/store" 
-              className="inline-flex items-center gap-3 text-lg font-serif italic hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
-            >
-              Voir toutes les partitions <ArrowRight size={20} />
-            </Link>
+            <div className="text-center mt-16">
+              <Link 
+                to="/store" 
+                className="inline-flex items-center gap-3 text-lg font-serif italic hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+              >
+                Voir toutes les partitions <ArrowRight size={20} />
+              </Link>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
+
 
       {/* About Section */}
       <section className="py-24 relative">
@@ -124,6 +130,35 @@ const Home: React.FC = () => {
           </div>
         </div>
       </section>
+
+      {/* Recent Performances Section (Media on Homepage) */}
+      {featuredVideo && (
+        <section className="py-24 bg-gray-50/50 dark:bg-zinc-900/50 backdrop-blur-sm border-t border-gray-200/20 dark:border-gray-800/20">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 className="font-serif text-4xl md:text-5xl font-bold mb-10">Performances Récentes</h2>
+            <div className="w-full aspect-video bg-black rounded-xl overflow-hidden shadow-2xl mx-auto">
+                <iframe 
+                  src={featuredVideo.url} 
+                  title={featuredVideo.title}
+                  className="w-full h-full"
+                  frameBorder="0" 
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  allowFullScreen
+                ></iframe>
+            </div>
+            <p className="mt-8 text-lg font-serif italic opacity-70">{featuredVideo.title}</p>
+            <div className="text-center mt-12">
+              <Link 
+                to="/media" 
+                className="inline-flex items-center gap-3 text-lg font-serif italic hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+              >
+                Voir toutes les vidéos <Play size={20} />
+              </Link>
+            </div>
+          </div>
+        </section>
+      )}
     </div>
   );
 };

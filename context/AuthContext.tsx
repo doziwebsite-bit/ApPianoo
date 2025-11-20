@@ -21,11 +21,13 @@ export const AuthProviderContext: React.FC<{ children: React.ReactNode }> = ({ c
     // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 1000));
     
+    // In a real app, process Google credentialResponse here to get user info
+    // For now, we use a mock user, but the Google login button in Cart.tsx will actually authenticate with Google
     const mockUser: User = {
       id: 'user-123',
       name: 'Jane Doe',
       email: 'jane.doe@example.com',
-      avatarUrl: 'https://picsum.photos/seed/user/100/100'
+      avatarUrl: 'https://picsum.photos/seed/user/100/100' // Placeholder avatar
     };
     
     setUser(mockUser);
