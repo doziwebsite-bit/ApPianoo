@@ -40,5 +40,6 @@ export interface MediaItem {
 
 export enum AuthProvider {
   GOOGLE = 'Google',
+  APPLE = 'Apple',
   EMAIL = 'Email'
 }
