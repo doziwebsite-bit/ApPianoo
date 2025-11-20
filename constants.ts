@@ -1,5 +1,16 @@
 import { Product, MediaItem, Order } from './types';
 
+// Safe access to environment variables
+const getEnv = (key: string) => {
+  // @ts-ignore
+  return (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env[key]) || '';
+};
+
+export const ENV = {
+  GOOGLE_CLIENT_ID: getEnv('VITE_GOOGLE_CLIENT_ID'),
+  STRIPE_PUBLIC_KEY: getEnv('VITE_STRIPE_PUBLIC_KEY'),
+};
+
 export const ASSETS = {
   logo: '/assets/logo.png',
   profile: '/assets/profile.jpg',
