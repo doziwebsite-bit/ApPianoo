@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Play } from 'lucide-react'; // Import Play icon
-import { FEATURED_PRODUCTS, ASSETS, MEDIA_ITEMS } from '../constants';
+import { FEATURED_PRODUCTS, assets, MEDIA_ITEMS } from '../constants';
 import { useCart } from '../context/CartContext';
 
 const Home: React.FC = () => {
@@ -20,7 +20,7 @@ const Home: React.FC = () => {
              <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-gray-200 to-white blur-md opacity-50 dark:opacity-20 transform scale-105"></div>
              <div className="w-40 h-40 md:w-56 md:h-56 mx-auto rounded-full overflow-hidden border-4 border-white/50 dark:border-gray-800 shadow-2xl relative z-10 bg-gray-100">
               <img 
-                src={ASSETS.profile} 
+                src={assets.profile} 
                 alt="Alan Paul" 
                 className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
               />

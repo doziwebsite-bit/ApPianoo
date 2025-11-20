@@ -4,7 +4,7 @@ import { Menu, X, ShoppingCart, User, Moon, Sun } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
-import { ASSETS, SOCIAL_LINKS } from '../constants';
+import { assets, SOCIAL_LINKS } from '../constants';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -62,7 +62,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
             {/* Logo */}
             <div className="flex-shrink-0 flex items-center cursor-pointer gap-3" onClick={() => navigate('/')}>
-               <img src={ASSETS.logo} alt="Alan Paul Logo" className={`h-12 w-auto object-contain ${isDark ? 'invert' : ''}`} />
+               <img src={assets.logo} alt="Alan Paul Logo" className={`h-12 w-auto object-contain ${isDark ? 'invert' : ''}`} />
                <span className="hidden sm:block font-serif text-xl tracking-wide font-bold">Alan Paul</span>
             </div>
 

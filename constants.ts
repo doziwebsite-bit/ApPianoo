@@ -11,7 +11,7 @@ export const ENV = {
   STRIPE_PUBLIC_KEY: getEnv('VITE_STRIPE_PUBLIC_KEY'),
 };
 
-export const ASSETS = {
+export const assets = {
   logo: '/assets/logo.png',
   profile: '/assets/profile.jpg',
   background: '/assets/background.jpg',
@@ -63,7 +63,7 @@ export const MOCK_ORDERS: Order[] = [
       artist: 'Alan Paul',
       price: 9.99,
       difficulty: 'Easy',
-      coverImage: ASSETS.placeholderSheet,
+      coverImage: assets.placeholderSheet,
       description: 'Ceci est une partition de démo.',
       type: 'Sheet Music',
       quantity: 1
