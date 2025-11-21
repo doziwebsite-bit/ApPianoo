@@ -15,6 +15,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   const { items } = useCart();
   const { isAuthenticated } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [logoError, setLogoError] = useState(false); // État pour gérer l'erreur d'image logo
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -62,11 +63,19 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
             {/* Logo */}
             <div className="flex-shrink-0 flex items-center cursor-pointer gap-3" onClick={() => navigate('/')}>
-               <img 
-                 src={isDark ? ASSETS.logoDark : ASSETS.logoLight} 
-                 alt="Alan Paul Logo" 
-                 className="h-12 w-auto object-contain" 
-               />
+               {!logoError ? (
+                 <img 
+                   src={isDark ? ASSETS.logoDark : ASSETS.logoLight} 
+                   alt="Alan Paul Logo" 
+                   className="h-12 w-auto object-contain"
+                   onError={() => setLogoError(true)} 
+                 />
+               ) : (
+                 /* Fallback si l'image est manquante */
+                 <div className="h-10 w-10 bg-black dark:bg-white rounded flex items-center justify-center text-white dark:text-black font-serif font-bold text-xl">
+                    AP
+                 </div>
+               )}
                <span className="hidden sm:block font-serif text-xl tracking-wide font-bold">Alan Paul</span>
             </div>
 
