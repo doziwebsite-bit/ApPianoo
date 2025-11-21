@@ -15,9 +15,9 @@ const Home: React.FC = () => {
       {/* Hero Section */}
       <section className="relative py-20 md:py-32 overflow-hidden">
         <div className="max-w-5xl mx-auto px-4 text-center relative z-10">
-          {/* Profile Picture Card with Marble Effect */}
+          {/* Profile Picture Card with White Halo Effect (No Gradient) */}
           <div className="relative inline-block mb-10">
-             <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-gray-200 to-white blur-md opacity-50 dark:opacity-20 transform scale-105"></div>
+             <div className="absolute inset-0 rounded-full bg-white blur-xl opacity-60 dark:opacity-10 transform scale-105"></div>
              <div className="w-40 h-40 md:w-56 md:h-56 mx-auto rounded-full overflow-hidden border-4 border-white/50 dark:border-gray-800 shadow-2xl relative z-10 bg-gray-100">
               <img 
                 src={ASSETS.profile} 
@@ -110,9 +110,9 @@ const Home: React.FC = () => {
       )}
 
 
-      {/* About Section */}
+      {/* About Section - Removed Gradient Overlay */}
       <section className="py-24 relative">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-gray-50/50 dark:to-black/50 pointer-events-none"></div>
+        {/* Removed absolute gradient div here for cleaner white look */}
         <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
           <h2 className="font-serif text-4xl md:text-5xl font-bold mb-10">À propos d'Alan</h2>
           <p className="text-lg md:text-xl leading-relaxed opacity-80 mb-12 font-light">

@@ -28,14 +28,14 @@
       }
     </script>
     <style>
-      /* Custom Marble-like background effect */
+      /* Custom Background without blend modes for a cleaner look */
       .bg-marble-light {
         background-color: #ffffff;
         background-image: url('/assets/background.jpg');
         background-size: cover;
         background-position: center;
         background-attachment: fixed;
-        background-blend-mode: luminosity;
+        /* Removed background-blend-mode: luminosity */
       }
       
       .dark .bg-marble-dark {
@@ -44,20 +44,7 @@
         background-size: cover;
         background-position: center;
         background-attachment: fixed;
-        background-blend-mode: overlay;
-      }
-
-      /* Ensure text readability over background */
-      body::before {
-        content: '';
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: -1;
-        pointer-events: none;
-        opacity: 0.5; /* Adjust opacity of the texture */
+        /* Removed background-blend-mode: overlay */
       }
 
       .hide-scrollbar::-webkit-scrollbar {
@@ -68,19 +55,19 @@
         scrollbar-width: none;
       }
     </style>
-  <script type="importmap">
+<script type="importmap">
 {
   "imports": {
     "react/": "https://aistudiocdn.com/react@^19.2.0/",
     "react": "https://aistudiocdn.com/react@^19.2.0",
-    "react-router-dom": "https://aistudiocdn.com/react-router-dom@^7.9.6",
     "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
-    "@vitejs/plugin-react": "https://aistudiocdn.com/@vitejs/plugin-react@^5.1.1",
+    "react-router-dom": "https://aistudiocdn.com/react-router-dom@^7.9.6",
     "lucide-react": "https://aistudiocdn.com/lucide-react@^0.554.0",
+    "@react-oauth/google": "https://aistudiocdn.com/@react-oauth/google@^0.12.2",
+    "@stripe/stripe-js": "https://aistudiocdn.com/@stripe/stripe-js@^8.5.2",
     "@stripe/react-stripe-js": "https://aistudiocdn.com/@stripe/react-stripe-js@^5.4.0",
     "vite": "https://aistudiocdn.com/vite@^7.2.4",
-    "@stripe/stripe-js": "https://aistudiocdn.com/@stripe/stripe-js@^8.5.2",
-    "@react-oauth/google": "https://aistudiocdn.com/@react-oauth/google@^0.12.2"
+    "@vitejs/plugin-react": "https://aistudiocdn.com/@vitejs/plugin-react@^5.1.1"
   }
 }
 </script>
