@@ -12,7 +12,8 @@ export const ENV = {
 };
 
 export const ASSETS = {
-  logo: '/assets/logo.png',
+  logoLight: '/assets/logoAlanPauL.png',
+  logoDark: '/assets/logoAlanPaul-darkmode.png',
   profile: '/assets/profile.jpg',
   background: '/assets/background.jpg',
   placeholderSheet: 'https://placehold.co/400x500?text=Sheet+Music',
@@ -63,7 +64,7 @@ export const MOCK_ORDERS: Order[] = [
       artist: 'Alan Paul',
       price: 9.99,
       difficulty: 'Easy',
-      coverImage: assets.placeholderSheet,
+      coverImage: ASSETS.placeholderSheet,
       description: 'Ceci est une partition de démo.',
       type: 'Sheet Music',
       quantity: 1

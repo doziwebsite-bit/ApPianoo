@@ -1,13 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Play } from 'lucide-react'; // Import Play icon
+import { ArrowRight, Play } from 'lucide-react';
 import { FEATURED_PRODUCTS, ASSETS, MEDIA_ITEMS } from '../constants';
 import { useCart } from '../context/CartContext';
+
 const Home: React.FC = () => {
   const { addToCart } = useCart();
 
-  // Get the first video of standard aspect ratio
-  const featuredVideo = MEDIA_ITEMS.find(item => item.type === 'video' && item.aspectRatio === 'video');
+  // Get the first 3 items (prioritizing videos) to show on homepage
+  const featuredMedia = MEDIA_ITEMS.slice(0, 3);
 
   return (
     <div className="w-full">
@@ -131,22 +132,28 @@ const Home: React.FC = () => {
       </section>
 
       {/* Recent Performances Section (Media on Homepage) */}
-      {featuredVideo && (
+      {featuredMedia.length > 0 && (
         <section className="py-24 bg-gray-50/50 dark:bg-zinc-900/50 backdrop-blur-sm border-t border-gray-200/20 dark:border-gray-800/20">
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 className="font-serif text-4xl md:text-5xl font-bold mb-10">Performances Récentes</h2>
-            <div className="w-full aspect-video bg-black rounded-xl overflow-hidden shadow-2xl mx-auto">
-                <iframe 
-                  src={featuredVideo.url} 
-                  title={featuredVideo.title}
-                  className="w-full h-full"
-                  frameBorder="0" 
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                  referrerPolicy="strict-origin-when-cross-origin"
-                  allowFullScreen
-                ></iframe>
+            
+            {/* Media Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {featuredMedia.map((media) => (
+                 <div key={media.id} className={`w-full ${media.aspectRatio === 'square' ? 'aspect-square max-w-[400px] mx-auto' : 'aspect-video'} bg-black rounded-xl overflow-hidden shadow-xl`}>
+                    <iframe 
+                      src={media.url} 
+                      title={media.title}
+                      className="w-full h-full"
+                      frameBorder="0" 
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                      referrerPolicy="strict-origin-when-cross-origin"
+                      allowFullScreen
+                    ></iframe>
+                 </div>
+              ))}
             </div>
-            <p className="mt-8 text-lg font-serif italic opacity-70">{featuredVideo.title}</p>
+
             <div className="text-center mt-12">
               <Link 
                 to="/media" 

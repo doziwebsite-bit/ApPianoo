@@ -31,7 +31,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     if (isAuthenticated) {
       navigate('/dashboard');
     } else {
-      navigate('/login'); // Changed from '/cart' to '/login'
+      navigate('/login');
     }
   };
 
@@ -62,7 +62,11 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
             {/* Logo */}
             <div className="flex-shrink-0 flex items-center cursor-pointer gap-3" onClick={() => navigate('/')}>
-               <img src={ASSETS.logo} alt="Alan Paul Logo" className={`h-12 w-auto object-contain ${isDark ? 'invert' : ''}`} />
+               <img 
+                 src={isDark ? ASSETS.logoDark : ASSETS.logoLight} 
+                 alt="Alan Paul Logo" 
+                 className="h-12 w-auto object-contain" 
+               />
                <span className="hidden sm:block font-serif text-xl tracking-wide font-bold">Alan Paul</span>
             </div>
 
@@ -151,14 +155,14 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                <SocialIcon path="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z" />
             </a>
 
-            {/* Apple Music (Official Double Note Icon) */}
-            <a href={SOCIAL_LINKS.appleMusic} target="_blank" rel="noopener noreferrer" className="hover:text-red-500 transition-colors" title="Apple Music">
-               <SocialIcon viewBox="0 0 24 24" path="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.284 6.623l-7.912 2.28a.53.53 0 0 0-.372.51v7.302a2.79 2.79 0 1 0 1.586 2.516V12.62l6.328-1.825v5.62a2.79 2.79 0 1 0 1.586 2.516V7.133a.53.53 0 0 0-.372-.51H17.28z" />
+            {/* Apple Music (Official Apple Logo) */}
+            <a href={SOCIAL_LINKS.appleMusic} target="_blank" rel="noopener noreferrer" className="hover:text-gray-400 transition-colors" title="Apple Music">
+               <SocialIcon viewBox="0 0 24 24" path="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
             </a>
             
-            {/* Deezer */}
+            {/* Deezer (Clean Equalizer) */}
              <a href={SOCIAL_LINKS.deezer} target="_blank" rel="noopener noreferrer" className="hover:text-purple-500 transition-colors" title="Deezer">
-               <SocialIcon viewBox="0 0 512 512" path="M108.34 290.63H35.92a14.15 14.15 0 0 0-14.15 14.15v58.08a14.15 14.15 0 0 0 14.15 14.15h72.42a14.15 14.15 0 0 0 14.15-14.15v-58.08a14.15 14.15 0 0 0-14.15-14.15zm130.43-86.93h-72.42a14.15 14.15 0 0 0-14.15 14.15v145.01a14.15 14.15 0 0 0 14.15 14.15h72.42a14.15 14.15 0 0 0 14.15-14.15V217.85a14.15 14.15 0 0 0-14.15-14.15zm130.43 0H296.8a14.15 14.15 0 0 0-14.15 14.15v145.01a14.15 14.15 0 0 0 14.15 14.15h72.4a14.15 14.15 0 0 0 14.15-14.15V217.85a14.15 14.15 0 0 0-14.15-14.15zm130.42-86.93h-72.42a14.15 14.15 0 0 0-14.15 14.15v231.94a14.15 14.15 0 0 0 14.15 14.15h72.42a14.15 14.15 0 0 0 14.15-14.15V130.92a14.15 14.15 0 0 0-14.15-14.15z" />
+               <SocialIcon path="M2 13v6h4v-6H2zm6-6v12h4V7H8zm6-4v16h4V3h-4zm6 7v9h4v-9h-4z" />
             </a>
 
           </div>
