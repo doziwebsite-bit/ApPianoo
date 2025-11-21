@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, Play } from 'lucide-react'; // Import Play icon
 import { FEATURED_PRODUCTS, assets, MEDIA_ITEMS } from '../constants';
 import { useCart } from '../context/CartContext';
-
+import { profile, logo } from '../assets';
 const Home: React.FC = () => {
   const { addToCart } = useCart();
 
