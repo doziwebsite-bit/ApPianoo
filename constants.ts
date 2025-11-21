@@ -11,7 +11,7 @@ export const ENV = {
   STRIPE_PUBLIC_KEY: getEnv('VITE_STRIPE_PUBLIC_KEY'),
 };
 
-export const assets = {
+export const ASSETS = {
   logo: '/assets/logo.png',
   profile: '/assets/profile.jpg',
   background: '/assets/background.jpg',
