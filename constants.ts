@@ -28,28 +28,28 @@ export const SOCIAL_LINKS = {
   tiktok: 'https://www.tiktok.com/@ap_pianoo?_r=1&_t=ZN-91YOHdS8Sz0'
 };
 
-export const FEATURED_PRODUCTS: Product[] = []; // Emptied to remove fake content
+export const FEATURED_PRODUCTS: Product[] = [];
 
 export const MEDIA_ITEMS: MediaItem[] = [
   {
     id: 'v1',
     type: 'video',
     url: 'https://www.youtube.com/embed/49BGmBVjaLg',
-    title: 'Interstellar - Main Theme (Piano Cover)',
+    title: 'Mountains - Inspired by Puy Mary (Cantal)',
     aspectRatio: 'video'
   },
   {
     id: 'v2',
     type: 'video',
     url: 'https://www.youtube.com/embed/Vyzbjwggu5o',
-    title: 'Amélie - Comptine d\'un autre été',
+    title: 'AmberWood',
     aspectRatio: 'square'
   },
   {
     id: 'v3',
     type: 'video',
     url: 'https://www.youtube.com/embed/vXuaxDCOQww',
-    title: 'Experience - Ludovico Einaudi',
+    title: 'Mountains',
     aspectRatio: 'square'
   }
 ];
