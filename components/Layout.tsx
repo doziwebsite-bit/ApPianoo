@@ -4,7 +4,7 @@ import { Menu, X, ShoppingCart, User, Moon, Sun } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
-import { ASSETS, SOCIAL_LINKS } from '../constants';
+import { SOCIAL_LINKS } from '../constants';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -68,7 +68,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             <div className="flex-shrink-0 flex items-center cursor-pointer gap-3" onClick={() => navigate('/')}>
               {!logoError ? (
                 <img
-                  src={isDark ? ASSETS.logoDark : ASSETS.logoLight}
+                  src={isDark ? '/assets/logoAlanPaul-darkmode.png' : '/assets/logoAlanPaul.png'}
                   alt="Alan Paul Logo"
                   className="h-12 w-auto object-contain"
                   onError={() => setLogoError(true)}
