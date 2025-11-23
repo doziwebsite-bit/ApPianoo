@@ -11,6 +11,13 @@ export const ENV = {
   STRIPE_PUBLIC_KEY: getEnv('VITE_STRIPE_PUBLIC_KEY'),
 };
 
+export const ASSETS = {
+  logoLight: '/assets/logoAlanPaul.png',
+  logoDark: '/assets/logoAlanPaul-darkmode.png',
+  profile: '/assets/AlanPaul-PP.jpg',
+  background: '/assets/AlanPaul-background.jpg',
+  placeholderSheet: 'https://placehold.co/400x500?text=Sheet+Music',
+};
 
 export const SOCIAL_LINKS = {
   youtube: 'https://youtube.com/@alanpaul3228?si=g7kVQuX9P4sW8-K',
