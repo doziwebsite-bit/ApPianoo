@@ -31,11 +31,13 @@ export interface Order {
 
 export interface MediaItem {
   id: string;
-  type: 'video' | 'photo';
+  type: 'video' | 'photo' | 'music';
   url: string;
   thumbnail?: string;
   title: string;
   aspectRatio?: 'video' | 'square'; // 'video' = 16:9, 'square' = 1:1
+  artist?: string; // For music items
+  platform?: 'spotify' | 'apple' | 'deezer' | 'youtube'; // For music items
 }
 
 export enum AuthProvider {
