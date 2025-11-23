@@ -12,10 +12,10 @@ export const ENV = {
 };
 
 export const ASSETS = {
-  logoLight: '/assets/logoAlanPauL.png',
+  logoLight: '/assets/logoAlanPaul.png',
   logoDark: '/assets/logoAlanPaul-darkmode.png',
-  profile: '/assets/profile.jpg',
-  background: '/assets/background.jpg',
+  profile: '/assets/AlanPaul-PP.jpg',
+  background: '/assets/AlanPaul-background.jpg',
   placeholderSheet: 'https://placehold.co/400x500?text=Sheet+Music',
 };
 
