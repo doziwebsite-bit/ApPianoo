@@ -144,7 +144,7 @@ const Home: React.FC = () => {
             {/* Media Grid */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {featuredMedia.map((media) => (
-                <div key={media.id} className={`w-full ${media.aspectRatio === 'square' ? 'aspect-square max-w-[400px] mx-auto' : 'aspect-video'} bg-black rounded-xl overflow-hidden shadow-xl`}>
+                <div key={media.id} className={`w-full ${media.aspectRatio === 'square' ? 'aspect-square max-w-[400px]' : 'aspect-video'} mx-auto overflow-hidden rounded-lg shadow-2xl`}>
                   <iframe
                     src={media.url}
                     title={media.title}

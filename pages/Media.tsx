@@ -35,7 +35,10 @@ const Media: React.FC = () => {
           {filteredMedia.map((item) => (
             <div
               key={item.id}
-              className={`group relative bg-white dark:bg-zinc-900 rounded-xl overflow-hidden shadow-md hover:shadow-2xl transition-all border border-gray-100 dark:border-zinc-800 ${item.aspectRatio === 'square' ? 'aspect-square max-w-md mx-auto w-full' : 'aspect-video col-span-1'}`}
+              className={`group relative overflow-hidden rounded-lg shadow-md hover:shadow-2xl transition-all ${item.type === 'video'
+                  ? (item.aspectRatio === 'square' ? 'aspect-square max-w-md mx-auto w-full' : 'aspect-video col-span-1')
+                  : 'bg-white dark:bg-zinc-900 border border-gray-100 dark:border-zinc-800 aspect-square'
+                }`}
             >
               {item.type === 'video' ? (
                 <div className="w-full h-full relative">
