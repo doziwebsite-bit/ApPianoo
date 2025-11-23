@@ -1,5 +1,11 @@
 import { Product, MediaItem, Order } from './types';
 
+// Import images as modules so Vite includes them in the build
+import logoLight from './assets/logoAlanPaul.png';
+import logoDark from './assets/logoAlanPaul-darkmode.png';
+import profile from './assets/AlanPaul-PP.jpg';
+import background from './assets/AlanPaul-background.jpg';
+
 // Safe access to environment variables
 const getEnv = (key: string) => {
   // @ts-ignore
@@ -12,10 +18,10 @@ export const ENV = {
 };
 
 export const ASSETS = {
-  logoLight: '/assets/logoAlanPaul.png',
-  logoDark: '/assets/logoAlanPaul-darkmode.png',
-  profile: '/assets/AlanPaul-PP.jpg',
-  background: '/assets/AlanPaul-background.jpg',
+  logoLight,
+  logoDark,
+  profile,
+  background,
   placeholderSheet: 'https://placehold.co/400x500?text=Sheet+Music',
 };
 

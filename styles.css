@@ -1,0 +1,25 @@
+/* Custom Background without blend modes for a cleaner look */
+.bg-marble-light {
+  background-color: #ffffff;
+  background-image: url('./assets/AlanPaul-background.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.dark .bg-marble-dark {
+  background-color: #000000;
+  background-image: url('./assets/AlanPaul-background.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
