@@ -57,6 +57,13 @@ export const MEDIA_ITEMS: MediaItem[] = [
     url: 'https://www.youtube.com/embed/vXuaxDCOQww',
     title: 'Mountains',
     aspectRatio: 'square'
+  },
+  {
+    id: 'v4',
+    type: 'video',
+    url: 'https://www.youtube.com/embed/wG9_ueAImEw',
+    title: 'Amberwood (Piano)',
+    aspectRatio: 'video'
   }
 ];
 

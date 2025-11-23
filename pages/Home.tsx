@@ -142,7 +142,7 @@ const Home: React.FC = () => {
             <h2 className="font-serif text-4xl md:text-5xl font-bold mb-10">Performances Récentes</h2>
 
             {/* Media Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
               {featuredMedia.map((media) => (
                 <div key={media.id} className={`w-full ${media.aspectRatio === 'square' ? 'aspect-square max-w-[400px]' : 'aspect-video'} mx-auto overflow-hidden rounded-lg shadow-2xl`}>
                   <iframe
