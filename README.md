@@ -1,20 +1,25 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# Alan Paul Project
 
-# Run and deploy your AI Studio app
+This project contains the frontend and backend for the Alan Paul website.
 
-This contains everything you need to run your app locally.
+## Structure
 
-View your app in AI Studio: https://ai.studio/apps/drive/1YCm3zOnXJ7YL4SC0DE-SMuLXd5gzCwbp
+- `frontend/`: React + Vite application
+- `backend/`: Express + MongoDB API
 
 ## Run Locally
 
-**Prerequisites:**  Node.js
+1. Install dependencies for both frontend and backend:
+   ```bash
+   npm install
+   npm run install:all
+   ```
 
+2. Start the development servers (frontend + backend):
+   ```bash
+   npm run dev
+   ```
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+   Or run them individually:
+   - Frontend: `npm run dev:frontend`
+   - Backend: `npm run dev:backend`

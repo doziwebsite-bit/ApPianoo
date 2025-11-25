@@ -1,27 +1,17 @@
 {
-  "name": "alan-paul-portfolio",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
-  },
-  "dependencies": {
-    "@react-oauth/google": "^0.12.1",
-    "@stripe/react-stripe-js": "^2.6.0",
-    "@stripe/stripe-js": "^3.0.7",
-    "lucide-react": "^0.363.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "^6.22.3"
-  },
-  "devDependencies": {
-    "@types/react": "^18.2.66",
-    "@types/react-dom": "^18.2.22",
-    "@vitejs/plugin-react": "^4.2.1",
-    "typescript": "^5.2.2",
-    "vite": "^5.2.0"
-  }
+    "name": "alan-paul-project",
+    "version": "1.0.0",
+    "private": true,
+    "scripts": {
+        "install:all": "npm install --prefix frontend && npm install --prefix backend",
+        "dev:frontend": "npm run dev --prefix frontend",
+        "dev:backend": "npm run dev --prefix backend",
+        "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\""
+    },
+    "devDependencies": {
+        "concurrently": "^8.2.2"
+    },
+    "dependencies": {
+        "cloudinary": "^2.8.0"
+    }
 }

@@ -1,0 +1,110 @@
+import express from 'express';
+import Stripe from 'stripe';
+import Order from '../models/Order.js';
+
+const router = express.Router();
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+
+// POST /api/stripe/create-payment-intent - Créer une intention de paiement
+router.post('/create-payment-intent', async (req, res) => {
+    try {
+        const { amount, currency = 'eur', metadata } = req.body;
+
+        // Créer une intention de paiement Stripe
+        const paymentIntent = await stripe.paymentIntents.create({
+            amount: Math.round(amount * 100), // Convertir en centimes
+            currency,
+            metadata: metadata || {},
+            automatic_payment_methods: {
+                enabled: true,
+            },
+        });
+
+        res.json({
+            clientSecret: paymentIntent.client_secret,
+            paymentIntentId: paymentIntent.id
+        });
+    } catch (error) {
+        res.status(500).json({
+            error: 'Erreur lors de la création du paiement',
+            message: error.message
+        });
+    }
+});
+
+// POST /api/stripe/webhook - Webhook Stripe pour les événements
+router.post('/webhook', express.raw({ type: 'application/json' }), async (req, res) => {
+    const sig = req.headers['stripe-signature'];
+    const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
+
+    let event;
+
+    try {
+        event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
+    } catch (err) {
+        console.error('Webhook signature verification failed:', err.message);
+        return res.status(400).send(`Webhook Error: ${err.message}`);
+    }
+
+    // Gérer les événements Stripe
+    switch (event.type) {
+        case 'payment_intent.succeeded':
+            const paymentIntent = event.data.object;
+            console.log('PaymentIntent succeeded:', paymentIntent.id);
+
+            // Mettre à jour la commande
+            try {
+                const order = await Order.findOne({ paymentIntentId: paymentIntent.id });
+                if (order) {
+                    order.status = 'Completed';
+                    await order.save();
+                    console.log('Order updated to Completed:', order.orderId);
+                }
+            } catch (error) {
+                console.error('Error updating order:', error);
+            }
+            break;
+
+        case 'payment_intent.payment_failed':
+            const failedPayment = event.data.object;
+            console.log('PaymentIntent failed:', failedPayment.id);
+
+            // Mettre à jour la commande
+            try {
+                const order = await Order.findOne({ paymentIntentId: failedPayment.id });
+                if (order) {
+                    order.status = 'Failed';
+                    await order.save();
+                    console.log('Order updated to Failed:', order.orderId);
+                }
+            } catch (error) {
+                console.error('Error updating order:', error);
+            }
+            break;
+
+        default:
+            console.log(`Unhandled event type ${event.type}`);
+    }
+
+    res.json({ received: true });
+});
+
+// GET /api/stripe/payment-status/:paymentIntentId - Vérifier le statut d'un paiement
+router.get('/payment-status/:paymentIntentId', async (req, res) => {
+    try {
+        const paymentIntent = await stripe.paymentIntents.retrieve(req.params.paymentIntentId);
+
+        res.json({
+            status: paymentIntent.status,
+            amount: paymentIntent.amount / 100,
+            currency: paymentIntent.currency
+        });
+    } catch (error) {
+        res.status(500).json({
+            error: 'Erreur lors de la récupération du statut',
+            message: error.message
+        });
+    }
+});
+
+export default router;
