@@ -48,7 +48,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
       {/* Maintenance Banner */}
       <div className="bg-red-600 text-white text-center py-2 font-bold z-[60] relative">
-        ⚠️ SITE EN MAINTENANCE, NE RIEN ACHETER, NI DEMANDE DE DEVIS POUR LES PRESTATIONS ⚠️
+        ⚠️ SITE EN MAINTENANCE, NE RIEN ACHETER, NI DEMANDER DE DEVIS POUR LES PRESTATIONS ⚠️
       </div>
 
       {/* Background Image Layer */}
