@@ -46,6 +46,11 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <div className={`min-h-screen flex flex-col transition-colors duration-500 ease-in-out ${isDark ? 'text-gray-100' : 'text-gray-900'}`}>
 
+      {/* Maintenance Banner */}
+      <div className="bg-red-600 text-white text-center py-2 font-bold z-[60] relative">
+        ⚠️ SITE EN MAINTENANCE, NE PAS L'UTILISER ⚠️
+      </div>
+
       {/* Background Image Layer */}
       <div className={`fixed inset-0 z-[-2] transition-opacity duration-500 ${isDark ? 'bg-marble-dark' : 'bg-marble-light'}`}></div>
 
