@@ -32,6 +32,41 @@ router.post('/create-payment-intent', async (req, res) => {
     }
 });
 
+// POST /api/stripe/create-checkout-session - Créer une session de paiement Stripe Checkout
+router.post('/create-checkout-session', async (req, res) => {
+    try {
+        const { items } = req.body;
+        // Utiliser l'origine de la requête ou une valeur par défaut pour le développement local
+        // Note: En production, assurez-vous que l'origine est correcte (https)
+        const origin = req.headers.origin || 'http://localhost:5173';
+
+        const lineItems = items.map(item => ({
+            price_data: {
+                currency: 'eur',
+                product_data: {
+                    name: item.title,
+                    images: item.coverImage ? [item.coverImage] : [],
+                },
+                unit_amount: Math.round(item.price * 100),
+            },
+            quantity: 1,
+        }));
+
+        const session = await stripe.checkout.sessions.create({
+            payment_method_types: ['card'],
+            line_items: lineItems,
+            mode: 'payment',
+            success_url: `${origin}/#/dashboard?session_id={CHECKOUT_SESSION_ID}`,
+            cancel_url: `${origin}/#/cart`,
+        });
+
+        res.json({ url: session.url });
+    } catch (error) {
+        console.error('Error creating checkout session:', error);
+        res.status(500).json({ error: error.message });
+    }
+});
+
 // POST /api/stripe/webhook - Webhook Stripe pour les événements
 router.post('/webhook', express.raw({ type: 'application/json' }), async (req, res) => {
     const sig = req.headers['stripe-signature'];

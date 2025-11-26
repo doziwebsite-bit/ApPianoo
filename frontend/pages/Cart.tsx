@@ -5,22 +5,17 @@ import { AuthProvider } from '../types';
 import { Trash2, Mail, Lock, AlertCircle } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';
-import { loadStripe } from '@stripe/stripe-js';
-import { Elements } from '@stripe/react-stripe-js';
-import { ENV } from '../constants';
-import CheckoutForm from '../components/CheckoutForm';
-
-// Initialize Stripe outside component to avoid recreation
-const stripePromise = loadStripe(ENV.STRIPE_PUBLIC_KEY);
+import { ENV, API_CONFIG } from '../constants';
 
 const Cart: React.FC = () => {
   const { items, removeFromCart, cartTotal, clearCart } = useCart();
   const { isAuthenticated, login } = useAuth();
   const [authError, setAuthError] = useState<string | null>(null);
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
 
   // Check if keys are configured
-  const isConfigured = ENV.GOOGLE_CLIENT_ID && ENV.STRIPE_PUBLIC_KEY;
+  const isConfigured = ENV.GOOGLE_CLIENT_ID;
 
   const handleGoogleSuccess = (credentialResponse: any) => {
     if (credentialResponse.credential) {
@@ -40,6 +35,36 @@ const Cart: React.FC = () => {
 
   const handleGoogleError = () => {
     setAuthError("Échec de la connexion Google.");
+  };
+
+  const handleCheckout = async () => {
+    setIsLoading(true);
+    try {
+      const response = await fetch(`${API_CONFIG.baseURL}/stripe/create-checkout-session`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ items }),
+      });
+
+      const { url, error } = await response.json();
+
+      if (error) {
+        console.error('Checkout error:', error);
+        alert('Une erreur est survenue lors de la création de la session de paiement.');
+        setIsLoading(false);
+        return;
+      }
+
+      if (url) {
+        window.location.href = url;
+      }
+    } catch (err) {
+      console.error('Checkout error:', err);
+      alert('Une erreur est survenue.');
+      setIsLoading(false);
+    }
   };
 
   if (items.length === 0) {
@@ -92,7 +117,7 @@ const Cart: React.FC = () => {
               <AlertCircle className="flex-shrink-0" size={16} />
               <div>
                 <strong>Configuration manquante</strong><br />
-                Veuillez configurer VITE_GOOGLE_CLIENT_ID et VITE_STRIPE_PUBLIC_KEY sur Netlify.
+                Veuillez configurer VITE_GOOGLE_CLIENT_ID sur Netlify.
               </div>
             </div>
           )}
@@ -146,9 +171,13 @@ const Cart: React.FC = () => {
                 <div className="text-xs opacity-60 truncate">{useAuth().user?.email}</div>
               </div>
 
-              <Elements stripe={stripePromise}>
-                <CheckoutForm />
-              </Elements>
+              <button
+                onClick={handleCheckout}
+                disabled={isLoading}
+                className="w-full bg-black dark:bg-white text-white dark:text-black py-4 rounded-lg font-bold text-lg hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              >
+                {isLoading ? 'Redirection...' : 'Payer maintenant'}
+              </button>
             </div>
           )}
         </div>
