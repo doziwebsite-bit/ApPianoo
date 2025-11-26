@@ -35,9 +35,8 @@ router.post('/create-payment-intent', async (req, res) => {
 // POST /api/stripe/create-checkout-session - Créer une session de paiement Stripe Checkout
 router.post('/create-checkout-session', async (req, res) => {
     try {
-        const { items } = req.body;
+        const { items, userId } = req.body; // Expect userId from frontend
         // Utiliser l'origine de la requête ou une valeur par défaut pour le développement local
-        // Note: En production, assurez-vous que l'origine est correcte (https)
         const origin = req.headers.origin || 'http://localhost:5173';
 
         const lineItems = items.map(item => ({
@@ -46,6 +45,9 @@ router.post('/create-checkout-session', async (req, res) => {
                 product_data: {
                     name: item.title,
                     images: item.coverImage ? [item.coverImage] : [],
+                    metadata: {
+                        productId: item.id || item._id
+                    }
                 },
                 unit_amount: Math.round(item.price * 100),
             },
@@ -58,11 +60,68 @@ router.post('/create-checkout-session', async (req, res) => {
             mode: 'payment',
             success_url: `${origin}/#/dashboard?session_id={CHECKOUT_SESSION_ID}`,
             cancel_url: `${origin}/#/cart`,
+            metadata: {
+                userId: userId,
+                items: JSON.stringify(items.map(i => ({
+                    product: i.id || i._id,
+                    title: i.title,
+                    price: i.price
+                })))
+            }
         });
 
         res.json({ url: session.url });
     } catch (error) {
         console.error('Error creating checkout session:', error);
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// POST /api/stripe/verify-session - Vérifier une session après redirection
+router.post('/verify-session', async (req, res) => {
+    try {
+        const { sessionId } = req.body;
+
+        if (!sessionId) {
+            return res.status(400).json({ error: 'Session ID requis' });
+        }
+
+        const session = await stripe.checkout.sessions.retrieve(sessionId);
+
+        if (session.payment_status === 'paid') {
+            // Vérifier si la commande existe déjà
+            const existingOrder = await Order.findOne({ paymentIntentId: session.payment_intent });
+
+            if (existingOrder) {
+                return res.json({ status: 'already_processed', order: existingOrder });
+            }
+
+            // Créer la commande
+            const metadata = session.metadata;
+            const items = JSON.parse(metadata.items);
+
+            const newOrder = new Order({
+                user: metadata.userId,
+                items: items.map(item => ({
+                    product: item.product,
+                    title: item.title,
+                    price: item.price,
+                    quantity: 1
+                })),
+                total: session.amount_total / 100,
+                status: 'Completed',
+                paymentIntentId: session.payment_intent
+            });
+
+            await newOrder.save();
+            console.log('✅ Order created via verification:', newOrder.orderId);
+
+            return res.json({ status: 'created', order: newOrder });
+        } else {
+            return res.json({ status: 'pending' });
+        }
+    } catch (error) {
+        console.error('Error verifying session:', error);
         res.status(500).json({ error: error.message });
     }
 });

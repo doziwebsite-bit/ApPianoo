@@ -1,12 +1,50 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { Download, Package, LogOut, Loader } from 'lucide-react';
 import { Navigate } from 'react-router-dom';
 import api from '../services/api';
 
 const Dashboard: React.FC = () => {
-  const { user, isAuthenticated, orders, logout } = useAuth();
+  const { user, isAuthenticated, orders, logout, refreshOrders } = useAuth();
   const [downloading, setDownloading] = useState<string | null>(null);
+  const [verifying, setVerifying] = useState(false);
+  const [verificationMessage, setVerificationMessage] = useState<string | null>(null);
+
+  // Verify payment session if present in URL
+  useEffect(() => {
+    const verifyPayment = async () => {
+      const searchParams = new URLSearchParams(window.location.hash.split('?')[1]);
+      const sessionId = searchParams.get('session_id');
+
+      if (sessionId && !verifying) {
+        setVerifying(true);
+        setVerificationMessage("Vérification du paiement en cours...");
+
+        try {
+          const response = await api.post('/stripe/verify-session', { sessionId });
+
+          if (response.data.status === 'created' || response.data.status === 'already_processed') {
+            setVerificationMessage("Paiement validé ! Votre commande est prête.");
+            // Refresh orders to show the new one
+            if (refreshOrders) refreshOrders();
+            // Remove session_id from URL to prevent re-verification
+            window.history.replaceState({}, document.title, window.location.hash.split('?')[0]);
+          } else {
+            setVerificationMessage("Le paiement est en attente ou a échoué.");
+          }
+        } catch (error) {
+          console.error("Erreur de vérification:", error);
+          setVerificationMessage("Erreur lors de la vérification du paiement.");
+        } finally {
+          setVerifying(false);
+          // Clear message after 5 seconds
+          setTimeout(() => setVerificationMessage(null), 5000);
+        }
+      }
+    };
+
+    verifyPayment();
+  }, []);
 
   if (!isAuthenticated) {
     return <Navigate to="/cart" />;
@@ -62,6 +100,12 @@ const Dashboard: React.FC = () => {
             <h2 className="font-serif text-2xl font-bold mb-6 flex items-center gap-3">
               <Package size={24} /> Mes Commandes & Téléchargements
             </h2>
+
+            {verificationMessage && (
+              <div className={`mb-6 p-4 rounded-lg ${verificationMessage.includes('Erreur') || verificationMessage.includes('échoué') ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800'}`}>
+                {verificationMessage}
+              </div>
+            )}
 
             {orders.length === 0 ? (
               <p className="opacity-60">Vous n'avez pas encore passé de commande.</p>
