@@ -25,3 +25,6 @@ dist-ssr
 
 # environment variables
 .env
+
+# Ignored assets
+frontend/assets/partition ect
