@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 import { User, AuthProvider, Order } from '../types';
 import { MOCK_ORDERS } from '../constants';
 
@@ -13,7 +13,11 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProviderContext: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<User | null>(() => {
+    const savedUser = localStorage.getItem('user');
+    return savedUser ? JSON.parse(savedUser) : null;
+  });
+
   // In a real app, fetch orders from DB. Here we use mock.
   const [orders, setOrders] = useState<Order[]>([]);
 
@@ -30,11 +34,13 @@ export const AuthProviderContext: React.FC<{ children: React.ReactNode }> = ({ c
     };
 
     setUser(newUser);
+    localStorage.setItem('user', JSON.stringify(newUser));
     setOrders(MOCK_ORDERS); // Load mock orders on login
   };
 
   const logout = () => {
     setUser(null);
+    localStorage.removeItem('user');
     setOrders([]);
   };
 
