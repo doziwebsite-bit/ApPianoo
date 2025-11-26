@@ -23,8 +23,13 @@ export const ENV = {
   STRIPE_PUBLIC_KEY: getEnv('VITE_STRIPE_PUBLIC_KEY'),
 };
 
+const getApiUrl = () => {
+  const url = getEnv('VITE_API_URL') || 'http://localhost:5000/api';
+  return url.endsWith('/api') ? url : `${url}/api`;
+};
+
 export const API_CONFIG = {
-  baseURL: getEnv('VITE_API_URL') || 'http://localhost:5000/api',
+  baseURL: getApiUrl(),
   timeout: 10000,
 };
 
