@@ -5,7 +5,7 @@ import { Navigate } from 'react-router-dom';
 import api from '../services/api';
 
 const Dashboard: React.FC = () => {
-  const { user, isAuthenticated, orders, logout, refreshOrders } = useAuth();
+  const { user, isAuthenticated, orders, logout, addOrder } = useAuth();
   const [downloading, setDownloading] = useState<string | null>(null);
   const [verifying, setVerifying] = useState(false);
   const [verificationMessage, setVerificationMessage] = useState<string | null>(null);
@@ -25,8 +25,10 @@ const Dashboard: React.FC = () => {
 
           if (response.data.status === 'created' || response.data.status === 'already_processed') {
             setVerificationMessage("Paiement validé ! Votre commande est prête.");
-            // Refresh orders to show the new one
-            if (refreshOrders) refreshOrders();
+            // Add the new order to the list
+            if (response.data.order) {
+              addOrder(response.data.order);
+            }
             // Remove session_id from URL to prevent re-verification
             window.history.replaceState({}, document.title, window.location.hash.split('?')[0]);
           } else {

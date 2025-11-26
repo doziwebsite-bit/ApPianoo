@@ -9,7 +9,7 @@ interface AuthContextType {
   orders: Order[];
   login: (provider: AuthProvider, userData?: Partial<User>) => Promise<void>;
   logout: () => void;
-  refreshOrders: () => Promise<void>;
+  addOrder: (order: Order) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -23,30 +23,12 @@ export const AuthProviderContext: React.FC<{ children: React.ReactNode }> = ({ c
   // In a real app, fetch orders from DB. Here we use mock.
   const [orders, setOrders] = useState<Order[]>([]);
 
-  const refreshOrders = async () => {
-    if (user) {
-      // In a real scenario, we would fetch orders here.
-      // For now, let's just simulate a refresh or re-fetch if we had an endpoint.
-      // Since we are debugging payment fulfillment, let's try to fetch from the backend if possible.
-      try {
-        // Assuming we have an endpoint for my-orders. If not, this might fail, but it's better than nothing.
-        // If it fails, we fall back to MOCK_ORDERS or empty.
-        // But wait, we don't have a /my-orders endpoint in the backend code I saw earlier (server.js).
-        // I saw /api/orders in server.js. Let's assume it exists or I'll check it later.
-        // For now, let's just keep the existing logic but expose the function.
-        // Actually, I should probably implement fetching orders properly if I want the dashboard to update.
-
-        // Let's assume we just want to trigger a re-render for now, or maybe fetch from the new order verification?
-        // The verification endpoint returns the order.
-
-        // Let's just set orders to MOCK_ORDERS for now to match previous behavior, 
-        // but if we had a real backend we would fetch here.
-        // I'll leave it as is for now to avoid breaking things, but expose the function.
-        setOrders(MOCK_ORDERS);
-      } catch (error) {
-        console.error("Error refreshing orders:", error);
-      }
-    }
+  const addOrder = (order: Order) => {
+    setOrders(prev => {
+      // Avoid duplicates
+      if (prev.some(o => o.orderId === order.orderId)) return prev;
+      return [order, ...prev];
+    });
   };
 
   const login = async (provider: AuthProvider, userData?: Partial<User>) => {
@@ -79,7 +61,7 @@ export const AuthProviderContext: React.FC<{ children: React.ReactNode }> = ({ c
       orders,
       login,
       logout,
-      refreshOrders
+      addOrder
     }}>
       {children}
     </AuthContext.Provider>
