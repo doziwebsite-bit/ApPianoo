@@ -59,12 +59,12 @@ const Home: React.FC = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row justify-center gap-6">
-            <Link
+            {/* <Link
               to="/store"
               className="px-10 py-4 bg-black text-white dark:bg-white dark:text-black font-medium uppercase tracking-widest hover:scale-105 transition-transform duration-300 shadow-lg"
             >
               Boutique de partitions
-            </Link>
+            </Link> */}
             <Link
               to="/services"
               className="px-10 py-4 border-2 border-current font-medium uppercase tracking-widest hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors duration-300 backdrop-blur-sm"
@@ -76,7 +76,7 @@ const Home: React.FC = () => {
       </section>
 
       {/* Featured Products */}
-      {!loading && featuredProducts.length > 0 && (
+      {/* {!loading && featuredProducts.length > 0 && (
         <section className="py-24 bg-white/40 dark:bg-black/40 backdrop-blur-sm border-t border-b border-gray-200/20 dark:border-gray-800/20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
@@ -127,7 +127,7 @@ const Home: React.FC = () => {
             </div>
           </div>
         </section>
-      )}
+      )} */}
 
       {/* About Section */}
       <section className="py-24 relative">

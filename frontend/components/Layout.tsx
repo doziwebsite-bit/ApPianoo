@@ -23,7 +23,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
   const navLinks = [
     { name: 'Accueil', path: '/' },
-    { name: 'Partitions', path: '/store' },
+    // { name: 'Partitions', path: '/store' },
     { name: 'Média', path: '/media' },
     { name: 'Prestations', path: '/services' },
   ];
@@ -48,7 +48,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
       {/* Maintenance Banner */}
       <div className="bg-red-600 text-white text-center py-2 font-bold z-[60] relative">
-        ⚠️ SITE EN MAINTENANCE, NE RIEN ACHETER, NI DEMANDER DE DEVIS POUR LES PRESTATIONS ⚠️
+        ⚠️ SITE EN MAINTENANCE La demande de devis pour prestations via le site est momentanément impossible. Pour toute demande de devis, merci de nous contacter directement par email à : ap.pianoo@outlook.fr
       </div>
 
       {/* Background Image Layer */}
@@ -111,14 +111,14 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 {isAuthenticated && <span className="absolute -top-1 -right-1 w-2 h-2 bg-green-500 rounded-full"></span>}
               </button>
 
-              <Link to="/cart" className="p-1 hover:text-gray-500 transition-colors relative">
+              {/* <Link to="/cart" className="p-1 hover:text-gray-500 transition-colors relative">
                 <ShoppingCart size={20} />
                 {items.length > 0 && (
                   <span className="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full">
                     {items.length}
                   </span>
                 )}
-              </Link>
+              </Link> */}
             </div>
           </div>
         </div>
@@ -187,9 +187,11 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           <p className="text-center text-sm font-serif opacity-80">
             &copy; {new Date().getFullYear()} Alan Paul. All Rights Reserved.
           </p>
-          <div className="mt-2 flex space-x-4 text-xs opacity-60">
-            <Link to="/policy" className="hover:underline">Privacy Policy</Link>
-            <Link to="/terms" className="hover:underline">Terms of Service</Link>
+          <div className="mt-4 flex flex-wrap justify-center gap-4 text-xs opacity-60">
+            <Link to="/mentions-legales" className="hover:underline">Mentions Légales</Link>
+            <Link to="/politique-confidentialite" className="hover:underline">Politique de Confidentialité</Link>
+            {/* <Link to="/cgu" className="hover:underline">CGU</Link> */}
+            <Link to="/cgv" className="hover:underline">CGV</Link>
           </div>
         </div>
       </footer>
