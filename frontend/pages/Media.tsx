@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { MEDIA_ITEMS } from '../constants';
-import { Play, Image as ImageIcon, Music as MusicIcon } from 'lucide-react';
+import { Play, Image as ImageIcon } from 'lucide-react';
 
 const Media: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<'all' | 'video' | 'photo' | 'music'>('all');
+  const [activeTab, setActiveTab] = useState<'all' | 'video' | 'photo'>('all');
 
   const filteredMedia = activeTab === 'all'
-    ? MEDIA_ITEMS
+    ? MEDIA_ITEMS.filter(item => item.type !== 'music')
     : MEDIA_ITEMS.filter(item => item.type === activeTab);
 
   return (
@@ -16,7 +16,7 @@ const Media: React.FC = () => {
           <h1 className="font-serif text-5xl font-bold mb-6">Galerie Média</h1>
 
           <div className="flex justify-center gap-4 flex-wrap">
-            {['all', 'video', 'photo', 'music'].map((tab) => (
+            {['all', 'video', 'photo'].map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab as any)}
@@ -25,7 +25,7 @@ const Media: React.FC = () => {
                   : 'border-gray-300 opacity-60 hover:opacity-100'
                   }`}
               >
-                {tab === 'all' ? 'Tout' : tab === 'video' ? 'Vidéos' : tab === 'photo' ? 'Photos' : 'Musique'}
+                {tab === 'all' ? 'Tout' : tab === 'video' ? 'Vidéos' : 'Photos'}
               </button>
             ))}
           </div>
@@ -37,9 +37,7 @@ const Media: React.FC = () => {
               key={item.id}
               className={`group relative overflow-hidden rounded-lg shadow-md hover:shadow-2xl transition-all ${item.type === 'video'
                 ? (item.aspectRatio === 'square' ? 'aspect-square max-w-md mx-auto w-full' : 'aspect-video col-span-1')
-                : item.type === 'music'
-                  ? 'bg-gradient-to-br from-purple-500 to-pink-500 dark:from-purple-700 dark:to-pink-700 aspect-square max-w-md mx-auto w-full'
-                  : 'bg-white dark:bg-zinc-900 border border-gray-100 dark:border-zinc-800 aspect-square'
+                : 'bg-white dark:bg-zinc-900 border border-gray-100 dark:border-zinc-800 aspect-square'
                 }`}
             >
               {item.type === 'video' ? (
@@ -54,25 +52,6 @@ const Media: React.FC = () => {
                     allowFullScreen
                   ></iframe>
                 </div>
-              ) : item.type === 'music' ? (
-                <a
-                  href={item.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full h-full flex flex-col items-center justify-center p-8 text-white hover:scale-105 transition-transform"
-                >
-                  <MusicIcon size={64} className="mb-4 opacity-90" />
-                  <h3 className="font-serif text-2xl font-bold mb-2 text-center">{item.title}</h3>
-                  {item.artist && <p className="text-sm opacity-80 mb-4">{item.artist}</p>}
-                  <div className="mt-auto">
-                    <span className="px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-xs uppercase tracking-wider">
-                      {item.platform === 'spotify' ? '🎵 Spotify' :
-                        item.platform === 'apple' ? '🎵 Apple Music' :
-                          item.platform === 'deezer' ? '🎵 Deezer' :
-                            item.platform === 'youtube' ? '▶️ YouTube Music' : 'Écouter'}
-                    </span>
-                  </div>
-                </a>
               ) : (
                 <div className="w-full h-full relative cursor-pointer">
                   <img src={item.url} alt={item.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
