@@ -23,16 +23,16 @@ export const MentionsLegales: React.FC = () => {
         <LegalContainer title="MENTIONS LÉGALES">
             <Section title="1. Éditeur du site">
                 <p>
-                    Le site internet <strong>appianoo</strong> (ci-après désigné "le Site") est édité par Monsieur Alan Paul, agissant en qualité d'entrepreneur individuel.
+                    Le site internet <strong>appianoo</strong> est édité par Monsieur Alan Paul, agissant en qualité d'entrepreneur individuel.
                 </p>
                 <p>
-                    <strong>Siège social :</strong> [VILLE, CODE POSTAL] (Adresse complète disponible sur demande pour toute réclamation formelle).
+                    <strong>Siège social :</strong> Clermont-Ferrand, 63000.
                 </p>
                 <p>
                     <strong>Contact :</strong> ap.pianoo@outlook.fr
                 </p>
                 <p>
-                    <strong>Numéro SIRET :</strong> [En cours d'immatriculation / OU VOTRE NUMÉRO]
+                    <strong>Numéro SIRET :</strong> [En cours d'immatriculation].
                 </p>
                 <p>
                     <strong>Directeur de la publication :</strong> Monsieur Alan Paul.
