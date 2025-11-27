@@ -1,47 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- Home -->
   <url>
-    <loc>https://www.appianoo.com/</loc>
+    <loc>https://appianoo.netlify.app/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
 
-  <!-- Main Pages -->
   <url>
-    <loc>https://www.appianoo.com/#/store</loc>
+    <loc>https://appianoo.netlify.app/#/store</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.appianoo.com/#/media</loc>
+    <loc>https://appianoo.netlify.app/#/media</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.appianoo.com/#/services</loc>
+    <loc>https://appianoo.netlify.app/#/services</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
-  <!-- Legal Pages -->
   <url>
-    <loc>https://www.appianoo.com/#/mentions-legales</loc>
+    <loc>https://appianoo.netlify.app/#/mentions-legales</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://www.appianoo.com/#/politique-confidentialite</loc>
+    <loc>https://appianoo.netlify.app/#/politique-confidentialite</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://www.appianoo.com/#/cgu</loc>
+    <loc>https://appianoo.netlify.app/#/cgu</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://www.appianoo.com/#/cgv</loc>
+    <loc>https://appianoo.netlify.app/#/cgv</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
