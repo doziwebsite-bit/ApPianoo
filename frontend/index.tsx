@@ -2,6 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import './styles.css';
+import ReactGA from "react-ga4";
+
+ReactGA.initialize("G-35FF7GGYY1");
+ReactGA.send({ hitType: "pageview", page: window.location.pathname });
+
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+)
 
 const rootElement = document.getElementById('root');
 if (!rootElement) {

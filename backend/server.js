@@ -9,6 +9,7 @@ import productRoutes from './routes/products.js';
 import orderRoutes from './routes/orders.js';
 import stripeRoutes from './routes/stripe.js';
 import mediaRoutes from './routes/media.js';
+import contactRoutes from './routes/contact.js';
 
 dotenv.config();
 
@@ -69,6 +70,7 @@ app.use('/api/products', productRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/stripe', stripeRoutes);
 app.use('/api/media', mediaRoutes);
+app.use('/api/contact', contactRoutes);
 
 
 // Gestion des erreurs
