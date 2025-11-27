@@ -7,38 +7,38 @@
   </url>
 
   <url>
-    <loc>https://appianoo.netlify.app/#/store</loc>
+    <loc>https://appianoo.netlify.app/store</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://appianoo.netlify.app/#/media</loc>
+    <loc>https://appianoo.netlify.app/media</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://appianoo.netlify.app/#/services</loc>
+    <loc>https://appianoo.netlify.app/services</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://appianoo.netlify.app/#/mentions-legales</loc>
+    <loc>https://appianoo.netlify.app/mentions-legales</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://appianoo.netlify.app/#/politique-confidentialite</loc>
+    <loc>https://appianoo.netlify.app/politique-confidentialite</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://appianoo.netlify.app/#/cgu</loc>
+    <loc>https://appianoo.netlify.app/cgu</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://appianoo.netlify.app/#/cgv</loc>
+    <loc>https://appianoo.netlify.app/cgv</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
