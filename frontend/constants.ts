@@ -93,10 +93,10 @@ export const ASSETS = {
 };
 
 export const SOCIAL_LINKS = {
-  youtube: 'https://www.youtube.com/@AlanPaulMusic',
-  instagram: 'https://www.instagram.com/alanpaulmusic/',
-  tiktok: 'https://www.tiktok.com/@alanpaulmusic',
-  spotify: 'https://open.spotify.com/artist/alanpaul',
-  appleMusic: 'https://music.apple.com/us/artist/alan-paul',
-  deezer: 'https://www.deezer.com/artist/alanpaul'
+  youtube: 'https://youtube.com/@alanpaul3228?si=7i1bxxkLPH6h2ZDP',
+  instagram: 'https://www.instagram.com/ap_pianoo?igsh=N2xxejJ4ZXhhZWx2',
+  tiktok: 'https://www.tiktok.com/@ap_pianoo?_r=1&_t=ZN-92BxBFnuRzq',
+  spotify: 'https://open.spotify.com/intl-fr/artist/0ljNExkPR9XODrWAwSHgUI?si=7z7CyEh9SOqSEcPdSbAuVg',
+  appleMusic: 'https://music.apple.com/fr/artist/alan-paul/1838344951?ls',
+  deezer: 'https://link.deezer.com/s/31S1mTXNi966zuuQ68QKD'
 };
