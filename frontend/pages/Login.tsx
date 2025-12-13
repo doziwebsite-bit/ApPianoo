@@ -98,11 +98,11 @@ const Login: React.FC = () => {
               </div>
             </div>
 
-            <button
+            { /* <button
               onClick={() => login(AuthProvider.EMAIL).then(() => navigate('/dashboard'))}
               className="w-full py-3.5 border border-gray-300 dark:border-zinc-700 rounded-lg flex items-center justify-center gap-3 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all duration-300 font-medium group"
             >
-              { /* <Mail size={18} className="group-hover:scale-110 transition-transform" />
+              { /* <size={18} className="group-hover:scale-110 transition-transform" />
               Connexion par Email (Démo)
             </button> */}
           </div>
