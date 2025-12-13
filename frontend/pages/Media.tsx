@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
-// On importe la liste des médias ET l'URL Spotify depuis constants
-import { MEDIA_ITEMS, SPOTIFY_EMBED_URL } from '../constants';
-// J'ajoute l'icône 'Music' des imports lucide-react
-import { Play, Image as ImageIcon, Music } from 'lucide-react';
+import { MEDIA_ITEMS } from '../constants';
+import { Image as ImageIcon } from 'lucide-react';
+// On importe votre nouveau composant ici
+import MediaPlayer from '../components/MediaPlayer';
 
 const Media: React.FC = () => {
-  // J'ajoute 'music' aux types d'onglets possibles
+  // On garde 'music' dans les options
   const [activeTab, setActiveTab] = useState<'all' | 'video' | 'photo' | 'music'>('all');
 
-  // La logique de filtre reste la même pour la grille (photos/vidéos)
   const filteredMedia = activeTab === 'all'
     ? MEDIA_ITEMS.filter(item => item.type !== 'music')
     : MEDIA_ITEMS.filter(item => item.type === activeTab);
@@ -21,7 +20,6 @@ const Media: React.FC = () => {
 
           {/* Menu des onglets */}
           <div className="flex justify-center gap-4 flex-wrap">
-            {/* J'ajoute 'music' à la liste des boutons */}
             {['all', 'video', 'photo', 'music'].map((tab) => (
               <button
                 key={tab}
@@ -31,40 +29,19 @@ const Media: React.FC = () => {
                   : 'border-gray-300 opacity-60 hover:opacity-100'
                   }`}
               >
-                {/* Texte du bouton selon le type */}
                 {tab === 'all' ? 'Tout' : tab === 'video' ? 'Vidéos' : tab === 'photo' ? 'Photos' : 'Musique'}
               </button>
             ))}
           </div>
         </div>
 
-        {/* SECTION SPOTIFY */}
-        {/* S'affiche si on est sur l'onglet 'all' ou 'music' */}
+        {/* C'est ici qu'on appelle votre nouveau composant MediaPlayer */}
         {(activeTab === 'all' || activeTab === 'music') && (
-          <div className="w-full max-w-3xl mx-auto mb-16 animate-fade-in">
-             {/* Petit titre optionnel au dessus du lecteur */}
-            <div className="flex items-center gap-2 mb-4 justify-center opacity-80">
-                <Music size={20} />
-                <span className="text-sm font-bold uppercase tracking-wider">Dernières sorties</span>
-            </div>
-            
-            {/* Votre lecteur Spotify intégré */}
-            <iframe 
-              style={{ borderRadius: '12px' }} 
-              src={SPOTIFY_EMBED_URL} 
-              width="100%" 
-              height="352" 
-              frameBorder="0" 
-              allowFullScreen 
-              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-              loading="lazy"
-              title="Spotify Player"
-              className="shadow-xl"
-            ></iframe>
-            
-            {/* Ligne de séparation décorative si on est en mode 'all' */}
-            {activeTab === 'all' && <div className="mt-16 border-b border-gray-200 dark:border-zinc-800 w-1/2 mx-auto"></div>}
-          </div>
+          <>
+            <MediaPlayer />
+            {/* Ligne de séparation si on est en mode 'all' */}
+            {activeTab === 'all' && <div className="mt-16 border-b border-gray-200 dark:border-zinc-800 w-1/2 mx-auto mb-16"></div>}
+          </>
         )}
 
         {/* Grille pour Vidéos et Photos */}
@@ -98,7 +75,6 @@ const Media: React.FC = () => {
                 </div>
               )}
 
-              {/* Titre overlay pour les photos */}
               {item.type === 'photo' && (
                 <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <h3 className="text-white font-serif text-xl font-bold">{item.title}</h3>
@@ -108,8 +84,7 @@ const Media: React.FC = () => {
           ))}
         </div>
         
-        {/* Message si l'onglet musique est seul et qu'il n'y a pas d'autres items (optionnel, mais propre) */}
-        {activeTab === 'music' && (
+        {activeTab === 'music' && filteredMedia.length === 0 && (
             <div className="text-center mt-8 text-gray-500 text-sm">
                 Retrouvez l'intégralité de la discographie sur les plateformes de streaming.
             </div>
