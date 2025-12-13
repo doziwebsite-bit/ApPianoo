@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { MEDIA_ITEMS } from '../constants';
 import { Image as ImageIcon } from 'lucide-react';
 // On importe votre nouveau composant ici
-import MediaPlayer from '../components/MediaPlayer';
+import MudicPlayer from '../components/MediaPlayer';
 
 const Media: React.FC = () => {
   // On garde 'music' dans les options
