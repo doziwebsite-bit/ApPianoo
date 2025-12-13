@@ -62,10 +62,13 @@ export const MEDIA_ITEMS: MediaItem[] = [
     title: 'Performance Live'
   },
   {
- 
-
-<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/artist/0ljNExkPR9XODrWAwSHgUI?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>i
-},frame dframt stid="embe  iframe" style="border-radius:12px" src="https://open.sp,
+    id: 'p2',
+    type: 'photo',
+    url: photo2,
+    title: 'Studio' 
+  },
+  {
+    id: 'p3',
     type: 'photo',
     url: photo3,
     title: 'Sur Scène'
@@ -97,3 +100,8 @@ export const SOCIAL_LINKS = {
   appleMusic: 'https://music.apple.com/fr/artist/alan-paul/1838344951?ls',
   deezer: 'https://link.deezer.com/s/31S1mTXNi966zuuQ68QKD'
 };
+
+// URL pour le lecteur Spotify (Embed)
+// Remplacez l'URL ci-dessous par le lien "src" exact fourni par Spotify si celui-ci ne fonctionne pas.
+// Elle doit ressembler à : https://open.spotify.com/embed/artist/VOTRE_ID
+export const SPOTIFY_EMBED_URL = 'https://open.spotify.com/embed/artist/1838344951'; 
