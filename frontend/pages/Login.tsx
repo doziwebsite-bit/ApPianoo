@@ -104,12 +104,12 @@ const Login: React.FC = () => {
             >
               { /* <Mail size={18} className="group-hover:scale-110 transition-transform" />
               Connexion par Email (Démo)
-            </button>
+            </button> */}
           </div>
         </div>
       </div>
     </div>
   );
-}; */ }
+};
 
 export default Login;
