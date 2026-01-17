@@ -23,7 +23,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
   const navLinks = [
     { name: 'Accueil', path: '/' },
-    // { name: 'Partitions', path: '/store' },
+    { name: 'Partitions', path: '/store' },
     { name: 'Média', path: '/media' },
     { name: 'Prestations', path: '/services' },
   ];
@@ -111,14 +111,14 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 {isAuthenticated && <span className="absolute -top-1 -right-1 w-2 h-2 bg-green-500 rounded-full"></span>}
               </button>
 
-              {/* <Link to="/cart" className="p-1 hover:text-gray-500 transition-colors relative">
+              <Link to="/cart" className="p-1 hover:text-gray-500 transition-colors relative">
                 <ShoppingCart size={20} />
                 {items.length > 0 && (
                   <span className="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full">
                     {items.length}
                   </span>
                 )}
-              </Link> */}
+              </Link>
             </div>
           </div>
         </div>

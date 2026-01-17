@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { User, AuthProvider, Order } from '../types';
-import { MOCK_ORDERS } from '../constants';
 import api from '../services/api';
 
 interface AuthContextType {
@@ -20,8 +19,25 @@ export const AuthProviderContext: React.FC<{ children: React.ReactNode }> = ({ c
     return savedUser ? JSON.parse(savedUser) : null;
   });
 
-  // In a real app, fetch orders from DB. Here we use mock.
   const [orders, setOrders] = useState<Order[]>([]);
+
+  // Fetch orders when user changes
+  useEffect(() => {
+    if (user && user.id) {
+      const fetchOrders = async () => {
+        try {
+          const response = await api.get(`/orders/user/${user.id}`);
+          setOrders(response.data);
+        } catch (error) {
+          console.error('Failed to fetch orders:', error);
+        }
+      };
+
+      fetchOrders();
+    } else {
+      setOrders([]);
+    }
+  }, [user]);
 
   const addOrder = (order: Order) => {
     setOrders(prev => {
@@ -32,26 +48,52 @@ export const AuthProviderContext: React.FC<{ children: React.ReactNode }> = ({ c
   };
 
   const login = async (provider: AuthProvider, userData?: Partial<User>) => {
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    try {
+      let endpoint = '';
+      let payload = {};
 
-    // Use provided user data or fallback to mock user
-    const newUser: User = {
-      id: userData?.id || 'user-123',
-      name: userData?.name || 'Utilisateur Démo',
-      email: userData?.email || 'demo@example.com',
-      avatarUrl: userData?.avatarUrl || 'https://ui-avatars.com/api/?name=User&background=random'
-    };
+      if (provider === AuthProvider.GOOGLE) {
+        endpoint = '/auth/google';
+        payload = {
+          googleId: userData?.googleId,
+          email: userData?.email,
+          name: userData?.name,
+          avatarUrl: userData?.avatarUrl
+        };
+      } else {
+        endpoint = '/auth/email';
+        // Demo/Email login usually requires password but here we just register/login by email as per existing logic
+        payload = {
+          email: 'demo@example.com',
+          name: 'Utilisateur Démo'
+        };
+      }
 
-    setUser(newUser);
-    localStorage.setItem('user', JSON.stringify(newUser));
-    setOrders(MOCK_ORDERS); // Load mock orders on login
+      const response = await api.post(endpoint, payload);
+
+      const { user: apiUser, token } = response.data;
+
+      // Ensure the ID is a string (it should be from backend)
+      const newUser: User = {
+        ...apiUser,
+        id: apiUser.id || apiUser._id
+      };
+
+      setUser(newUser);
+      localStorage.setItem('user', JSON.stringify(newUser));
+      localStorage.setItem('token', token);
+
+    } catch (error) {
+      console.error('Login failed:', error);
+      throw error;
+    }
   };
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem('user');
     setOrders([]);
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
   };
 
   return (

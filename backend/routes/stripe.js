@@ -142,6 +142,53 @@ router.post('/webhook', express.raw({ type: 'application/json' }), async (req, r
 
     // Gérer les événements Stripe
     switch (event.type) {
+        case 'checkout.session.completed':
+            const session = event.data.object;
+            console.log('Checkout Session completed:', session.id);
+
+            if (session.payment_status === 'paid') {
+                try {
+                    // Vérifier si la commande existe déjà
+                    const existingOrder = await Order.findOne({ paymentIntentId: session.payment_intent });
+
+                    if (existingOrder) {
+                        console.log('Order already exists for session:', session.id);
+                        if (existingOrder.status !== 'Completed') {
+                            existingOrder.status = 'Completed';
+                            await existingOrder.save();
+                        }
+                    } else {
+                        // Créer la commande via webhook si elle n'existe pas encore
+                        const metadata = session.metadata;
+                        // Assurez-vous que les métadonnées sont présentes
+                        if (metadata && metadata.items && metadata.userId) {
+                            const items = JSON.parse(metadata.items);
+
+                            const newOrder = new Order({
+                                user: metadata.userId,
+                                items: items.map(item => ({
+                                    product: item.product,
+                                    title: item.title,
+                                    price: item.price,
+                                    quantity: 1
+                                })),
+                                total: session.amount_total / 100,
+                                status: 'Completed',
+                                paymentIntentId: session.payment_intent
+                            });
+
+                            await newOrder.save();
+                            console.log('✅ Order created via webhook:', newOrder.orderId);
+                        } else {
+                            console.error('Metadata missing in webhook session processing');
+                        }
+                    }
+                } catch (error) {
+                    console.error('Error processing checkout.session.completed:', error);
+                }
+            }
+            break;
+
         case 'payment_intent.succeeded':
             const paymentIntent = event.data.object;
             console.log('PaymentIntent succeeded:', paymentIntent.id);
