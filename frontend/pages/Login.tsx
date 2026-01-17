@@ -89,7 +89,7 @@ const Login: React.FC = () => {
               </div>
             )}
 
-            { /* <div  <div cla=sName="relative w-full>
+            <div className="relative w-full">
               <div className="absolute inset-0 flex items-center">
                 <span className="w-full border-t border-gray-200 dark:border-zinc-700" />
               </div>
@@ -102,9 +102,9 @@ const Login: React.FC = () => {
               onClick={() => login(AuthProvider.EMAIL).then(() => navigate('/dashboard'))}
               className="w-full py-3.5 border border-gray-300 dark:border-zinc-700 rounded-lg flex items-center justify-center gap-3 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all duration-300 font-medium group"
             >
-              { /* <size={18} className="group-hover:scale-110 transition-transform" />
+              <Mail size={18} className="group-hover:scale-110 transition-transform" />
               Connexion par Email (Démo)
-            </button> */}
+            </button>
           </div>
         </div>
       </div>

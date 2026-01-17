@@ -1,6 +1,8 @@
 import express from 'express';
 import Stripe from 'stripe';
 import Order from '../models/Order.js';
+import { sendOrderConfirmationEmail } from '../utils/emailService.js';
+import Product from '../models/Product.js';
 
 const router = express.Router();
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
@@ -149,13 +151,13 @@ router.post('/webhook', express.raw({ type: 'application/json' }), async (req, r
             if (session.payment_status === 'paid') {
                 try {
                     // Vérifier si la commande existe déjà
-                    const existingOrder = await Order.findOne({ paymentIntentId: session.payment_intent });
+                    let order = await Order.findOne({ paymentIntentId: session.payment_intent });
 
-                    if (existingOrder) {
+                    if (order) {
                         console.log('Order already exists for session:', session.id);
-                        if (existingOrder.status !== 'Completed') {
-                            existingOrder.status = 'Completed';
-                            await existingOrder.save();
+                        if (order.status !== 'Completed') {
+                            order.status = 'Completed';
+                            await order.save();
                         }
                     } else {
                         // Créer la commande via webhook si elle n'existe pas encore
@@ -179,10 +181,29 @@ router.post('/webhook', express.raw({ type: 'application/json' }), async (req, r
 
                             await newOrder.save();
                             console.log('✅ Order created via webhook:', newOrder.orderId);
+                            order = newOrder;
                         } else {
                             console.error('Metadata missing in webhook session processing');
                         }
                     }
+
+                    // ENVOI DE L'EMAIL
+                    if (order) {
+                        // On doit récupérer les "vrais" produits pour avoir le lien PDF
+                        const populatedOrder = await Order.findById(order._id).populate('items.product');
+
+                        // L'email du client est dans session.customer_details.email
+                        const customerEmail = session.customer_details?.email;
+
+                        if (customerEmail) {
+                            console.log(`📧 Sending email to ${customerEmail}...`);
+                            await sendOrderConfirmationEmail(populatedOrder, customerEmail);
+                            console.log('✅ Email sent successfully');
+                        } else {
+                            console.error('❌ No customer email found in session');
+                        }
+                    }
+
                 } catch (error) {
                     console.error('Error processing checkout.session.completed:', error);
                 }

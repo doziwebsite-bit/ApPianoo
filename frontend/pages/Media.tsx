@@ -1,15 +1,12 @@
 import React, { useState } from 'react';
 import { MEDIA_ITEMS } from '../constants';
 import { Image as ImageIcon } from 'lucide-react';
-// On importe votre nouveau composant ici
-import MusicPlayer from '../components/MusicPlayer';
 
 const Media: React.FC = () => {
-  // On garde 'music' dans les options
-  const [activeTab, setActiveTab] = useState<'all' | 'video' | 'photo' | 'music'>('all');
+  const [activeTab, setActiveTab] = useState<'all' | 'video' | 'photo'>('all');
 
   const filteredMedia = activeTab === 'all'
-    ? MEDIA_ITEMS.filter(item => item.type !== 'music')
+    ? MEDIA_ITEMS
     : MEDIA_ITEMS.filter(item => item.type === activeTab);
 
   return (
@@ -20,7 +17,7 @@ const Media: React.FC = () => {
 
           {/* Menu des onglets */}
           <div className="flex justify-center gap-4 flex-wrap">
-            {['all', 'video', 'photo', 'music'].map((tab) => (
+            {['all', 'video', 'photo'].map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab as any)}
@@ -29,20 +26,14 @@ const Media: React.FC = () => {
                   : 'border-gray-300 opacity-60 hover:opacity-100'
                   }`}
               >
-                {tab === 'all' ? 'Tout' : tab === 'video' ? 'Vidéos' : tab === 'photo' ? 'Photos' : 'Musique'}
+                {tab === 'all' ? 'Tout' : tab === 'video' ? 'Vidéos' : 'Photos'}
               </button>
             ))}
           </div>
         </div>
 
-        {/* C'est ici qu'on appelle votre nouveau composant MusicPlayer */}
-        {(activeTab === 'all' || activeTab === 'music') && (
-          <>
-            <MusicPlayer />
-            {/* Ligne de séparation si on est en mode 'all' */}
-            {activeTab === 'all' && <div className="mt-16 border-b border-gray-200 dark:border-zinc-800 w-1/2 mx-auto mb-16"></div>}
-          </>
-        )}
+        {/* Grille pour Vidéos et Photos */}
+
 
         {/* Grille pour Vidéos et Photos */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 auto-rows-fr items-center">
@@ -84,11 +75,7 @@ const Media: React.FC = () => {
           ))}
         </div>
 
-        {activeTab === 'music' && filteredMedia.length === 0 && (
-          <div className="text-center mt-8 text-gray-500 text-sm">
-            Retrouvez l'intégralité de la discographie sur les plateformes de streaming.
-          </div>
-        )}
+
 
       </div>
     </div>

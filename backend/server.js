@@ -18,7 +18,13 @@ const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(cors({
-    origin: [process.env.FRONTEND_URL, process.env.FRONTEND_URL_PROD, process.env.FRONTEND_URL_PROD_TEST],
+    origin: [
+        process.env.FRONTEND_URL,
+        process.env.FRONTEND_URL_PROD,
+        process.env.FRONTEND_URL_PROD_TEST,
+        'https://appianotest.netlify.app', // Site de test Netlify
+        'http://localhost:5173' // Localhost fallback
+    ],
     credentials: true
 }));
 app.use(express.json());
