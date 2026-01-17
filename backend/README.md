@@ -69,6 +69,7 @@ STRIPE_SECRET_KEY=sk_test_VOTRE_CLE_STRIPE
 # Frontend URLs
 FRONTEND_URL=http://localhost:5173
 FRONTEND_URL_PROD=https://votre-site.netlify.app
+FRONTEND_URL_PROD_TEST=https://appianotesvotre-site-test.netlify.app
 ```
 
 ### 3. Démarrer le backend
