@@ -9,7 +9,7 @@ import { ENV, API_CONFIG } from '../constants';
 
 const Cart: React.FC = () => {
   const { items, removeFromCart, cartTotal, clearCart } = useCart();
-  const { isAuthenticated, login } = useAuth();
+  const { isAuthenticated, login, user } = useAuth();
   const [authError, setAuthError] = useState<string | null>(null);
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
@@ -45,7 +45,10 @@ const Cart: React.FC = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ items }),
+        body: JSON.stringify({
+          items,
+          userId: user?.id
+        }),
       });
 
       const { url, error } = await response.json();
