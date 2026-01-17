@@ -60,8 +60,8 @@ router.post('/create-checkout-session', async (req, res) => {
             payment_method_types: ['card'],
             line_items: lineItems,
             mode: 'payment',
-            success_url: `${origin}/#/dashboard?session_id={CHECKOUT_SESSION_ID}`,
-            cancel_url: `${origin}/#/cart`,
+            success_url: `${origin}/dashboard?session_id={CHECKOUT_SESSION_ID}`,
+            cancel_url: `${origin}/cart`,
             metadata: {
                 userId: userId,
                 items: JSON.stringify(items.map(i => ({
@@ -117,6 +117,26 @@ router.post('/verify-session', async (req, res) => {
 
             await newOrder.save();
             console.log('✅ Order created via verification:', newOrder.orderId);
+
+            // ENVOI DE L'EMAIL (Ajout pour garantir l'envoi même si le webhook échoue)
+            try {
+                // On doit récupérer les "vrais" produits pour avoir le lien PDF
+                const populatedOrder = await Order.findById(newOrder._id).populate('items.product');
+
+                // L'email du client est dans session.customer_details.email
+                const customerEmail = session.customer_details?.email;
+
+                if (customerEmail) {
+                    console.log(`📧 Sending email to ${customerEmail} (via verify-session)...`);
+                    await sendOrderConfirmationEmail(populatedOrder, customerEmail);
+                    console.log('✅ Email sent successfully');
+                } else {
+                    console.error('❌ No customer email found in session');
+                }
+            } catch (emailError) {
+                console.error('❌ Error sending email in verify-session:', emailError);
+                // On ne bloque pas la réponse si l'email échoue, mais on log l'erreur
+            }
 
             return res.json({ status: 'created', order: newOrder });
         } else {

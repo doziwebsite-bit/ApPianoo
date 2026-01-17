@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { Download, Package, LogOut, Loader } from 'lucide-react';
-import { Navigate } from 'react-router-dom';
+import { useNavigate, useLocation, Navigate } from 'react-router-dom';
 import api from '../services/api';
 
 const Dashboard: React.FC = () => {
@@ -10,10 +10,14 @@ const Dashboard: React.FC = () => {
   const [verifying, setVerifying] = useState(false);
   const [verificationMessage, setVerificationMessage] = useState<string | null>(null);
 
+  const location = useLocation();
+  const navigate = useNavigate();
+
   // Verify payment session if present in URL
   useEffect(() => {
     const verifyPayment = async () => {
-      const searchParams = new URLSearchParams(window.location.hash.split('?')[1]);
+      // Prioritize search params (standard), fallback to hash hacking if necessary (but likely not with proper redirect)
+      const searchParams = new URLSearchParams(location.search);
       const sessionId = searchParams.get('session_id');
 
       if (sessionId && !verifying) {
@@ -30,7 +34,7 @@ const Dashboard: React.FC = () => {
               addOrder(response.data.order);
             }
             // Remove session_id from URL to prevent re-verification
-            window.history.replaceState({}, document.title, window.location.hash.split('?')[0]);
+            navigate('/dashboard', { replace: true });
           } else {
             setVerificationMessage("Le paiement est en attente ou a échoué.");
           }
