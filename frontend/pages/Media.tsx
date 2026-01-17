@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { MEDIA_ITEMS } from '../constants';
 import { Image as ImageIcon } from 'lucide-react';
 // On importe votre nouveau composant ici
-import MudicPlayer from '../components/MediaPlayer';
+import MusicPlayer from '../components/MusicPlayer';
 
 const Media: React.FC = () => {
   // On garde 'music' dans les options
@@ -35,10 +35,10 @@ const Media: React.FC = () => {
           </div>
         </div>
 
-        {/* C'est ici qu'on appelle votre nouveau composant MediaPlayer */}
+        {/* C'est ici qu'on appelle votre nouveau composant MusicPlayer */}
         {(activeTab === 'all' || activeTab === 'music') && (
           <>
-            <MediaPlayer />
+            <MusicPlayer />
             {/* Ligne de séparation si on est en mode 'all' */}
             {activeTab === 'all' && <div className="mt-16 border-b border-gray-200 dark:border-zinc-800 w-1/2 mx-auto mb-16"></div>}
           </>
@@ -83,11 +83,11 @@ const Media: React.FC = () => {
             </div>
           ))}
         </div>
-        
+
         {activeTab === 'music' && filteredMedia.length === 0 && (
-            <div className="text-center mt-8 text-gray-500 text-sm">
-                Retrouvez l'intégralité de la discographie sur les plateformes de streaming.
-            </div>
+          <div className="text-center mt-8 text-gray-500 text-sm">
+            Retrouvez l'intégralité de la discographie sur les plateformes de streaming.
+          </div>
         )}
 
       </div>

@@ -42,7 +42,7 @@ const Home: React.FC = () => {
               <img
                 src={ASSETS.profile}
                 alt="Alan Paul"
-                className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                className="w-full h-full object-cover transition-all duration-700"
                 onError={(e) => {
                   // Image de remplacement élégante si le fichier n'est pas trouvé
                   e.currentTarget.src = "https://ui-avatars.com/api/?name=Alan+Paul&size=512&background=000&color=fff&font-size=0.33";
