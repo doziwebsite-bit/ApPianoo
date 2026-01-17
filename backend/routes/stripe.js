@@ -38,6 +38,12 @@ router.post('/create-payment-intent', async (req, res) => {
 router.post('/create-checkout-session', async (req, res) => {
     try {
         const { items, userId } = req.body; // Expect userId from frontend
+
+        if (!userId) {
+            console.error('❌ Create Checkout Session Error: Missing userId');
+            return res.status(400).json({ error: 'User ID is required' });
+        }
+
         // Utiliser l'origine de la requête ou une valeur par défaut pour le développement local
         const origin = req.headers.origin || 'http://localhost:5173';
 
