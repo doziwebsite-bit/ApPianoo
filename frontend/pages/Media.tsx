@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { MEDIA_ITEMS } from '../constants';
-import { Play, Image as ImageIcon } from 'lucide-react';
+import { Image as ImageIcon } from 'lucide-react';
+// On importe votre nouveau composant ici
+import MudicPlayer from '../components/MediaPlayer';
 
 const Media: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<'all' | 'video' | 'photo'>('all');
+  // On garde 'music' dans les options
+  const [activeTab, setActiveTab] = useState<'all' | 'video' | 'photo' | 'music'>('all');
 
   const filteredMedia = activeTab === 'all'
     ? MEDIA_ITEMS.filter(item => item.type !== 'music')
@@ -15,8 +18,9 @@ const Media: React.FC = () => {
         <div className="text-center mb-16">
           <h1 className="font-serif text-5xl font-bold mb-6">Galerie Média</h1>
 
+          {/* Menu des onglets */}
           <div className="flex justify-center gap-4 flex-wrap">
-            {['all', 'video', 'photo'].map((tab) => (
+            {['all', 'video', 'photo', 'music'].map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab as any)}
@@ -25,12 +29,22 @@ const Media: React.FC = () => {
                   : 'border-gray-300 opacity-60 hover:opacity-100'
                   }`}
               >
-                {tab === 'all' ? 'Tout' : tab === 'video' ? 'Vidéos' : 'Photos'}
+                {tab === 'all' ? 'Tout' : tab === 'video' ? 'Vidéos' : tab === 'photo' ? 'Photos' : 'Musique'}
               </button>
             ))}
           </div>
         </div>
 
+        {/* C'est ici qu'on appelle votre nouveau composant MediaPlayer */}
+        {(activeTab === 'all' || activeTab === 'music') && (
+          <>
+            <MediaPlayer />
+            {/* Ligne de séparation si on est en mode 'all' */}
+            {activeTab === 'all' && <div className="mt-16 border-b border-gray-200 dark:border-zinc-800 w-1/2 mx-auto mb-16"></div>}
+          </>
+        )}
+
+        {/* Grille pour Vidéos et Photos */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 auto-rows-fr items-center">
           {filteredMedia.map((item) => (
             <div
@@ -61,7 +75,6 @@ const Media: React.FC = () => {
                 </div>
               )}
 
-              {/* Overlay Title for Photos only, videos have their own titles in player */}
               {item.type === 'photo' && (
                 <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <h3 className="text-white font-serif text-xl font-bold">{item.title}</h3>
@@ -70,6 +83,13 @@ const Media: React.FC = () => {
             </div>
           ))}
         </div>
+        
+        {activeTab === 'music' && filteredMedia.length === 0 && (
+            <div className="text-center mt-8 text-gray-500 text-sm">
+                Retrouvez l'intégralité de la discographie sur les plateformes de streaming.
+            </div>
+        )}
+
       </div>
     </div>
   );
