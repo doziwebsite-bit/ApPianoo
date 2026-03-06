@@ -134,7 +134,7 @@ const Dashboard: React.FC = () => {
 
                     <div className="space-y-3">
                       {order.items.map((item: any) => (
-                        <div key={item.product.id} className="flex items-center justify-between bg-gray-50 dark:bg-zinc-800/50 p-4 rounded-lg">
+                        <div key={item.product._id || item.product.id} className="flex items-center justify-between bg-gray-50 dark:bg-zinc-800/50 p-4 rounded-lg">
                           <div className="flex items-center gap-4">
                             <div className="w-12 h-16 bg-gray-200 overflow-hidden rounded">
                               <img src={item.product.coverImage} className="w-full h-full object-cover" alt={item.product.title} />
@@ -147,11 +147,11 @@ const Dashboard: React.FC = () => {
 
                           {order.status === 'Completed' && (
                             <button
-                              onClick={() => handleDownload(order.orderId, item.product.id)}
-                              disabled={downloading === item.product.id}
+                              onClick={() => handleDownload(order.orderId, item.product._id || item.product.id)}
+                              disabled={downloading === (item.product._id || item.product.id)}
                               className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed"
                             >
-                              {downloading === item.product.id ? (
+                              {downloading === (item.product._id || item.product.id) ? (
                                 <Loader size={16} className="animate-spin" />
                               ) : (
                                 <Download size={16} />

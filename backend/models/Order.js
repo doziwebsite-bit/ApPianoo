@@ -52,7 +52,7 @@ const orderSchema = new mongoose.Schema({
 });
 
 // Générer un ID de commande unique
-orderSchema.pre('save', async function (next) {
+orderSchema.pre('validate', async function (next) {
     if (!this.orderId) {
         const date = new Date();
         const year = date.getFullYear();

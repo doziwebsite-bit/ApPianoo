@@ -1,7 +1,7 @@
+import 'dotenv/config'; // DOIT ÊTRE LA PREMIÈRE LIGNE (avant les imports locaux)
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
-import dotenv from 'dotenv';
 
 // Import routes
 import authRoutes from './routes/auth.js';
@@ -10,8 +10,6 @@ import orderRoutes from './routes/orders.js';
 import stripeRoutes from './routes/stripe.js';
 import mediaRoutes from './routes/media.js';
 import contactRoutes from './routes/contact.js';
-
-dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
