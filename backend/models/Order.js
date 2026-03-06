@@ -36,6 +36,10 @@ const orderSchema = new mongoose.Schema({
     paymentIntentId: {
         type: String // Stripe Payment Intent ID
     },
+    emailSent: {
+        type: Boolean,
+        default: false
+    },
     downloadLinks: [{
         productId: mongoose.Schema.Types.ObjectId,
         url: String,

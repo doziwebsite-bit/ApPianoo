@@ -16,6 +16,9 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// Exception webhook Stripe — doit être AVANT express.json()
+app.use('/api/stripe/webhook', express.raw({ type: 'application/json' }));
+
 // Middleware
 app.use(cors({
     origin: [

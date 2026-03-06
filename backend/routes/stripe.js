@@ -124,24 +124,22 @@ router.post('/verify-session', async (req, res) => {
             await newOrder.save();
             console.log('✅ Order created via verification:', newOrder.orderId);
 
-            // ENVOI DE L'EMAIL (Ajout pour garantir l'envoi même si le webhook échoue)
+            // ENVOI DE L'EMAIL (fallback si le webhook n'a pas encore traité)
             try {
-                // On doit récupérer les "vrais" produits pour avoir le lien PDF
                 const populatedOrder = await Order.findById(newOrder._id).populate('items.product');
-
-                // L'email du client est dans session.customer_details.email
                 const customerEmail = session.customer_details?.email;
 
-                if (customerEmail) {
+                if (customerEmail && !newOrder.emailSent) {
                     console.log(`📧 Sending email to ${customerEmail} (via verify-session)...`);
                     await sendOrderConfirmationEmail(populatedOrder, customerEmail);
+                    newOrder.emailSent = true;
+                    await newOrder.save();
                     console.log('✅ Email sent successfully');
-                } else {
+                } else if (!customerEmail) {
                     console.error('❌ No customer email found in session');
                 }
             } catch (emailError) {
                 console.error('❌ Error sending email in verify-session:', emailError);
-                // On ne bloque pas la réponse si l'email échoue, mais on log l'erreur
             }
 
             return res.json({ status: 'created', order: newOrder });
@@ -155,7 +153,7 @@ router.post('/verify-session', async (req, res) => {
 });
 
 // POST /api/stripe/webhook - Webhook Stripe pour les événements
-router.post('/webhook', express.raw({ type: 'application/json' }), async (req, res) => {
+router.post('/webhook', async (req, res) => {
     const sig = req.headers['stripe-signature'];
     const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
@@ -213,17 +211,16 @@ router.post('/webhook', express.raw({ type: 'application/json' }), async (req, r
                         }
                     }
 
-                    // ENVOI DE L'EMAIL
-                    if (order) {
-                        // On doit récupérer les "vrais" produits pour avoir le lien PDF
+                    // Envoyer l'email seulement s'il n'a pas déjà été envoyé
+                    if (order && !order.emailSent) {
                         const populatedOrder = await Order.findById(order._id).populate('items.product');
-
-                        // L'email du client est dans session.customer_details.email
                         const customerEmail = session.customer_details?.email;
 
                         if (customerEmail) {
                             console.log(`📧 Sending email to ${customerEmail}...`);
                             await sendOrderConfirmationEmail(populatedOrder, customerEmail);
+                            order.emailSent = true;
+                            await order.save();
                             console.log('✅ Email sent successfully');
                         } else {
                             console.error('❌ No customer email found in session');
