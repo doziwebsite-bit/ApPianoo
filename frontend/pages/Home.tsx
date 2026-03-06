@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Play } from 'lucide-react';
 import { ASSETS, MEDIA_ITEMS } from '../constants';
+import YouTubeFacade from '../components/YouTubeFacade';
 import { useCart } from '../context/CartContext';
 import api from '../services/api';
 import { Product } from '../types';
@@ -50,12 +51,16 @@ const Home: React.FC = () => {
             <div className="absolute inset-0 rounded-full bg-white blur-xl opacity-60 dark:opacity-10 transform scale-105"></div>
             <div className="w-40 h-40 md:w-56 md:h-56 mx-auto rounded-full overflow-hidden border-4 border-white/50 dark:border-gray-800 shadow-2xl relative z-10 bg-gray-100">
               <picture>
-                <source srcSet={ASSETS.profile.webp} type="image/webp" />
+                <source 
+                  srcSet={`/assets/AlanPaul-PP-300w.webp 300w, /assets/AlanPaul-PP-600w.webp 600w, /assets/AlanPaul-PP-900w.webp 900w, ${ASSETS.profile.webp} 1920w`}
+                  sizes="(max-width: 768px) 224px, 266px"
+                  type="image/webp" 
+                />
                 <img
                   src={ASSETS.profile.original}
                   alt="Alan Paul - Pianiste compositeur"
-                  width={224}
-                  height={224}
+                  width={266}
+                  height={266}
                   fetchPriority="high"
                   decoding="async"
                   className="w-full h-full object-cover transition-all duration-700 aspect-square"
@@ -179,16 +184,12 @@ const Home: React.FC = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
               {featuredMedia.map((media) => (
-                <div key={media.id} className={`w-full ${media.aspectRatio === 'square' ? 'aspect-square max-w-[400px]' : 'aspect-video'} mx-auto overflow-hidden rounded-lg shadow-2xl`}>
-                  <iframe
-                    src={media.url}
-                    title={media.title}
+                <div key={media.id} className={`w-full ${media.aspectRatio === 'square' ? 'aspect-square max-w-[400px]' : 'aspect-video'} mx-auto overflow-hidden rounded-lg shadow-2xl flex items-center justify-center bg-black`}>
+                  <YouTubeFacade 
+                    videoId={media.url.split('/').pop()?.split('?')[0] || ''} 
+                    title={media.title} 
                     className="w-full h-full"
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    loading="lazy"
-                  ></iframe>
+                  />
                 </div>
               ))}
             </div>

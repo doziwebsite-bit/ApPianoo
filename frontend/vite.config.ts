@@ -12,6 +12,7 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist',
+    modulePreload: false,
     minify: 'terser',
     terserOptions: {
       compress: {

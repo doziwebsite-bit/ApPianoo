@@ -86,7 +86,11 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             <div className="flex-shrink-0 flex items-center cursor-pointer gap-3" onClick={() => navigate('/')} role="link" tabIndex={0} aria-label="Retour à l'accueil - Alan Paul" onKeyDown={(e) => { if (e.key === 'Enter') navigate('/'); }}>
               {!logoError ? (
                 <picture>
-                  <source srcSet={isDark ? ASSETS.logoDark.webp : ASSETS.logoLight.webp} type="image/webp" />
+                  <source 
+                    srcSet={`/assets/logoAlanPaul${isDark ? '-darkmode' : ''}-300w.webp 300w, ${isDark ? ASSETS.logoDark.webp : ASSETS.logoLight.webp} 1876w`}
+                    sizes="48px"
+                    type="image/webp" 
+                  />
                   <img
                     src={isDark ? ASSETS.logoDark.original : ASSETS.logoLight.original}
                     alt="Logo Alan Paul"
