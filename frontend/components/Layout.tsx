@@ -53,6 +53,8 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           <img 
             src={ASSETS.background.original} 
             alt="Alan Paul background" 
+            width={1920}
+            height={1080}
             fetchPriority="high" 
             decoding="async" 
             className="w-full h-full object-cover" 
