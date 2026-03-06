@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
 import { ENV } from '../constants';
 import { AuthProvider } from '../types';
@@ -44,10 +45,14 @@ const Login: React.FC = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-black/20">
+      <Helmet>
+        <title>Connexion - Alan Paul</title>
+        <meta name="description" content="Connectez-vous pour accéder à vos partitions achetées et votre espace personnel." />
+      </Helmet>
       <div className="max-w-md w-full space-y-8 bg-white dark:bg-zinc-900 p-10 rounded-2xl shadow-xl border border-gray-100 dark:border-zinc-800">
         <div className="text-center">
           <div className="mx-auto h-16 w-16 bg-black dark:bg-white rounded-full flex items-center justify-center mb-6 shadow-lg">
-            <Lock className="h-8 w-8 text-white dark:text-black" />
+            <Lock className="h-8 w-8 text-white dark:text-black" aria-hidden="true" />
           </div>
           <h2 className="text-3xl font-serif font-bold text-gray-900 dark:text-white mb-2">Connexion</h2>
           <p className="text-sm text-gray-600 dark:text-gray-400">
@@ -57,8 +62,8 @@ const Login: React.FC = () => {
 
         <div className="mt-8 space-y-6">
           {!ENV.GOOGLE_CLIENT_ID && (
-            <div className="p-4 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-200 text-sm rounded-lg flex items-start gap-3">
-              <AlertCircle className="flex-shrink-0 mt-0.5" size={16} />
+            <div className="p-4 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-200 text-sm rounded-lg flex items-start gap-3" role="alert">
+              <AlertCircle className="flex-shrink-0 mt-0.5" size={16} aria-hidden="true" />
               <div>
                 <strong>Configuration requise</strong>
                 <br />
@@ -81,9 +86,9 @@ const Login: React.FC = () => {
             </div>
 
             {authError && (
-              <div className="p-3 bg-red-50 dark:bg-red-900/20 border border-red-100 dark:border-red-800 rounded-lg">
+              <div className="p-3 bg-red-50 dark:bg-red-900/20 border border-red-100 dark:border-red-800 rounded-lg" role="alert">
                 <p className="text-red-600 dark:text-red-400 text-sm text-center flex items-center justify-center gap-2">
-                  <AlertCircle size={14} />
+                  <AlertCircle size={14} aria-hidden="true" />
                   {authError}
                 </p>
               </div>
@@ -100,9 +105,10 @@ const Login: React.FC = () => {
 
             <button
               onClick={() => login(AuthProvider.EMAIL).then(() => navigate('/dashboard'))}
+              aria-label="Connexion par email (mode démo)"
               className="w-full py-3.5 border border-gray-300 dark:border-zinc-700 rounded-lg flex items-center justify-center gap-3 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all duration-300 font-medium group"
             >
-              <Mail size={18} className="group-hover:scale-110 transition-transform" />
+              <Mail size={18} className="group-hover:scale-110 transition-transform" aria-hidden="true" />
               Connexion par Email (Démo)
             </button>
           </div>

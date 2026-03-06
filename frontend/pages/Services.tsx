@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { Calendar, Mail, Trophy, Music, Loader2, CheckCircle, AlertCircle, X, Copy, Check, Coffee, Star } from 'lucide-react';
 import { API_CONFIG } from '../constants';
 
@@ -51,11 +52,22 @@ Cordialement.`;
 
   return (
     <div className="min-h-screen">
+      <Helmet>
+        <title>Prestations Live - Alan Paul</title>
+        <meta name="description" content="Réservez Alan Paul pour vos événements : matchs sportifs, concerts privés, mariages, restaurants. Demandez un devis." />
+        <meta property="og:title" content="Prestations Live - Alan Paul" />
+        <meta property="og:description" content="Animation musicale live pour tous vos événements. Demandez un devis personnalisé." />
+        <meta property="og:url" content="https://appianoo.netlify.app/services" />
+      </Helmet>
       {/* Header Hero */}
       <div className="relative py-24 bg-black text-white overflow-hidden">
         <img
           src="https://picsum.photos/seed/stadium/1600/900"
-          alt="Basketball Stadium"
+          alt="Salle de spectacle pour événement musical"
+          width={1600}
+          height={900}
+          fetchPriority="high"
+          decoding="async"
           className="absolute inset-0 w-full h-full object-cover opacity-40"
         />
         <div className="relative z-10 max-w-7xl mx-auto px-4 text-center">
@@ -69,16 +81,16 @@ Cordialement.`;
       <div className="max-w-7xl mx-auto px-4 py-20 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
         <div className="space-y-8">
           <h2 className="font-serif text-4xl font-bold">Prestations Adaptées & Polyvalentes</h2>
-          <p className="text-lg opacity-80 leading-relaxed">
+          <p className="text-lg opacity-90 leading-relaxed">
             Alan Paul ne se limite pas aux stades. Il propose une expérience musicale flexible et immersive, capable de s'adapter à tous les lieux : animation de matchs de basket, ambiances feutrées pour cafés et restaurants, ou performances scéniques pour des spectacles. Il transforme chaque lieu avec un répertoire varié et une énergie communicative.
           </p>
 
           <ul className="space-y-4">
             {[
-              { icon: <Trophy className="text-yellow-500" />, text: "Événements sportifs (Matchs, Tournois)" },
-              { icon: <Coffee className="text-amber-700" />, text: "Ambiance Lounge, Cafés & Restaurants" },
-              { icon: <Star className="text-purple-500" />, text: "Spectacles & Événementiel privé" },
-              { icon: <Music className="text-blue-500" />, text: "Répertoire sur-mesure (Jazz, Pop, Épique)" },
+              { icon: <Trophy className="text-yellow-500" aria-hidden="true" />, text: "Événements sportifs (Matchs, Tournois)" },
+              { icon: <Coffee className="text-amber-700" aria-hidden="true" />, text: "Ambiance Lounge, Cafés & Restaurants" },
+              { icon: <Star className="text-purple-500" aria-hidden="true" />, text: "Spectacles & Événementiel privé" },
+              { icon: <Music className="text-blue-500" aria-hidden="true" />, text: "Répertoire sur-mesure (Jazz, Pop, Épique)" },
             ].map((item, idx) => (
               <li key={idx} className="flex items-center gap-4 p-4 bg-white dark:bg-zinc-900 rounded-lg shadow-sm">
                 {item.icon}
@@ -93,7 +105,7 @@ Cordialement.`;
 
           {status === 'success' ? (
             <div className="bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 p-6 rounded-lg flex flex-col items-center text-center space-y-4">
-              <CheckCircle size={48} />
+              <CheckCircle size={48} aria-hidden="true" />
               <h4 className="text-xl font-bold">Message envoyé !</h4>
               <p>Votre demande de devis a bien été reçue. Nous vous répondrons dans les plus brefs délais.</p>
               <button
@@ -106,17 +118,18 @@ Cordialement.`;
           ) : (
             <form className="space-y-4" onSubmit={handleSubmit}>
               {status === 'error' && (
-                <div className="bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 p-4 rounded-lg flex items-center gap-3">
-                  <AlertCircle size={20} />
+                <div className="bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 p-4 rounded-lg flex items-center gap-3" role="alert">
+                  <AlertCircle size={20} aria-hidden="true" />
                   <p>{errorMessage}</p>
                 </div>
               )}
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold uppercase mb-1 opacity-60">Prénom</label>
+                  <label htmlFor="firstName" className="block text-xs font-bold uppercase mb-1 text-gray-700 dark:text-gray-300">Prénom</label>
                   <input
                     type="text"
+                    id="firstName"
                     name="firstName"
                     value={formData.firstName}
                     onChange={handleChange}
@@ -126,9 +139,10 @@ Cordialement.`;
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-bold uppercase mb-1 opacity-60">Nom</label>
+                  <label htmlFor="lastName" className="block text-xs font-bold uppercase mb-1 text-gray-700 dark:text-gray-300">Nom</label>
                   <input
                     type="text"
+                    id="lastName"
                     name="lastName"
                     value={formData.lastName}
                     onChange={handleChange}
@@ -139,9 +153,10 @@ Cordialement.`;
                 </div>
               </div>
               <div>
-                <label className="block text-xs font-bold uppercase mb-1 opacity-60">Email</label>
+                <label htmlFor="email" className="block text-xs font-bold uppercase mb-1 text-gray-700 dark:text-gray-300">Email</label>
                 <input
                   type="email"
+                  id="email"
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
@@ -151,8 +166,9 @@ Cordialement.`;
                 />
               </div>
               <div>
-                <label className="block text-xs font-bold uppercase mb-1 opacity-60">Type d'événement</label>
+                <label htmlFor="eventType" className="block text-xs font-bold uppercase mb-1 text-gray-700 dark:text-gray-300">Type d'événement</label>
                 <select
+                  id="eventType"
                   name="eventType"
                   value={formData.eventType}
                   onChange={handleChange}
@@ -165,8 +181,9 @@ Cordialement.`;
                 </select>
               </div>
               <div>
-                <label className="block text-xs font-bold uppercase mb-1 opacity-60">Message</label>
+                <label htmlFor="message" className="block text-xs font-bold uppercase mb-1 text-gray-700 dark:text-gray-300">Message</label>
                 <textarea
+                  id="message"
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
@@ -179,15 +196,16 @@ Cordialement.`;
               <button
                 type="submit"
                 disabled={status === 'loading'}
+                aria-label="Envoyer la demande de devis"
                 className="w-full py-4 bg-black text-white dark:bg-white dark:text-black font-bold uppercase tracking-widest hover:opacity-90 transition-opacity flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {status === 'loading' ? (
                   <>
-                    <Loader2 size={18} className="animate-spin" /> Envoi en cours...
+                    <Loader2 size={18} className="animate-spin" aria-hidden="true" /> Envoi en cours...
                   </>
                 ) : (
                   <>
-                    <Mail size={18} /> Envoyer
+                    <Mail size={18} aria-hidden="true" /> Envoyer
                   </>
                 )}
               </button>
@@ -195,7 +213,7 @@ Cordialement.`;
               <button
                 type="button"
                 onClick={() => setShowEmailModal(true)}
-                className="w-full text-center text-sm opacity-60 mt-4 underline hover:text-blue-500"
+                className="w-full text-center text-sm text-gray-700 dark:text-gray-300 mt-4 underline hover:text-blue-500"
               >
                 Le bouton ne fonctionne pas ? Cliquez ici
               </button>
@@ -205,13 +223,14 @@ Cordialement.`;
       </div>
 
       {showEmailModal && (
-        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-label="Copier l'adresse email">
           <div className="bg-white dark:bg-zinc-900 rounded-xl max-w-md w-full p-6 relative shadow-2xl animate-in fade-in zoom-in duration-200">
             <button
               onClick={() => setShowEmailModal(false)}
+              aria-label="Fermer la fenêtre"
               className="absolute top-4 right-4 p-2 rounded-full hover:bg-gray-100 dark:hover:bg-zinc-800 transition-colors"
             >
-              <X size={20} />
+              <X size={20} aria-hidden="true" />
             </button>
 
             <h3 className="text-xl font-bold mb-2">Copier l'adresse email</h3>
@@ -223,15 +242,15 @@ Cordialement.`;
               <code className="flex-1 font-mono text-sm">ap.pianoo@outlook.fr</code>
               <button
                 onClick={handleCopyEmail}
+                aria-label="Copier l'adresse email"
                 className="p-2 rounded-md hover:bg-white dark:hover:bg-zinc-800 transition-colors relative group"
-                title="Copier"
               >
-                {copied ? <Check size={18} className="text-green-500" /> : <Copy size={18} />}
+                {copied ? <Check size={18} className="text-green-500" aria-hidden="true" /> : <Copy size={18} aria-hidden="true" />}
               </button>
             </div>
 
             {copied && (
-              <p className="text-green-500 text-xs mt-2 text-center font-medium">
+              <p className="text-green-500 text-xs mt-2 text-center font-medium" role="status">
                 Adresse email copiée !
               </p>
             )}

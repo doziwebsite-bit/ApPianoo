@@ -1,54 +1,83 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import { HelmetProvider } from 'react-helmet-async';
 import { ThemeProvider } from './context/ThemeContext';
 import { CartProvider } from './context/CartContext';
 import { AuthProviderContext } from './context/AuthContext';
 import Layout from './components/Layout';
-import Home from './pages/Home';
-import Store from './pages/Store';
-import Media from './pages/Media';
-import Services from './pages/Services';
-import Cart from './pages/Cart';
-import Login from './pages/Login';
-import Dashboard from './pages/Dashboard';
-import { MentionsLegales, PolitiqueConfidentialite, CGU, CGV } from './pages/Legal';
 import { ENV } from './constants';
+
+// Lazy load all pages for code-splitting (reduces TBT)
+const Home = React.lazy(() => import('./pages/Home'));
+const Store = React.lazy(() => import('./pages/Store'));
+const Media = React.lazy(() => import('./pages/Media'));
+const Services = React.lazy(() => import('./pages/Services'));
+const Cart = React.lazy(() => import('./pages/Cart'));
+const Login = React.lazy(() => import('./pages/Login'));
+const Dashboard = React.lazy(() => import('./pages/Dashboard'));
+
+// Loading fallback component
+const PageLoader = () => (
+  <div className="min-h-[60vh] flex items-center justify-center">
+    <div className="w-8 h-8 border-2 border-current border-t-transparent rounded-full animate-spin" role="status">
+      <span className="sr-only">Chargement...</span>
+    </div>
+  </div>
+);
+
+// Wrap lazy Legal components since they are named exports
+const LazyMentionsLegales = React.lazy(() =>
+  import('./pages/Legal').then(module => ({ default: module.MentionsLegales }))
+);
+const LazyPolitiqueConfidentialite = React.lazy(() =>
+  import('./pages/Legal').then(module => ({ default: module.PolitiqueConfidentialite }))
+);
+const LazyCGU = React.lazy(() =>
+  import('./pages/Legal').then(module => ({ default: module.CGU }))
+);
+const LazyCGV = React.lazy(() =>
+  import('./pages/Legal').then(module => ({ default: module.CGV }))
+);
 
 const App: React.FC = () => {
   // Fallback if key is missing to prevent crash, but auth won't work
   const clientId = ENV.GOOGLE_CLIENT_ID || "MISSING_GOOGLE_CLIENT_ID";
 
   return (
+    <HelmetProvider>
     <GoogleOAuthProvider clientId={clientId}>
       <ThemeProvider>
         <AuthProviderContext>
           <CartProvider>
             <BrowserRouter>
               <Layout>
-                <Routes>
-                  <Route path="/" element={<Home />} />
-                  <Route path="/store" element={<Store />} />
-                  <Route path="/media" element={<Media />} />
-                  <Route path="/services" element={<Services />} />
-                  <Route path="/cart" element={<Cart />} />
-                  <Route path="/login" element={<Login />} />
-                  <Route path="/dashboard" element={<Dashboard />} />
+                <Suspense fallback={<PageLoader />}>
+                  <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/store" element={<Store />} />
+                    <Route path="/media" element={<Media />} />
+                    <Route path="/services" element={<Services />} />
+                    <Route path="/cart" element={<Cart />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/dashboard" element={<Dashboard />} />
 
-                  {/* Legal Routes */}
-                  <Route path="/mentions-legales" element={<MentionsLegales />} />
-                  <Route path="/politique-confidentialite" element={<PolitiqueConfidentialite />} />
-                  <Route path="/cgu" element={<CGU />} />
-                  <Route path="/cgv" element={<CGV />} />
+                    {/* Legal Routes */}
+                    <Route path="/mentions-legales" element={<LazyMentionsLegales />} />
+                    <Route path="/politique-confidentialite" element={<LazyPolitiqueConfidentialite />} />
+                    <Route path="/cgu" element={<LazyCGU />} />
+                    <Route path="/cgv" element={<LazyCGV />} />
 
-                  <Route path="*" element={<Navigate to="/" replace />} />
-                </Routes>
+                    <Route path="*" element={<Navigate to="/" replace />} />
+                  </Routes>
+                </Suspense>
               </Layout>
             </BrowserRouter>
           </CartProvider>
         </AuthProviderContext>
       </ThemeProvider>
     </GoogleOAuthProvider>
+    </HelmetProvider>
   );
 };
 

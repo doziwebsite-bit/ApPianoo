@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { useAuth } from '../context/AuthContext';
 import { Download, Package, LogOut, Loader } from 'lucide-react';
 import { useNavigate, useLocation, Navigate } from 'react-router-dom';
@@ -81,22 +82,34 @@ const Dashboard: React.FC = () => {
 
   return (
     <div className="min-h-screen py-12 px-4">
+      <Helmet>
+        <title>Mon Espace - Alan Paul</title>
+        <meta name="description" content="Accédez à vos commandes et téléchargez vos partitions achetées." />
+      </Helmet>
       <div className="max-w-4xl mx-auto">
         <div className="bg-white dark:bg-zinc-900 rounded-2xl shadow-lg overflow-hidden mb-8">
           <div className="p-8 bg-gradient-to-r from-gray-900 to-black text-white flex items-center justify-between">
             <div className="flex items-center gap-6">
-              <img src={user?.avatarUrl || "https://ui-avatars.com/api/?name=" + user?.name} alt="Avatar" className="w-20 h-20 rounded-full border-4 border-white/20" />
+              <img
+                src={user?.avatarUrl || "https://ui-avatars.com/api/?name=" + user?.name}
+                alt={`Photo de profil de ${user?.name}`}
+                width={80}
+                height={80}
+                loading="lazy"
+                decoding="async"
+                className="w-20 h-20 rounded-full border-4 border-white/20"
+              />
               <div>
                 <h1 className="text-3xl font-serif font-bold">{user?.name}</h1>
-                <p className="opacity-70">{user?.email}</p>
+                <p className="opacity-90">{user?.email}</p>
               </div>
             </div>
             <button
               onClick={logout}
+              aria-label="Se déconnecter"
               className="p-2 bg-white/10 rounded-full hover:bg-white/20 transition-colors text-white"
-              title="Logout"
             >
-              <LogOut size={20} />
+              <LogOut size={20} aria-hidden="true" />
             </button>
           </div>
         </div>
@@ -104,25 +117,25 @@ const Dashboard: React.FC = () => {
         <div className="grid gap-8">
           <div className="bg-white dark:bg-zinc-900 p-8 rounded-xl border border-gray-100 dark:border-zinc-800 shadow-sm">
             <h2 className="font-serif text-2xl font-bold mb-6 flex items-center gap-3">
-              <Package size={24} /> Mes Commandes & Téléchargements
+              <Package size={24} aria-hidden="true" /> Mes Commandes & Téléchargements
             </h2>
 
             {verificationMessage && (
-              <div className={`mb-6 p-4 rounded-lg ${verificationMessage.includes('Erreur') || verificationMessage.includes('échoué') ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800'}`}>
+              <div className={`mb-6 p-4 rounded-lg ${verificationMessage.includes('Erreur') || verificationMessage.includes('échoué') ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800'}`} role="status">
                 {verificationMessage}
               </div>
             )}
 
             {orders.length === 0 ? (
-              <p className="opacity-60">Vous n'avez pas encore passé de commande.</p>
+              <p className="opacity-90">Vous n'avez pas encore passé de commande.</p>
             ) : (
               <div className="space-y-6">
                 {orders.map((order) => (
                   <div key={order._id} className="border-b border-gray-100 dark:border-zinc-800 last:border-0 pb-6 last:pb-0">
                     <div className="flex justify-between mb-4">
                       <div>
-                        <span className="font-bold text-sm uppercase tracking-wider opacity-50">Commande #{order.orderId}</span>
-                        <div className="text-sm opacity-50">{new Date(order.createdAt).toLocaleDateString()}</div>
+                        <span className="font-bold text-sm uppercase tracking-wider text-gray-700 dark:text-gray-300">Commande #{order.orderId}</span>
+                        <div className="text-sm text-gray-700 dark:text-gray-300">{new Date(order.createdAt).toLocaleDateString()}</div>
                       </div>
                       <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase flex items-center h-fit ${order.status === 'Completed'
                         ? 'bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200'
@@ -137,11 +150,19 @@ const Dashboard: React.FC = () => {
                         <div key={item.product._id || item.product.id} className="flex items-center justify-between bg-gray-50 dark:bg-zinc-800/50 p-4 rounded-lg">
                           <div className="flex items-center gap-4">
                             <div className="w-12 h-16 bg-gray-200 overflow-hidden rounded">
-                              <img src={item.product.coverImage} className="w-full h-full object-cover" alt={item.product.title} />
+                              <img
+                                src={item.product.coverImage}
+                                alt={item.product.title}
+                                width={48}
+                                height={64}
+                                loading="lazy"
+                                decoding="async"
+                                className="w-full h-full object-cover"
+                              />
                             </div>
                             <div>
                               <div className="font-bold">{item.product.title}</div>
-                              <div className="text-xs opacity-60">{item.product.artist}</div>
+                              <div className="text-xs text-gray-700 dark:text-gray-300">{item.product.artist}</div>
                             </div>
                           </div>
 
@@ -149,12 +170,13 @@ const Dashboard: React.FC = () => {
                             <button
                               onClick={() => handleDownload(order.orderId, item.product._id || item.product.id)}
                               disabled={downloading === (item.product._id || item.product.id)}
+                              aria-label={`Télécharger ${item.product.title} en PDF`}
                               className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed"
                             >
                               {downloading === (item.product._id || item.product.id) ? (
-                                <Loader size={16} className="animate-spin" />
+                                <Loader size={16} className="animate-spin" aria-hidden="true" />
                               ) : (
-                                <Download size={16} />
+                                <Download size={16} aria-hidden="true" />
                               )}
                               Télécharger PDF
                             </button>
