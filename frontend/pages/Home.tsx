@@ -17,6 +17,7 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     const fetchProducts = async () => {
+      setLoading(true);
       try {
         const response = await api.get('/products');
         // Take the first 3 products
@@ -28,7 +29,11 @@ const Home: React.FC = () => {
       }
     };
 
-    fetchProducts();
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(fetchProducts, { timeout: 3000 });
+    } else {
+      setTimeout(fetchProducts, 500);
+    }
   }, []);
 
   return (
