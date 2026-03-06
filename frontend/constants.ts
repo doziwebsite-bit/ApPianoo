@@ -3,12 +3,23 @@ import { Product, MediaItem, Order } from './types';
 // Import images as modules so Vite includes them in the build
 import logoLight from './assets/logoAlanPaul.png';
 import logoLightWebp from './assets/logoAlanPaul.webp';
+import logoLightWebp300w from './assets/logoAlanPaul-300w.webp';
+
 import logoDark from './assets/logoAlanPaul-darkmode.png';
 import logoDarkWebp from './assets/logoAlanPaul-darkmode.webp';
+import logoDarkWebp300w from './assets/logoAlanPaul-darkmode-300w.webp';
+
 import profile from './assets/AlanPaul-PP.jpg';
 import profileWebp from './assets/AlanPaul-PP.webp';
+import profileWebp300w from './assets/AlanPaul-PP-300w.webp';
+import profileWebp600w from './assets/AlanPaul-PP-600w.webp';
+import profileWebp900w from './assets/AlanPaul-PP-900w.webp';
+
 import background from './assets/AlanPaul-background.jpg';
 import backgroundWebp from './assets/AlanPaul-background.webp';
+import backgroundWebp300w from './assets/AlanPaul-background-300w.webp';
+import backgroundWebp600w from './assets/AlanPaul-background-600w.webp';
+import backgroundWebp900w from './assets/AlanPaul-background-900w.webp';
 
 // Import photos for media gallery
 import photo1 from './assets/IMG_1338.JPG';
@@ -98,10 +109,10 @@ export const MOCK_ORDERS: Order[] = [];
 export const FEATURED_PRODUCTS: Product[] = [];
 
 export const ASSETS = {
-  logoLight: { original: logoLight, webp: logoLightWebp },
-  logoDark: { original: logoDark, webp: logoDarkWebp },
-  profile: { original: profile, webp: profileWebp },
-  background: { original: background, webp: backgroundWebp }
+  logoLight: { original: logoLight, webp: logoLightWebp, webp300w: logoLightWebp300w },
+  logoDark: { original: logoDark, webp: logoDarkWebp, webp300w: logoDarkWebp300w },
+  profile: { original: profile, webp: profileWebp, webp300w: profileWebp300w, webp600w: profileWebp600w, webp900w: profileWebp900w },
+  background: { original: background, webp: backgroundWebp, webp300w: backgroundWebp300w, webp600w: backgroundWebp600w, webp900w: backgroundWebp900w }
 };
 
 export const SOCIAL_LINKS = {

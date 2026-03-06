@@ -56,7 +56,7 @@ const Home: React.FC = () => {
             <div className="w-40 h-40 md:w-56 md:h-56 mx-auto rounded-full overflow-hidden border-4 border-white/50 dark:border-gray-800 shadow-2xl relative z-10 bg-gray-100">
               <picture>
                 <source 
-                  srcSet={`/assets/AlanPaul-PP-300w.webp 300w, /assets/AlanPaul-PP-600w.webp 600w, /assets/AlanPaul-PP-900w.webp 900w, ${ASSETS.profile.webp} 1920w`}
+                  srcSet={`${ASSETS.profile.webp300w} 300w, ${ASSETS.profile.webp600w} 600w, ${ASSETS.profile.webp900w} 900w, ${ASSETS.profile.webp} 1920w`}
                   sizes="(max-width: 768px) 224px, 266px"
                   type="image/webp" 
                 />

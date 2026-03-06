@@ -87,7 +87,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               {!logoError ? (
                 <picture>
                   <source 
-                    srcSet={`/assets/logoAlanPaul${isDark ? '-darkmode' : ''}-300w.webp 300w, ${isDark ? ASSETS.logoDark.webp : ASSETS.logoLight.webp} 1876w`}
+                    srcSet={`${isDark ? ASSETS.logoDark.webp300w : ASSETS.logoLight.webp300w} 300w, ${isDark ? ASSETS.logoDark.webp : ASSETS.logoLight.webp} 1876w`}
                     sizes="48px"
                     type="image/webp" 
                   />
