@@ -45,6 +45,7 @@ export interface MediaItem {
   id: string;
   type: 'video' | 'photo' | 'music';
   url: string;
+  urlWebp?: string;
   title: string;
   aspectRatio?: 'video' | 'square';
   artist?: string;

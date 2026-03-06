@@ -19,11 +19,7 @@ const Dashboard = React.lazy(() => import('./pages/Dashboard'));
 
 // Loading fallback component
 const PageLoader = () => (
-  <div className="min-h-[60vh] flex items-center justify-center">
-    <div className="w-8 h-8 border-2 border-current border-t-transparent rounded-full animate-spin" role="status">
-      <span className="sr-only">Chargement...</span>
-    </div>
-  </div>
+  <div className="min-h-screen bg-white dark:bg-black" />
 );
 
 // Wrap lazy Legal components since they are named exports

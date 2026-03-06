@@ -55,7 +55,7 @@ const Login: React.FC = () => {
             <Lock className="h-8 w-8 text-white dark:text-black" aria-hidden="true" />
           </div>
           <h2 className="text-3xl font-serif font-bold text-gray-900 dark:text-white mb-2">Connexion</h2>
-          <p className="text-sm text-gray-600 dark:text-gray-400">
+          <p className="text-sm text-gray-700 dark:text-gray-300">
             Accédez à vos partitions et à votre espace personnel
           </p>
         </div>
@@ -99,7 +99,7 @@ const Login: React.FC = () => {
                 <span className="w-full border-t border-gray-200 dark:border-zinc-700" />
               </div>
               <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-white dark:bg-zinc-900 px-3 text-gray-400 font-medium tracking-wider">Ou continuer avec</span>
+                <span className="bg-white dark:bg-zinc-900 px-3 text-gray-600 dark:text-gray-400 font-medium tracking-wider">Ou continuer avec</span>
               </div>
             </div>
 

@@ -3,6 +3,12 @@
 /* Enable class-based dark mode (the codebase toggles .dark on <html>) */
 @custom-variant dark (&:where(.dark, .dark *));
 
+@layer base {
+  html {
+    font-size-adjust: from-font;
+  }
+}
+
 @theme {
   --font-sans: 'Inter', sans-serif;
   --font-serif: 'Playfair Display', serif;
@@ -17,6 +23,8 @@
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
+  contain: layout;
+  min-height: 100vh;
 }
 
 .dark .bg-marble-dark {
@@ -25,6 +33,8 @@
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
+  contain: layout;
+  min-height: 100vh;
 }
 
 .hide-scrollbar::-webkit-scrollbar {

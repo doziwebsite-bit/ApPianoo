@@ -18,7 +18,7 @@ const Store: React.FC = () => {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <Loader className="animate-spin text-gray-400" size={48} aria-label="Chargement des partitions" />
+        <Loader className="animate-spin text-gray-500 dark:text-gray-400" size={48} aria-label="Chargement des partitions" />
       </div>
     );
   }
@@ -81,15 +81,18 @@ const Store: React.FC = () => {
             {filteredProducts.map((product) => (
               <div key={product.id} className="group bg-white dark:bg-zinc-900 rounded-lg overflow-hidden border border-gray-100 dark:border-zinc-800 transition-all hover:shadow-lg hover:-translate-y-1">
                 <div className="relative aspect-auto overflow-hidden bg-gray-200">
-                  <img
-                    src={product.coverImage}
-                    alt={product.title}
-                    width={400}
-                    height={300}
-                    loading="lazy"
-                    decoding="async"
-                    className="w-full h-full object-cover transition-transform duration-500"
-                  />
+                  <picture>
+                    <source srcSet={product.coverImage?.replace(/\.(jpe?g|png)$/i, '.webp')} type="image/webp" />
+                    <img
+                      src={product.coverImage}
+                      alt={product.title}
+                      width={400}
+                      height={300}
+                      loading="lazy"
+                      decoding="async"
+                      className="w-full h-full object-cover transition-transform duration-500 aspect-[4/3]"
+                    />
+                  </picture>
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
                     <button
                       onClick={() => addToCart(product)}

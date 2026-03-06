@@ -61,15 +61,18 @@ Cordialement.`;
       </Helmet>
       {/* Header Hero */}
       <div className="relative py-24 bg-black text-white overflow-hidden">
-        <img
-          src="https://picsum.photos/seed/stadium/1600/900"
-          alt="Salle de spectacle pour événement musical"
-          width={1600}
-          height={900}
-          fetchPriority="high"
-          decoding="async"
-          className="absolute inset-0 w-full h-full object-cover opacity-40"
-        />
+        <picture>
+          <source srcSet="https://picsum.photos/seed/stadium/1600/900.webp" type="image/webp" />
+          <img
+            src="https://picsum.photos/seed/stadium/1600/900.jpg"
+            alt="Salle de spectacle pour événement musical"
+            width={1600}
+            height={900}
+            fetchPriority="high"
+            decoding="async"
+            className="absolute inset-0 w-full h-full object-cover opacity-40 aspect-[16/9]"
+          />
+        </picture>
         <div className="relative z-10 max-w-7xl mx-auto px-4 text-center">
           <h1 className="font-serif text-5xl md:text-7xl font-bold mb-6">Prestations Live</h1>
           <p className="text-xl max-w-2xl mx-auto opacity-90">
@@ -234,7 +237,7 @@ Cordialement.`;
             </button>
 
             <h3 className="text-xl font-bold mb-2">Copier l'adresse email</h3>
-            <p className="text-gray-600 dark:text-gray-400 mb-6 text-sm">
+            <p className="text-gray-700 dark:text-gray-300 mb-6 text-sm">
               Si le formulaire ne fonctionne pas, vous pouvez copier l'adresse email ci-dessous pour nous contacter directement.
             </p>
 

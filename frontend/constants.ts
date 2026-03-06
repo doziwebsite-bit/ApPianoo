@@ -2,15 +2,23 @@ import { Product, MediaItem, Order } from './types';
 
 // Import images as modules so Vite includes them in the build
 import logoLight from './assets/logoAlanPaul.png';
+import logoLightWebp from './assets/logoAlanPaul.webp';
 import logoDark from './assets/logoAlanPaul-darkmode.png';
+import logoDarkWebp from './assets/logoAlanPaul-darkmode.webp';
 import profile from './assets/AlanPaul-PP.jpg';
+import profileWebp from './assets/AlanPaul-PP.webp';
 import background from './assets/AlanPaul-background.jpg';
+import backgroundWebp from './assets/AlanPaul-background.webp';
 
 // Import photos for media gallery
 import photo1 from './assets/IMG_1338.JPG';
+import photo1Webp from './assets/IMG_1338.webp';
 import photo2 from './assets/IMG_1340.JPG';
+import photo2Webp from './assets/IMG_1340.webp';
 import photo3 from './assets/IMG_1342.JPG';
+import photo3Webp from './assets/IMG_1342.webp';
 import photo4 from './assets/IMG_1347.JPG';
+import photo4Webp from './assets/IMG_1347.webp';
 
 // Safe access to environment variables
 const getEnv = (key: string) => {
@@ -59,24 +67,28 @@ export const MEDIA_ITEMS: MediaItem[] = [
     id: 'p1',
     type: 'photo',
     url: photo1,
+    urlWebp: photo1Webp,
     title: 'Performance Live'
   },
   {
     id: 'p2',
     type: 'photo',
     url: photo2,
+    urlWebp: photo2Webp,
     title: 'Studio'
   },
   {
     id: 'p3',
     type: 'photo',
     url: photo3,
+    urlWebp: photo3Webp,
     title: 'Sur Scène'
   },
   {
     id: 'p4',
     type: 'photo',
     url: photo4,
+    urlWebp: photo4Webp,
     title: 'Performance'
   }
 ];
@@ -86,10 +98,10 @@ export const MOCK_ORDERS: Order[] = [];
 export const FEATURED_PRODUCTS: Product[] = [];
 
 export const ASSETS = {
-  logoLight,
-  logoDark,
-  profile,
-  background
+  logoLight: { original: logoLight, webp: logoLightWebp },
+  logoDark: { original: logoDark, webp: logoDarkWebp },
+  profile: { original: profile, webp: profileWebp },
+  background: { original: background, webp: backgroundWebp }
 };
 
 export const SOCIAL_LINKS = {

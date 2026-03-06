@@ -67,15 +67,18 @@ const Media: React.FC = () => {
                 </div>
               ) : (
                 <div className="w-full h-full relative cursor-pointer">
-                  <img
-                    src={item.url}
-                    alt={item.title}
-                    width={600}
-                    height={600}
-                    loading="lazy"
-                    decoding="async"
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
+                  <picture>
+                    {item.urlWebp && <source srcSet={item.urlWebp} type="image/webp" />}
+                    <img
+                      src={item.url}
+                      alt={item.title}
+                      width={600}
+                      height={600}
+                      loading="lazy"
+                      decoding="async"
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 aspect-square"
+                    />
+                  </picture>
                   <div className="absolute bottom-4 left-4 bg-black/50 backdrop-blur-md px-3 py-1 rounded text-white text-sm flex items-center gap-2">
                     <ImageIcon size={14} aria-hidden="true" /> Photo
                   </div>

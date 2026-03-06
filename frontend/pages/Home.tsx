@@ -49,18 +49,21 @@ const Home: React.FC = () => {
           <div className="relative inline-block mb-10">
             <div className="absolute inset-0 rounded-full bg-white blur-xl opacity-60 dark:opacity-10 transform scale-105"></div>
             <div className="w-40 h-40 md:w-56 md:h-56 mx-auto rounded-full overflow-hidden border-4 border-white/50 dark:border-gray-800 shadow-2xl relative z-10 bg-gray-100">
-              <img
-                src={ASSETS.profile}
-                alt="Alan Paul - Pianiste compositeur"
-                width={224}
-                height={224}
-                fetchPriority="high"
-                decoding="async"
-                className="w-full h-full object-cover transition-all duration-700"
-                onError={(e) => {
-                  e.currentTarget.src = "https://ui-avatars.com/api/?name=Alan+Paul&size=512&background=000&color=fff&font-size=0.33";
-                }}
-              />
+              <picture>
+                <source srcSet={ASSETS.profile.webp} type="image/webp" />
+                <img
+                  src={ASSETS.profile.original}
+                  alt="Alan Paul - Pianiste compositeur"
+                  width={224}
+                  height={224}
+                  fetchPriority="high"
+                  decoding="async"
+                  className="w-full h-full object-cover transition-all duration-700 aspect-square"
+                  onError={(e) => {
+                    e.currentTarget.src = "https://ui-avatars.com/api/?name=Alan+Paul&size=512&background=000&color=fff&font-size=0.33";
+                  }}
+                />
+              </picture>
             </div>
           </div>
 
@@ -101,15 +104,18 @@ const Home: React.FC = () => {
               {featuredProducts.map((product) => (
                 <div key={product.id || product._id} className="group flex flex-col bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md border border-white/20 dark:border-white/5 shadow-lg hover:shadow-2xl transition-all duration-500">
                   <div className="relative aspect-auto overflow-hidden bg-gray-100 dark:bg-gray-800">
-                    <img
-                      src={product.coverImage}
-                      alt={product.title}
-                      width={400}
-                      height={300}
-                      loading="lazy"
-                      decoding="async"
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
+                    <picture>
+                      <source srcSet={product.coverImage?.replace(/\.(jpe?g|png)$/i, '.webp')} type="image/webp" />
+                      <img
+                        src={product.coverImage}
+                        alt={product.title}
+                        width={400}
+                        height={300}
+                        loading="lazy"
+                        decoding="async"
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 aspect-[4/3]"
+                      />
+                    </picture>
                     <div className="absolute top-4 right-4">
                       <span className="bg-white dark:bg-black text-black dark:text-white px-3 py-1 text-xs font-bold uppercase tracking-wider shadow-sm">
                         {product.difficulty}
@@ -138,7 +144,7 @@ const Home: React.FC = () => {
             <div className="text-center mt-16">
               <Link
                 to="/store"
-                className="inline-flex items-center gap-3 text-lg font-serif italic hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+                className="inline-flex items-center gap-3 text-lg font-serif italic hover:text-gray-700 dark:hover:text-gray-200 transition-colors"
               >
                 Voir toutes les partitions <ArrowRight size={20} />
               </Link>
@@ -191,7 +197,7 @@ const Home: React.FC = () => {
             <div className="text-center mt-12">
               <Link
                 to="/media"
-                className="inline-flex items-center gap-3 text-lg font-serif italic hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+                className="inline-flex items-center gap-3 text-lg font-serif italic hover:text-gray-700 dark:hover:text-gray-200 transition-colors"
               >
                 Voir toutes les vidéos <Play size={20} />
               </Link>

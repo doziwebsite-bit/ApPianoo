@@ -97,15 +97,18 @@ const Cart: React.FC = () => {
             {items.map((item) => (
               <div key={item.id} className="flex gap-4 p-4 bg-white dark:bg-zinc-900 border border-gray-100 dark:border-zinc-800 rounded-lg shadow-sm">
                 <div className="w-20 h-24 bg-gray-200 rounded overflow-hidden flex-shrink-0">
-                  <img
-                    src={item.coverImage}
-                    alt={item.title}
-                    width={80}
-                    height={96}
-                    loading="lazy"
-                    decoding="async"
-                    className="w-full h-full object-cover"
-                  />
+                  <picture>
+                    <source srcSet={item.coverImage?.replace(/\.(jpe?g|png)$/i, '.webp')} type="image/webp" />
+                    <img
+                      src={item.coverImage}
+                      alt={item.title}
+                      width={80}
+                      height={96}
+                      loading="lazy"
+                      decoding="async"
+                      className="w-full h-full object-cover aspect-[5/6]"
+                    />
+                  </picture>
                 </div>
                 <div className="flex-grow">
                   <div className="flex justify-between items-start">
@@ -168,7 +171,7 @@ const Cart: React.FC = () => {
 
                 <div className="relative w-full my-4">
                   <div className="absolute inset-0 flex items-center"><span className="w-full border-t border-gray-300 dark:border-gray-700"></span></div>
-                  <div className="relative flex justify-center text-xs uppercase"><span className="bg-gray-50 dark:bg-zinc-900/50 px-2 text-gray-500">Ou</span></div>
+                  <div className="relative flex justify-center text-xs uppercase"><span className="bg-gray-50 dark:bg-zinc-900/50 px-2 text-gray-600 dark:text-gray-400">Ou</span></div>
                 </div>
 
                 <button
@@ -179,7 +182,7 @@ const Cart: React.FC = () => {
                   <Mail size={18} aria-hidden="true" /> Connexion par Email (Démo)
                 </button>
               </div>
-              <p className="mt-4 text-xs text-center text-gray-600 dark:text-gray-400">En continuant, vous acceptez nos conditions générales.</p>
+              <p className="mt-4 text-xs text-center text-gray-700 dark:text-gray-300">En continuant, vous acceptez nos conditions générales.</p>
             </div>
           ) : (
             <div>

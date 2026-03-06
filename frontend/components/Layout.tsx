@@ -47,7 +47,18 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     <div className={`min-h-screen flex flex-col transition-colors duration-500 ease-in-out ${isDark ? 'text-gray-100' : 'text-gray-900'}`}>
 
       {/* Background Image Layer */}
-      <div className={`fixed inset-0 z-[-2] transition-opacity duration-500 ${isDark ? 'bg-marble-dark' : 'bg-marble-light'}`}></div>
+      <div className={`fixed inset-0 z-[-2] transition-colors duration-500 ${isDark ? 'bg-black' : 'bg-white'}`}>
+        <picture>
+          <source srcSet={ASSETS.background.webp} type="image/webp" />
+          <img 
+            src={ASSETS.background.original} 
+            alt="Alan Paul background" 
+            fetchPriority="high" 
+            decoding="async" 
+            className="w-full h-full object-cover" 
+          />
+        </picture>
+      </div>
 
       {/* Overlay "Voile Blanc" for better readability over background photo */}
       <div className={`fixed inset-0 z-[-1] pointer-events-none transition-opacity duration-500 ${isDark ? 'bg-black/90' : 'bg-white/85'}`}></div>
@@ -72,15 +83,18 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             {/* Logo */}
             <div className="flex-shrink-0 flex items-center cursor-pointer gap-3" onClick={() => navigate('/')} role="link" tabIndex={0} aria-label="Retour à l'accueil - Alan Paul" onKeyDown={(e) => { if (e.key === 'Enter') navigate('/'); }}>
               {!logoError ? (
-                <img
-                  src={isDark ? ASSETS.logoDark : ASSETS.logoLight}
-                  alt="Logo Alan Paul"
-                  width={48}
-                  height={48}
-                  decoding="async"
-                  className="h-12 w-auto object-contain"
-                  onError={() => setLogoError(true)}
-                />
+                <picture>
+                  <source srcSet={isDark ? ASSETS.logoDark.webp : ASSETS.logoLight.webp} type="image/webp" />
+                  <img
+                    src={isDark ? ASSETS.logoDark.original : ASSETS.logoLight.original}
+                    alt="Logo Alan Paul"
+                    width={48}
+                    height={48}
+                    decoding="async"
+                    className="h-12 w-auto object-contain aspect-square"
+                    onError={() => setLogoError(true)}
+                  />
+                </picture>
               ) : (
                 /* Fallback si l'image est manquante */
                 <div className="h-10 w-10 bg-black dark:bg-white rounded flex items-center justify-center text-white dark:text-black font-serif font-bold text-xl">
@@ -96,7 +110,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 <Link
                   key={link.path}
                   to={link.path}
-                  className={`text-sm uppercase tracking-widest hover:text-gray-500 transition-colors ${isActive(link.path) ? 'border-b-2 border-current pb-1' : ''}`}
+                  className={`text-sm uppercase tracking-widest hover:text-gray-700 dark:hover:text-gray-300 transition-colors ${isActive(link.path) ? 'border-b-2 border-current pb-1' : ''}`}
                   aria-current={isActive(link.path) ? 'page' : undefined}
                 >
                   {link.name}
@@ -109,7 +123,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               <button
                 onClick={toggleTheme}
                 aria-label={isDark ? 'Passer en mode clair' : 'Passer en mode sombre'}
-                className="p-1 hover:text-gray-500 transition-colors"
+                className="p-1 hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
               >
                 {isDark ? <Sun size={20} aria-hidden="true" /> : <Moon size={20} aria-hidden="true" />}
               </button>
@@ -117,13 +131,13 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               <button
                 onClick={handleUserClick}
                 aria-label={isAuthenticated ? "Accéder à mon compte" : "Se connecter"}
-                className="p-1 hover:text-gray-500 transition-colors relative"
+                className="p-1 hover:text-gray-700 dark:hover:text-gray-300 transition-colors relative"
               >
                 <User size={20} aria-hidden="true" />
                 {isAuthenticated && <span className="absolute -top-1 -right-1 w-2 h-2 bg-green-500 rounded-full" aria-hidden="true"></span>}
               </button>
 
-              <Link to="/cart" aria-label={`Panier (${items.length} article${items.length !== 1 ? 's' : ''})`} className="p-1 hover:text-gray-500 transition-colors relative">
+              <Link to="/cart" aria-label={`Panier (${items.length} article${items.length !== 1 ? 's' : ''})`} className="p-1 hover:text-gray-700 dark:hover:text-gray-300 transition-colors relative">
                 <ShoppingCart size={20} aria-hidden="true" />
                 {items.length > 0 && (
                   <span className="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full" aria-hidden="true">
@@ -161,7 +175,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       </main>
 
       {/* Footer */}
-      <footer className={`border-t py-12 ${isDark ? 'bg-black/80 border-gray-800 text-gray-400' : 'bg-white/80 border-gray-200 text-gray-600'}`}>
+      <footer className={`border-t py-12 ${isDark ? 'bg-black/80 border-gray-800 text-gray-400' : 'bg-white/80 border-gray-200 text-gray-700'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center">
 
           <nav className="flex flex-wrap justify-center gap-8 mb-8" aria-label="Réseaux sociaux">
@@ -186,7 +200,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             </a>
 
             {/* Apple Music */}
-            <a href={SOCIAL_LINKS.appleMusic} target="_blank" rel="noopener noreferrer" className="hover:text-gray-400 transition-colors" aria-label="Apple Music - Alan Paul">
+            <a href={SOCIAL_LINKS.appleMusic} target="_blank" rel="noopener noreferrer" className="hover:text-gray-600 dark:hover:text-gray-300 transition-colors" aria-label="Apple Music - Alan Paul">
               <SocialIcon path="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.74 1.18 0 2.21-.93 3.69-.93 1.55.05 2.62.66 3.38 1.63-3.31 1.62-2.71 5.3 1.18 6.53-.9 2.56-2.09 4.69-3.33 4.96zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z" />
             </a>
 

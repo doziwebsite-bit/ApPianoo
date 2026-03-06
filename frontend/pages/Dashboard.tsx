@@ -90,15 +90,20 @@ const Dashboard: React.FC = () => {
         <div className="bg-white dark:bg-zinc-900 rounded-2xl shadow-lg overflow-hidden mb-8">
           <div className="p-8 bg-gradient-to-r from-gray-900 to-black text-white flex items-center justify-between">
             <div className="flex items-center gap-6">
-              <img
-                src={user?.avatarUrl || "https://ui-avatars.com/api/?name=" + user?.name}
-                alt={`Photo de profil de ${user?.name}`}
-                width={80}
-                height={80}
-                loading="lazy"
-                decoding="async"
-                className="w-20 h-20 rounded-full border-4 border-white/20"
-              />
+              <picture>
+                {user?.avatarUrl?.match(/\.(jpe?g|png)$/i) && (
+                  <source srcSet={user.avatarUrl.replace(/\.(jpe?g|png)$/i, '.webp')} type="image/webp" />
+                )}
+                <img
+                  src={user?.avatarUrl || "https://ui-avatars.com/api/?name=" + user?.name}
+                  alt={`Photo de profil de ${user?.name}`}
+                  width={80}
+                  height={80}
+                  loading="lazy"
+                  decoding="async"
+                  className="w-20 h-20 rounded-full border-4 border-white/20 aspect-square"
+                />
+              </picture>
               <div>
                 <h1 className="text-3xl font-serif font-bold">{user?.name}</h1>
                 <p className="opacity-90">{user?.email}</p>
@@ -150,15 +155,18 @@ const Dashboard: React.FC = () => {
                         <div key={item.product._id || item.product.id} className="flex items-center justify-between bg-gray-50 dark:bg-zinc-800/50 p-4 rounded-lg">
                           <div className="flex items-center gap-4">
                             <div className="w-12 h-16 bg-gray-200 overflow-hidden rounded">
-                              <img
-                                src={item.product.coverImage}
-                                alt={item.product.title}
-                                width={48}
-                                height={64}
-                                loading="lazy"
-                                decoding="async"
-                                className="w-full h-full object-cover"
-                              />
+                              <picture>
+                                <source srcSet={item.product.coverImage?.replace(/\.(jpe?g|png)$/i, '.webp')} type="image/webp" />
+                                <img
+                                  src={item.product.coverImage}
+                                  alt={item.product.title}
+                                  width={48}
+                                  height={64}
+                                  loading="lazy"
+                                  decoding="async"
+                                  className="w-full h-full object-cover aspect-[3/4]"
+                                />
+                              </picture>
                             </div>
                             <div>
                               <div className="font-bold">{item.product.title}</div>
