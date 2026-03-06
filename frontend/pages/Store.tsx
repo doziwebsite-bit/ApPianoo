@@ -79,7 +79,7 @@ const Store: React.FC = () => {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
             {filteredProducts.map((product) => (
-              <div key={product.id} className="group bg-white dark:bg-zinc-900 rounded-lg overflow-hidden border border-gray-100 dark:border-zinc-800 transition-all hover:shadow-lg hover:-translate-y-1">
+              <div key={product.id} className="group bg-white dark:bg-zinc-900 rounded-2xl overflow-hidden border border-gray-100 dark:border-zinc-800 transition-all hover:shadow-lg hover:-translate-y-1">
                 <div className="relative aspect-auto overflow-hidden bg-gray-200">
                   <picture>
                     <source srcSet={product.coverImage?.replace(/\.(jpe?g|png)$/i, '.webp')} type="image/webp" />
@@ -97,7 +97,7 @@ const Store: React.FC = () => {
                     <button
                       onClick={() => addToCart(product)}
                       aria-label={`Ajout rapide de ${product.title} au panier`}
-                      className="bg-white text-black px-6 py-3 font-bold uppercase tracking-wide text-xs transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300"
+                      className="bg-white text-black rounded-full px-6 py-3 font-bold uppercase tracking-wide text-xs transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300"
                     >
                       Quick Add
                     </button>

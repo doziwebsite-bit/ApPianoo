@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { GoogleOAuthProvider } from '@react-oauth/google';
+// Removed GoogleOAuthProvider from root
 import { HelmetProvider } from 'react-helmet-async';
 import { ThemeProvider } from './context/ThemeContext';
 import { CartProvider } from './context/CartContext';
@@ -42,7 +42,6 @@ const App: React.FC = () => {
 
   return (
     <HelmetProvider>
-    <GoogleOAuthProvider clientId={clientId}>
       <ThemeProvider>
         <AuthProviderContext>
           <CartProvider>
@@ -72,7 +71,6 @@ const App: React.FC = () => {
           </CartProvider>
         </AuthProviderContext>
       </ThemeProvider>
-    </GoogleOAuthProvider>
     </HelmetProvider>
   );
 };

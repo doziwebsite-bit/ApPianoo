@@ -102,7 +102,7 @@ const Home: React.FC = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
               {featuredProducts.map((product) => (
-                <div key={product.id || product._id} className="group flex flex-col bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md border border-white/20 dark:border-white/5 shadow-lg hover:shadow-2xl transition-all duration-500">
+                <div key={product.id || product._id} className="group flex flex-col bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md rounded-2xl overflow-hidden border border-white/20 dark:border-white/5 shadow-lg hover:shadow-2xl transition-all duration-500">
                   <div className="relative aspect-auto overflow-hidden bg-gray-100 dark:bg-gray-800">
                     <picture>
                       <source srcSet={product.coverImage?.replace(/\.(jpe?g|png)$/i, '.webp')} type="image/webp" />
@@ -117,7 +117,7 @@ const Home: React.FC = () => {
                       />
                     </picture>
                     <div className="absolute top-4 right-4">
-                      <span className="bg-white dark:bg-black text-black dark:text-white px-3 py-1 text-xs font-bold uppercase tracking-wider shadow-sm">
+                      <span className="bg-white dark:bg-black rounded-md text-black dark:text-white px-3 py-1 text-xs font-bold uppercase tracking-wider shadow-sm">
                         {product.difficulty}
                       </span>
                     </div>
@@ -131,7 +131,7 @@ const Home: React.FC = () => {
                       <button
                         onClick={() => addToCart(product)}
                         aria-label={`Ajouter ${product.title} au panier`}
-                        className="bg-transparent border border-black dark:border-white text-black dark:text-white px-6 py-2 text-sm font-bold uppercase tracking-wider hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all"
+                        className="bg-transparent border border-black dark:border-white rounded-full text-black dark:text-white px-6 py-2 text-sm font-bold uppercase tracking-wider hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all"
                       >
                         Ajouter
                       </button>
@@ -185,8 +185,7 @@ const Home: React.FC = () => {
                     title={media.title}
                     className="w-full h-full"
                     frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    referrerPolicy="strict-origin-when-cross-origin"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
                     loading="lazy"
                   ></iframe>

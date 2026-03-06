@@ -45,21 +45,21 @@ export const MEDIA_ITEMS: MediaItem[] = [
   {
     id: 'v2',
     type: 'video',
-    url: 'https://www.youtube.com/embed/Vyzbjwggu5o',
+    url: 'https://www.youtube-nocookie.com/embed/Vyzbjwggu5o',
     title: 'AmberWood',
     aspectRatio: 'square'
   },
   {
     id: 'v3',
     type: 'video',
-    url: 'https://www.youtube.com/embed/vXuaxDCOQww',
+    url: 'https://www.youtube-nocookie.com/embed/vXuaxDCOQww',
     title: 'Mountains',
     aspectRatio: 'square'
   },
   {
     id: 'v4',
     type: 'video',
-    url: 'https://www.youtube.com/embed/wG9_ueAImEw',
+    url: 'https://www.youtube-nocookie.com/embed/wG9_ueAImEw',
     title: 'Amberwood (Piano)',
     aspectRatio: 'video'
   },
@@ -108,12 +108,10 @@ export const SOCIAL_LINKS = {
   youtube: 'https://youtube.com/@alanpaul3228?si=7i1bxxkLPH6h2ZDP',
   instagram: 'https://www.instagram.com/ap_pianoo?igsh=N2xxejJ4ZXhhZWx2',
   tiktok: 'https://www.tiktok.com/@ap_pianoo?_r=1&_t=ZN-92BxBFnuRzq',
-  // J'ai aussi mis à jour le lien vers votre profil ici (basé sur l'ID de votre player)
-  spotify: 'https://open.spotify.com/artist/31S1mTXNi966zuuQ68QKD',
+  spotify: 'https://open.spotify.com/intl-fr/artist/0ljNExkPR9XODrWAwSHgUI?si=6sYX7GebSt6EHnAV0umSSA',
   appleMusic: 'https://music.apple.com/fr/artist/alan-paul/1838344951?ls',
   deezer: 'https://link.deezer.com/s/31S1mTXNi966zuuQ68QKD'
 };
 
 // URL exacte extraite de votre code iframe
 export const SPOTIFY_EMBED_URL = 'https://open.spotify.com/embed/artist/31S1mTXNi966zuuQ68QKD?utm_source=generator';
-

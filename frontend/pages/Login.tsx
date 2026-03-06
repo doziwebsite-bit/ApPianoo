@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { ENV } from '../constants';
 import { AuthProvider } from '../types';
 import { useAuth } from '../context/AuthContext';
-import { GoogleLogin } from '@react-oauth/google';
+import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
 import { AlertCircle, Mail, Lock } from 'lucide-react';
 import { jwtDecode } from 'jwt-decode';
 
@@ -118,4 +118,13 @@ const Login: React.FC = () => {
   );
 };
 
-export default Login;
+const LoginWithProvider = () => {
+  const clientId = ENV.GOOGLE_CLIENT_ID || "MISSING_GOOGLE_CLIENT_ID";
+  return (
+    <GoogleOAuthProvider clientId={clientId}>
+      <Login />
+    </GoogleOAuthProvider>
+  );
+};
+
+export default LoginWithProvider;

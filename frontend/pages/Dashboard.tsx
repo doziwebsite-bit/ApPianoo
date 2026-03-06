@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import { ENV } from '../constants';
 import { Helmet } from 'react-helmet-async';
 import { useAuth } from '../context/AuthContext';
 import { Download, Package, LogOut, Loader } from 'lucide-react';
@@ -203,4 +205,13 @@ const Dashboard: React.FC = () => {
   );
 };
 
-export default Dashboard;
+const DashboardWithProvider = () => {
+  const clientId = ENV.GOOGLE_CLIENT_ID || "MISSING_GOOGLE_CLIENT_ID";
+  return (
+    <GoogleOAuthProvider clientId={clientId}>
+      <Dashboard />
+    </GoogleOAuthProvider>
+  );
+};
+
+export default DashboardWithProvider;
