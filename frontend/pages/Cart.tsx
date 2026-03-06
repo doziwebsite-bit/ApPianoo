@@ -47,7 +47,7 @@ const Cart: React.FC = () => {
         },
         body: JSON.stringify({
           items,
-          userId: user?.id
+          userId: user?.id || (user as any)?._id
         }),
       });
 
