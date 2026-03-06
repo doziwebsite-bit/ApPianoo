@@ -23,6 +23,7 @@ app.use(cors({
         process.env.FRONTEND_URL,
         process.env.FRONTEND_URL_PROD,
         process.env.FRONTEND_URL_PROD_TEST,
+        'https://appianoo.netlify.app', // Site de production Netlify
         'https://appianotest.netlify.app', // Site de test Netlify
         'http://localhost:5173' // Localhost fallback
     ],
