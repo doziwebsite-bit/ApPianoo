@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { MEDIA_ITEMS } from '../constants';
 import { Image as ImageIcon } from 'lucide-react';
-import YouTubeFacade from '../components/YouTubeFacade';
 
 const Media: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'all' | 'video' | 'photo'>('all');
@@ -55,11 +54,15 @@ const Media: React.FC = () => {
             >
               {item.type === 'video' ? (
                 <div className="w-full h-full relative flex items-center justify-center bg-black">
-                  <YouTubeFacade 
-                    videoId={item.url.split('/').pop()?.split('?')[0] || ''} 
-                    title={item.title} 
+                  <iframe
+                    src={item.url}
+                    title={item.title}
                     className="w-full h-full"
-                  />
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    loading="lazy"
+                  ></iframe>
                 </div>
               ) : (
                 <div className="w-full h-full relative cursor-pointer">

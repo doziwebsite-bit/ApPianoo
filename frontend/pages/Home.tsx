@@ -3,7 +3,6 @@ import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Play } from 'lucide-react';
 import { ASSETS, MEDIA_ITEMS } from '../constants';
-import YouTubeFacade from '../components/YouTubeFacade';
 import { useCart } from '../context/CartContext';
 import api from '../services/api';
 import { Product } from '../types';
@@ -185,11 +184,15 @@ const Home: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
               {featuredMedia.map((media) => (
                 <div key={media.id} className={`w-full ${media.aspectRatio === 'square' ? 'aspect-square max-w-[400px]' : 'aspect-video'} mx-auto overflow-hidden rounded-lg shadow-2xl flex items-center justify-center bg-black`}>
-                  <YouTubeFacade 
-                    videoId={media.url.split('/').pop()?.split('?')[0] || ''} 
-                    title={media.title} 
+                  <iframe
+                    src={media.url}
+                    title={media.title}
                     className="w-full h-full"
-                  />
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    loading="lazy"
+                  ></iframe>
                 </div>
               ))}
             </div>
