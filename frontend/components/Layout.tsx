@@ -68,7 +68,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       {/* Sticky Header */}
       <header className={`sticky top-0 z-50 backdrop-blur-md border-b transition-colors duration-300 ${isDark ? 'bg-black/60 border-gray-800' : 'bg-white/60 border-gray-200'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-20">
+          <div className="flex justify-between items-center h-20 relative">
 
             {/* Mobile Menu Button */}
             <div className="flex items-center md:hidden">
@@ -82,8 +82,15 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               </button>
             </div>
 
-            {/* Logo */}
-            <div className="flex-shrink-0 flex items-center cursor-pointer gap-3" onClick={() => navigate('/')} role="link" tabIndex={0} aria-label="Retour à l'accueil - Alan Paul" onKeyDown={(e) => { if (e.key === 'Enter') navigate('/'); }}>
+            {/* Logo - Centered on mobile, left-aligned on desktop */}
+            <div 
+              className="flex-shrink-0 flex items-center cursor-pointer gap-3 absolute left-1/2 -translate-x-1/2 md:static md:translate-x-0" 
+              onClick={() => navigate('/')} 
+              role="link" 
+              tabIndex={0} 
+              aria-label="Retour à l'accueil - Alan Paul" 
+              onKeyDown={(e) => { if (e.key === 'Enter') navigate('/'); }}
+            >
               {!logoError ? (
                 <picture>
                   <source 
