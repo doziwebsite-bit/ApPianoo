@@ -59,20 +59,7 @@ Cordialement.`;
         <meta property="og:description" content="Animation musicale live pour tous vos événements. Demandez un devis personnalisé." />
         <meta property="og:url" content="https://appianoo.netlify.app/services" />
       </Helmet>
-      {/* Header Hero */}
       <div className="relative py-24 bg-black text-white overflow-hidden">
-        <picture>
-          <source srcSet="https://picsum.photos/seed/stadium/1600/900.webp" type="image/webp" />
-          <img
-            src="https://picsum.photos/seed/stadium/1600/900.jpg"
-            alt="Salle de spectacle pour événement musical"
-            width={1600}
-            height={900}
-            fetchPriority="high"
-            decoding="async"
-            className="absolute inset-0 w-full h-full object-cover opacity-40 aspect-[16/9]"
-          />
-        </picture>
         <div className="relative z-10 max-w-7xl mx-auto px-4 text-center">
           <h1 className="font-serif text-5xl md:text-7xl font-bold mb-6">Prestations Live</h1>
           <p className="text-xl max-w-2xl mx-auto opacity-90">

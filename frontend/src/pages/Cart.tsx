@@ -13,9 +13,7 @@ const Cart: React.FC = () => {
   const { isAuthenticated, login, user } = useAuth();
   const [authError, setAuthError] = useState<string | null>(null);
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(false);
 
-  // Check if keys are configured
   const isConfigured = ENV.GOOGLE_CLIENT_ID;
 
   const handleGoogleSuccess = (credentialResponse: any) => {
@@ -39,7 +37,6 @@ const Cart: React.FC = () => {
   };
 
   const handleCheckout = async () => {
-    setIsLoading(true);
     try {
       const response = await fetch(`${API_CONFIG.baseURL}/stripe/create-checkout-session`, {
         method: 'POST',
@@ -57,7 +54,6 @@ const Cart: React.FC = () => {
       if (error) {
         console.error('Checkout error:', error);
         alert('Une erreur est survenue lors de la création de la session de paiement.');
-        setIsLoading(false);
         return;
       }
 
@@ -67,7 +63,6 @@ const Cart: React.FC = () => {
     } catch (err) {
       console.error('Checkout error:', err);
       alert('Une erreur est survenue.');
-      setIsLoading(false);
     }
   };
 
@@ -89,8 +84,6 @@ const Cart: React.FC = () => {
         <meta name="description" content="Votre panier d'achat de partitions Alan Paul." />
       </Helmet>
       <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16">
-
-        {/* Cart Items */}
         <div>
           <h2 className="font-serif text-3xl font-bold mb-8">Votre Panier</h2>
           <div className="space-y-6">
@@ -133,7 +126,6 @@ const Cart: React.FC = () => {
           </div>
         </div>
 
-        {/* Checkout / Auth Wall */}
         <div className="bg-gray-50 dark:bg-zinc-900/50 p-8 rounded-2xl h-fit border border-gray-200 dark:border-zinc-800">
           {!isConfigured && (
             <div className="mb-6 p-4 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-200 text-sm rounded flex items-start gap-2" role="alert">
@@ -197,11 +189,10 @@ const Cart: React.FC = () => {
 
               <button
                 onClick={handleCheckout}
-                disabled={isLoading}
                 aria-label="Procéder au paiement"
                 className="w-full bg-black dark:bg-white text-white dark:text-black py-4 rounded-lg font-bold text-lg hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
-                {isLoading ? 'Redirection...' : 'Payer maintenant'}
+                Payer maintenant
               </button>
             </div>
           )}

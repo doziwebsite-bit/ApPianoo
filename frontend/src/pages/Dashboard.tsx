@@ -16,10 +16,8 @@ const Dashboard: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Verify payment session if present in URL
   useEffect(() => {
     const verifyPayment = async () => {
-      // Prioritize search params (standard), fallback to hash hacking if necessary (but likely not with proper redirect)
       const searchParams = new URLSearchParams(location.search);
       const sessionId = searchParams.get('session_id');
 
@@ -32,11 +30,9 @@ const Dashboard: React.FC = () => {
 
           if (response.data.status === 'created' || response.data.status === 'already_processed') {
             setVerificationMessage("Paiement validé ! Votre commande est prête.");
-            // Add the new order to the list
             if (response.data.order) {
               addOrder(response.data.order);
             }
-            // Remove session_id from URL to prevent re-verification
             navigate('/dashboard', { replace: true });
           } else {
             setVerificationMessage("Le paiement est en attente ou a échoué.");
@@ -46,7 +42,6 @@ const Dashboard: React.FC = () => {
           setVerificationMessage("Erreur lors de la vérification du paiement.");
         } finally {
           setVerifying(false);
-          // Clear message after 5 seconds
           setTimeout(() => setVerificationMessage(null), 5000);
         }
       }
@@ -62,14 +57,12 @@ const Dashboard: React.FC = () => {
   const handleDownload = async (orderId: string, productId: string) => {
     try {
       setDownloading(productId);
-      // Call backend to get/generate download links
       const response = await api.post(`/orders/${orderId}/download-links`);
       const links = response.data.downloadLinks;
 
       const link = links.find((l: any) => l.productId === productId);
 
       if (link) {
-        // Open in new tab
         window.open(link.url, '_blank');
       } else {
         alert("Lien de téléchargement non trouvé.");
@@ -97,13 +90,16 @@ const Dashboard: React.FC = () => {
                   <source srcSet={user.avatarUrl.replace(/\.(jpe?g|png)$/i, '.webp')} type="image/webp" />
                 )}
                 <img
-                  src={user?.avatarUrl || "https://ui-avatars.com/api/?name=" + user?.name}
+                  src={user?.avatarUrl}
                   alt={`Photo de profil de ${user?.name}`}
                   width={80}
                   height={80}
                   loading="lazy"
                   decoding="async"
                   className="w-20 h-20 rounded-full border-4 border-white/20 aspect-square"
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none';
+                  }}
                 />
               </picture>
               <div>

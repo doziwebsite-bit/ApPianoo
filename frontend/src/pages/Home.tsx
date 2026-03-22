@@ -12,7 +12,6 @@ const Home: React.FC = () => {
   const [featuredProducts, setFeaturedProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // Get the first 3 items (prioritizing videos) to show on homepage
   const featuredMedia = MEDIA_ITEMS.slice(0, 3);
 
   useEffect(() => {
@@ -20,7 +19,6 @@ const Home: React.FC = () => {
       setLoading(true);
       try {
         const response = await api.get('/products');
-        // Take the first 3 products
         setFeaturedProducts(response.data.slice(0, 3));
       } catch (error) {
         console.error('Error fetching products:', error);
@@ -29,11 +27,7 @@ const Home: React.FC = () => {
       }
     };
 
-    if ('requestIdleCallback' in window) {
-      requestIdleCallback(fetchProducts, { timeout: 3000 });
-    } else {
-      setTimeout(fetchProducts, 500);
-    }
+    fetchProducts();
   }, []);
 
   return (
@@ -69,7 +63,7 @@ const Home: React.FC = () => {
                   decoding="async"
                   className="w-full h-full object-cover transition-all duration-700 aspect-square"
                   onError={(e) => {
-                    e.currentTarget.src = "https://ui-avatars.com/api/?name=Alan+Paul&size=512&background=000&color=fff&font-size=0.33";
+                    e.currentTarget.style.display = 'none';
                   }}
                 />
               </picture>
