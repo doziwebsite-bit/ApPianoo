@@ -192,6 +192,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             <Link to="/mentions-legales" className="hover:underline">Mentions Légales</Link>
             <Link to="/politique-confidentialite" className="hover:underline">Politique de Confidentialité</Link>
             <Link to="/cgu" className="hover:underline">CGU</Link>
+            <Link to="/cgv" className="hover:underline">CGV</Link>
           </nav>
         </div>
       </footer>

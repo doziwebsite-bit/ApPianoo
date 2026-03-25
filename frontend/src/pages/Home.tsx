@@ -162,13 +162,16 @@ const Home: React.FC = () => {
           <h2 className="font-serif text-4xl md:text-5xl font-bold mb-10">À propos d'Alan</h2>
           <div className="text-lg md:text-xl leading-relaxed opacity-90 mb-12 font-light space-y-6">
             <p>
-              Alan Paul est un pianiste compositeur dont le talent transcende les genres et les scènes. Reconnu pour sa virtuosité, il fusionne la complexité du classique avec l'énergie du jazz et les rythmes contemporains pour créer un son unique.
+              Alan Paul, pianiste et compositeur autodidacte, possède un parcours artistique marqué par une curiosité et une ouverture constantes aux différents styles musicaux. Adolescent, émerveillé par l’improvisation jazz, le style classique et les sonorités contemporaines, il travaille chaque jour au piano et développe un langage musical personnel, raffiné et vivant, dans lequel la maîtrise de l’improvisation occupe une place centrale.
             </p>
             <p>
-              Sa passion l'a mené des studios d'enregistrement aux plus grands événements sportifs, où il s'est fait connaître pour son rôle d'animateur musical. Alan Paul apporte une dimension inédite aux rencontres sportives, en particulier lors des matchs de basketball. Son clavier est une véritable palette sonore, intégrant notamment des sonorités d'orgue massives qu'il revisite avec une touche de modernité surprenante. Son piano devient la bande sonore officielle qui insuffle une ambiance électrique à chaque quart-temps. Il ne se limite pas à animer les pauses et les temps morts, mais est le véritable directeur musical de l'atmosphère, son influence s'étendant bien au-delà des interruptions du jeu.
+              Sur les terrains de sport, Alan Paul s’est fait remarquer par son rôle original à l’orgue. Il revisite avec inventivité les sons emblématiques des sports internationaux et les enrichit de gimmicks sonores variés, insufflant une énergie électrique et une ambiance immersive qui accompagnent chaque instant du match. Bien plus qu’un simple fond musical, son jeu participe pleinement à l’expérience collective vécue par le public et les joueurs.
             </p>
             <p>
-              Mais Alan Paul ne se limite pas au sport : son répertoire dynamique et improvisé s'adapte à une vaste gamme d'événements, des galas aux concerts intimistes. Il compose une musique qui est à la fois sophistiquée et accessible, captivant le public par sa technique impeccable et sa capacité à communiquer l'émotion à travers chaque note jouée sur le clavier.
+              En dehors des événements sportifs, Alan Paul consacre la plus grande partie de son temps à la composition. Profondément inspiré par la nature, il crée des œuvres originales qui expriment une quête permanente de découverte du monde. Qu’il se produise lors de galas prestigieux, de réceptions privées ou de concerts intimistes, il y déploie une énergie unique à travers un répertoire original. Ses prestations sont accessibles et chargées d’émotion, et l’étonnement reste le même pour tous.
+            </p>
+            <p>
+              À travers ses différentes interventions, Alan Paul continue d’explorer les multiples facettes de la musique en live, avec une exigence artistique sincère et une joie communicative qui séduisent un public toujours plus large.
             </p>
           </div>
         </div>

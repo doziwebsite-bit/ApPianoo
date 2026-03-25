@@ -187,8 +187,25 @@ const Cart: React.FC = () => {
                 <div className="text-xs text-gray-700 dark:text-gray-300 truncate">{user?.email}</div>
               </div>
 
+              <div className="mb-6 flex items-start gap-3">
+                <input 
+                  type="checkbox" 
+                  id="cguCheck" 
+                  className="mt-1 w-4 h-4 rounded border-gray-300 text-black focus:ring-black"
+                  onChange={(e) => {
+                    const btn = document.getElementById('checkoutBtn') as HTMLButtonElement;
+                    if (btn) btn.disabled = !e.target.checked;
+                  }}
+                />
+                <label htmlFor="cguCheck" className="text-sm text-gray-700 dark:text-gray-300">
+                  J'ai lu et j'accepte les <a href="/cgu" target="_blank" className="underline hover:text-black dark:hover:text-white">Conditions Générales de Vente et d'Utilisation (CGV/CGU)</a>.
+                </label>
+              </div>
+
               <button
+                id="checkoutBtn"
                 onClick={handleCheckout}
+                disabled={true}
                 aria-label="Procéder au paiement"
                 className="w-full bg-black dark:bg-white text-white dark:text-black py-4 rounded-lg font-bold text-lg hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
