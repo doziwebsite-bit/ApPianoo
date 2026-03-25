@@ -6,6 +6,7 @@ import { AuthProvider } from '../types';
 import { useNavigate } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';
 import { ENV, API_CONFIG } from '../constants';
+import api from '../services/api';
 
 const Cart: React.FC = () => {
   const { items, removeFromCart, cartTotal, clearCart } = useCart();
@@ -37,18 +38,12 @@ const Cart: React.FC = () => {
 
   const handleCheckout = async () => {
     try {
-      const response = await fetch(`${API_CONFIG.baseURL}/stripe/create-checkout-session`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          items,
-          userId: user?.id || (user as any)?._id
-        }),
+      const response = await api.post('/stripe/create-checkout-session', {
+        items,
+        userId: user?.id || (user as any)?._id
       });
 
-      const { url, error } = await response.json();
+      const { url, error } = response.data;
 
       if (error) {
         console.error('Checkout error:', error);
@@ -59,9 +54,10 @@ const Cart: React.FC = () => {
       if (url) {
         window.location.href = url;
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error('Checkout error:', err);
-      alert('Une erreur est survenue.');
+      const errorMessage = err.response?.data?.error || err.message || 'Une erreur est survenue.';
+      alert(errorMessage);
     }
   };
 
