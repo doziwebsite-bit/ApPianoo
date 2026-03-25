@@ -2,8 +2,8 @@ import { Product, MediaItem, Order } from './types';
 
 // Import images as modules so Vite includes them in the build
 
-import logoLightWebp from './assets/logoAlanPaul.webp';
-import logoDarkWebp from './assets/logoAlanPaul-darkmode.webp';
+import logoLightWebp from './assets/logoAlanPaul.svg';
+import logoDarkWebp from './assets/logoAlanPaul-darkmode.svg';
 import profileWebp from './assets/AlanPaul-PP.webp';
 import backgroundWebp from './assets/AlanPaul-background.webp';
 
@@ -99,7 +99,7 @@ export const ASSETS = {
 export const SOCIAL_LINKS = {
   youtube: 'https://youtube.com/@alanpaul3228?si=7i1bxxkLPH6h2ZDP',
   instagram: 'https://www.instagram.com/ap_pianoo?igsh=N2xxejJ4ZXhhZWx2',
-  tiktok: 'https://www.tiktok.com/@ap_pianoo?_r=1&_t=ZN-92BxBFnuRzq',
+  tiktok: 'https://www.tiktok.com/@ap_pianoo',
   spotify: 'https://open.spotify.com/intl-fr/artist/0ljNExkPR9XODrWAwSHgUI?si=6sYX7GebSt6EHnAV0umSSA',
   appleMusic: 'https://music.apple.com/fr/artist/alan-paul/1838344951?ls',
   deezer: 'https://link.deezer.com/s/31S1mTXNi966zuuQ68QKD'

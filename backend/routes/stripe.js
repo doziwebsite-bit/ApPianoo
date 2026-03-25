@@ -52,7 +52,7 @@ router.post('/create-checkout-session', async (req, res) => {
                 currency: 'eur',
                 product_data: {
                     name: item.title,
-                    images: item.coverImage ? [item.coverImage] : [],
+                    images: item.coverImage && item.coverImage.startsWith('http') ? [item.coverImage] : [],
                     metadata: {
                         productId: item.id || item._id
                     }

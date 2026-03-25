@@ -12,6 +12,7 @@ const Cart: React.FC = () => {
   const { items, removeFromCart, cartTotal, clearCart } = useCart();
   const { isAuthenticated, login, user } = useAuth();
   const [authError, setAuthError] = useState<string | null>(null);
+  const [isCgvAccepted, setIsCgvAccepted] = useState(false);
   const navigate = useNavigate();
 
   const isConfigured = ENV.GOOGLE_CLIENT_ID;
@@ -187,10 +188,8 @@ const Cart: React.FC = () => {
                   type="checkbox" 
                   id="cguCheck" 
                   className="mt-1 w-4 h-4 rounded border-gray-300 text-black focus:ring-black"
-                  onChange={(e) => {
-                    const btn = document.getElementById('checkoutBtn') as HTMLButtonElement;
-                    if (btn) btn.disabled = !e.target.checked;
-                  }}
+                  checked={isCgvAccepted}
+                  onChange={(e) => setIsCgvAccepted(e.target.checked)}
                 />
                 <label htmlFor="cguCheck" className="text-sm text-gray-700 dark:text-gray-300">
                   J'ai lu et j'accepte les <a href="/cgu" target="_blank" className="underline hover:text-black dark:hover:text-white">Conditions Générales de Vente et d'Utilisation (CGV/CGU)</a>.
@@ -200,7 +199,7 @@ const Cart: React.FC = () => {
               <button
                 id="checkoutBtn"
                 onClick={handleCheckout}
-                disabled={true}
+                disabled={!isCgvAccepted}
                 aria-label="Procéder au paiement"
                 className="w-full bg-black dark:bg-white text-white dark:text-black py-4 rounded-lg font-bold text-lg hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
