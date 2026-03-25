@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useCart } from '../context/CartContext';
-import { Filter, Search, Loader } from 'lucide-react';
 import { useProducts } from '../hooks/useProducts';
 
 const Store: React.FC = () => {
@@ -18,7 +17,7 @@ const Store: React.FC = () => {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <Loader className="animate-spin text-gray-500 dark:text-gray-400" size={48} aria-label="Chargement des partitions" />
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="animate-spin text-gray-500 dark:text-gray-400" aria-label="Chargement des partitions"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
       </div>
     );
   }
@@ -50,7 +49,7 @@ const Store: React.FC = () => {
 
           <div className="flex items-center gap-4 bg-white dark:bg-zinc-900 p-2 rounded-lg shadow-sm border border-gray-100 dark:border-zinc-800">
             <div className="flex items-center px-2 opacity-90" aria-hidden="true">
-              <Filter size={18} />
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
             </div>
             <div className="flex gap-2" role="group" aria-label="Filtrer par difficulté">
               {difficulties.map(diff => (
@@ -73,7 +72,7 @@ const Store: React.FC = () => {
 
         {filteredProducts.length === 0 ? (
           <div className="py-20 text-center opacity-90">
-            <Search size={48} className="mx-auto mb-4 opacity-90" aria-hidden="true" />
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mx-auto mb-4 opacity-90" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
             <p>Aucune partition trouvée pour ce filtre.</p>
           </div>
         ) : (

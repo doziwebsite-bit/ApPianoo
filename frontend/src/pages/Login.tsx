@@ -5,7 +5,6 @@ import { ENV } from '../constants';
 import { AuthProvider } from '../types';
 import { useAuth } from '../context/AuthContext';
 import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
-import { AlertCircle, Mail, Lock } from 'lucide-react';
 import { jwtDecode } from 'jwt-decode';
 
 const Login: React.FC = () => {
@@ -52,7 +51,7 @@ const Login: React.FC = () => {
       <div className="max-w-md w-full space-y-8 bg-white dark:bg-zinc-900 p-10 rounded-2xl shadow-xl border border-gray-100 dark:border-zinc-800">
         <div className="text-center">
           <div className="mx-auto h-16 w-16 bg-black dark:bg-white rounded-full flex items-center justify-center mb-6 shadow-lg">
-            <Lock className="h-8 w-8 text-white dark:text-black" aria-hidden="true" />
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-8 w-8 text-white dark:text-black" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
           </div>
           <h2 className="text-3xl font-serif font-bold text-gray-900 dark:text-white mb-2">Connexion</h2>
           <p className="text-sm text-gray-700 dark:text-gray-300">
@@ -63,7 +62,7 @@ const Login: React.FC = () => {
         <div className="mt-8 space-y-6">
           {!ENV.GOOGLE_CLIENT_ID && (
             <div className="p-4 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-200 text-sm rounded-lg flex items-start gap-3" role="alert">
-              <AlertCircle className="flex-shrink-0 mt-0.5" size={16} aria-hidden="true" />
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="flex-shrink-0 mt-0.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
               <div>
                 <strong>Configuration requise</strong>
                 <br />
@@ -88,7 +87,7 @@ const Login: React.FC = () => {
             {authError && (
               <div className="p-3 bg-red-50 dark:bg-red-900/20 border border-red-100 dark:border-red-800 rounded-lg" role="alert">
                 <p className="text-red-600 dark:text-red-400 text-sm text-center flex items-center justify-center gap-2">
-                  <AlertCircle size={14} aria-hidden="true" />
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
                   {authError}
                 </p>
               </div>
@@ -108,7 +107,7 @@ const Login: React.FC = () => {
               aria-label="Connexion par email (mode démo)"
               className="w-full py-3.5 border border-gray-300 dark:border-zinc-700 rounded-lg flex items-center justify-center gap-3 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all duration-300 font-medium group"
             >
-              <Mail size={18} className="group-hover:scale-110 transition-transform" aria-hidden="true" />
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:scale-110 transition-transform" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
               Connexion par Email (Démo)
             </button>
           </div>

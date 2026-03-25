@@ -12,8 +12,7 @@ export default defineConfig({
         manualChunks: {
           'vendor': ['react', 'react-dom', 'react-router-dom'],
           'stripe': ['@stripe/stripe-js', '@stripe/react-stripe-js'],
-          'google': ['@react-oauth/google'],
-          'icons': ['lucide-react'],
+          'google': ['@react-oauth/google']
         }
       }
     }

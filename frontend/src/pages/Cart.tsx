@@ -3,7 +3,6 @@ import { Helmet } from 'react-helmet-async';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 import { AuthProvider } from '../types';
-import { Trash2, Mail, Lock, AlertCircle } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';
 import { ENV, API_CONFIG } from '../constants';
@@ -111,7 +110,7 @@ const Cart: React.FC = () => {
                       aria-label={`Supprimer ${item.title} du panier`}
                       className="text-red-500 hover:text-red-700 opacity-90 hover:opacity-100"
                     >
-                      <Trash2 size={18} aria-hidden="true" />
+                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
                     </button>
                   </div>
                   <p className="text-sm opacity-90 mb-2">{item.artist}</p>
@@ -129,7 +128,7 @@ const Cart: React.FC = () => {
         <div className="bg-gray-50 dark:bg-zinc-900/50 p-8 rounded-2xl h-fit border border-gray-200 dark:border-zinc-800">
           {!isConfigured && (
             <div className="mb-6 p-4 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-200 text-sm rounded flex items-start gap-2" role="alert">
-              <AlertCircle className="flex-shrink-0" size={16} aria-hidden="true" />
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="flex-shrink-0" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
               <div>
                 <strong>Configuration manquante</strong><br />
                 Veuillez configurer VITE_GOOGLE_CLIENT_ID sur Netlify.
@@ -140,7 +139,7 @@ const Cart: React.FC = () => {
           {!isAuthenticated ? (
             <div className="text-center">
               <div className="w-16 h-16 bg-black dark:bg-white rounded-full flex items-center justify-center mx-auto mb-6">
-                <Lock size={24} className="text-white dark:text-black" aria-hidden="true" />
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white dark:text-black" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
               </div>
               <h2 className="font-serif text-2xl font-bold mb-2">Connexion requise</h2>
               <p className="text-sm text-gray-700 dark:text-gray-300 mb-8">Pour télécharger vos partitions, vous devez créer un compte ou vous connecter.</p>
@@ -171,7 +170,7 @@ const Cart: React.FC = () => {
                   aria-label="Connexion par email (démo)"
                   className="w-full py-3 border border-current rounded flex items-center justify-center gap-3 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors"
                 >
-                  <Mail size={18} aria-hidden="true" /> Connexion par Email (Démo)
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg> Connexion par Email (Démo)
                 </button>
               </div>
               <p className="mt-4 text-xs text-center text-gray-700 dark:text-gray-300">En continuant, vous acceptez nos conditions générales.</p>

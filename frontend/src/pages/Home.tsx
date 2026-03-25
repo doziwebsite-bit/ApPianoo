@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Play } from 'lucide-react';
 import { ASSETS, MEDIA_ITEMS } from '../constants';
 import { useCart } from '../context/CartContext';
 import api from '../services/api';
@@ -171,7 +170,7 @@ const Home: React.FC = () => {
                 to="/store"
                 className="inline-flex items-center gap-3 text-lg font-serif italic hover:text-gray-700 dark:hover:text-gray-200 transition-all hover:translate-x-2"
               >
-                Voir toutes les partitions <ArrowRight size={20} />
+                Voir toutes les partitions <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
               </Link>
             </div>
           </div>
@@ -301,7 +300,7 @@ const Home: React.FC = () => {
                 to="/media"
                 className="inline-flex items-center gap-3 text-lg font-serif italic hover:text-gray-700 dark:hover:text-gray-200 transition-all hover:translate-x-2"
               >
-                Voir toutes les vidéos <Play size={20} />
+                Voir toutes les vidéos <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polygon points="6 3 20 12 6 21 6 3"/></svg>
               </Link>
             </div>
           </div>

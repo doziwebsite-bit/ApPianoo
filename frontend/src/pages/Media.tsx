@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { MEDIA_ITEMS } from '../constants';
-import { Image as ImageIcon } from 'lucide-react';
 
 const Media: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'all' | 'video' | 'photo'>('all');
@@ -79,7 +78,7 @@ const Media: React.FC = () => {
                     />
                   </picture>
                   <div className="absolute bottom-4 left-4 bg-black/50 backdrop-blur-md px-3 py-1 rounded text-white text-sm flex items-center gap-2">
-                    <ImageIcon size={14} aria-hidden="true" /> Photo
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg> Photo
                   </div>
                 </div>
               )}

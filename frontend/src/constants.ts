@@ -1,34 +1,17 @@
 import { Product, MediaItem, Order } from './types';
 
 // Import images as modules so Vite includes them in the build
-import logoLight from './assets/logoAlanPaul.png';
+
 import logoLightWebp from './assets/logoAlanPaul.webp';
-import logoLightWebp300w from './assets/logoAlanPaul-300w.webp';
-
-import logoDark from './assets/logoAlanPaul-darkmode.png';
 import logoDarkWebp from './assets/logoAlanPaul-darkmode.webp';
-import logoDarkWebp300w from './assets/logoAlanPaul-darkmode-300w.webp';
-
-import profile from './assets/AlanPaul-PP.jpg';
 import profileWebp from './assets/AlanPaul-PP.webp';
-import profileWebp300w from './assets/AlanPaul-PP-300w.webp';
-import profileWebp600w from './assets/AlanPaul-PP-600w.webp';
-import profileWebp900w from './assets/AlanPaul-PP-900w.webp';
-
-import background from './assets/AlanPaul-background.jpg';
 import backgroundWebp from './assets/AlanPaul-background.webp';
-import backgroundWebp300w from './assets/AlanPaul-background-300w.webp';
-import backgroundWebp600w from './assets/AlanPaul-background-600w.webp';
-import backgroundWebp900w from './assets/AlanPaul-background-900w.webp';
+
 
 // Import photos for media gallery
-import photo1 from './assets/IMG_1338.JPG';
 import photo1Webp from './assets/IMG_1338.webp';
-import photo2 from './assets/IMG_1340.JPG';
 import photo2Webp from './assets/IMG_1340.webp';
-import photo3 from './assets/IMG_1342.JPG';
 import photo3Webp from './assets/IMG_1342.webp';
-import photo4 from './assets/IMG_1347.JPG';
 import photo4Webp from './assets/IMG_1347.webp';
 
 // Safe access to environment variables
@@ -77,42 +60,40 @@ export const MEDIA_ITEMS: MediaItem[] = [
   {
     id: 'p1',
     type: 'photo',
-    url: photo1,
+    url: photo1Webp,
     urlWebp: photo1Webp,
     title: 'Performance Live'
   },
   {
     id: 'p2',
     type: 'photo',
-    url: photo2,
+    url: photo2Webp,
     urlWebp: photo2Webp,
     title: 'Studio'
   },
   {
     id: 'p3',
     type: 'photo',
-    url: photo3,
+    url: photo3Webp,
     urlWebp: photo3Webp,
     title: 'Sur Scène'
   },
   {
     id: 'p4',
     type: 'photo',
-    url: photo4,
+    url: photo4Webp,
     urlWebp: photo4Webp,
     title: 'Performance'
   }
 ];
 
-export const MOCK_ORDERS: Order[] = [];
 
-export const FEATURED_PRODUCTS: Product[] = [];
 
 export const ASSETS = {
-  logoLight: { original: logoLight, webp: logoLightWebp, webp300w: logoLightWebp300w },
-  logoDark: { original: logoDark, webp: logoDarkWebp, webp300w: logoDarkWebp300w },
-  profile: { original: profile, webp: profileWebp, webp300w: profileWebp300w, webp600w: profileWebp600w, webp900w: profileWebp900w },
-  background: { original: background, webp: backgroundWebp, webp300w: backgroundWebp300w, webp600w: backgroundWebp600w, webp900w: backgroundWebp900w }
+  logoLight: { original: logoLightWebp, webp: logoLightWebp, webp300w: logoLightWebp },
+  logoDark: { original: logoDarkWebp, webp: logoDarkWebp, webp300w: logoDarkWebp },
+  profile: { original: profileWebp, webp: profileWebp, webp300w: profileWebp, webp600w: profileWebp, webp900w: profileWebp },
+  background: { original: backgroundWebp, webp: backgroundWebp, webp300w: backgroundWebp, webp600w: backgroundWebp, webp900w: backgroundWebp }
 };
 
 export const SOCIAL_LINKS = {
