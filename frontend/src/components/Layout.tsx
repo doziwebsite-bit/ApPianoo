@@ -94,22 +94,15 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               onKeyDown={(e) => { if (e.key === 'Enter') navigate('/'); }}
             >
               {!logoError ? (
-                <picture>
-                  <source 
-                    srcSet={`${isDark ? ASSETS.logoDark.webp300w : ASSETS.logoLight.webp300w} 300w, ${isDark ? ASSETS.logoDark.webp : ASSETS.logoLight.webp} 1876w`}
-                    sizes="48px"
-                    type="image/webp" 
-                  />
-                  <img
-                    src={isDark ? ASSETS.logoDark.original : ASSETS.logoLight.original}
-                    alt="Logo Alan Paul"
-                    width={48}
-                    height={48}
-                    decoding="async"
-                    className="h-12 w-auto object-contain aspect-square"
-                    onError={() => setLogoError(true)}
-                  />
-                </picture>
+                <img
+                  src={isDark ? ASSETS.logoDark.original : ASSETS.logoLight.original}
+                  alt="Logo Alan Paul"
+                  width={48}
+                  height={48}
+                  decoding="async"
+                  className="h-12 w-auto object-contain aspect-square"
+                  onError={() => setLogoError(true)}
+                />
               ) : (
                 <div className="h-10 w-10 bg-black dark:bg-white rounded flex items-center justify-center text-white dark:text-black font-serif font-bold text-xl">
                   AP
