@@ -30,6 +30,28 @@ const Home: React.FC = () => {
     fetchProducts();
   }, []);
 
+  useEffect(() => {
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+          // Optional: stop observing once it's revealed
+          // observer.unobserve(entry.target); 
+        }
+      });
+    }, observerOptions);
+
+    const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+    revealElements.forEach(el => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, [featuredProducts, loading]);
+
   return (
     <div className="w-full">
       <Helmet>
@@ -42,12 +64,12 @@ const Home: React.FC = () => {
         <meta property="og:image" content="https://appianoo.netlify.app/og-image.jpg" />
       </Helmet>
       {/* Hero Section */}
-      <section className="relative py-20 md:py-32 overflow-hidden">
+      <section className="relative py-20 md:py-32 overflow-hidden bg-opacity-0">
         <div className="max-w-5xl mx-auto px-4 text-center relative z-10">
-          {/* Profile Picture Card with White Halo Effect (No Gradient) */}
-          <div className="relative inline-block mb-10">
-            <div className="absolute inset-0 rounded-full bg-white blur-xl opacity-60 dark:opacity-10 transform scale-105"></div>
-            <div className="w-40 h-40 md:w-56 md:h-56 mx-auto rounded-full overflow-hidden border-4 border-white/50 dark:border-gray-800 shadow-2xl relative z-10 bg-gray-100">
+          {/* Profile Picture Card with White Halo Effect */}
+          <div className="relative inline-block mb-10 animate-scale-in opacity-0">
+            <div className="absolute inset-0 rounded-full bg-white blur-xl opacity-60 dark:opacity-10 transform scale-105 animate-pulse"></div>
+            <div className="w-40 h-40 md:w-56 md:h-56 mx-auto rounded-full overflow-hidden border-4 border-white/50 dark:border-gray-800 shadow-2xl relative z-10 bg-gray-100 hover:scale-105 transition-transform duration-500 cursor-pointer">
               <picture>
                 <source 
                   srcSet={`${ASSETS.profile.webp300w} 300w, ${ASSETS.profile.webp600w} 600w, ${ASSETS.profile.webp900w} 900w, ${ASSETS.profile.webp} 1920w`}
@@ -62,31 +84,28 @@ const Home: React.FC = () => {
                   fetchPriority="high"
                   decoding="async"
                   className="w-full h-full object-cover transition-all duration-700 aspect-square"
-                  onError={(e) => {
-                    e.currentTarget.style.display = 'none';
-                  }}
                 />
               </picture>
             </div>
           </div>
 
-          <h1 className="font-serif text-5xl md:text-8xl font-bold mb-6 tracking-tight text-black dark:text-white drop-shadow-lg">
+          <h1 className="font-serif text-5xl md:text-8xl font-bold mb-6 tracking-tight text-black dark:text-white drop-shadow-lg animate-fade-up opacity-0" style={{ animationDelay: '300ms' }}>
             Alan Paul
           </h1>
-          <p className="text-lg md:text-2xl font-light uppercase tracking-widest mb-12 opacity-90">
+          <p className="text-lg md:text-2xl font-light uppercase tracking-widest mb-12 opacity-0 animate-fade-up anim-delay-500">
             Pianist &bull; Composer &bull; Performer
           </p>
 
-          <div className="flex flex-col sm:flex-row justify-center gap-6">
+          <div className="flex flex-col sm:flex-row justify-center gap-6 animate-fade-up opacity-0 anim-delay-500">
             <Link
               to="/store"
-              className="px-10 py-4 bg-black text-white dark:bg-white dark:text-black font-medium uppercase tracking-widest hover:scale-105 transition-transform duration-300 shadow-lg"
+              className="px-10 py-4 bg-black text-white dark:bg-white dark:text-black font-medium uppercase tracking-widest hover:scale-110 transition-transform duration-300 shadow-lg active:scale-95"
             >
               Boutique de partitions
             </Link>
             <Link
               to="/services"
-              className="px-10 py-4 border-2 border-current font-medium uppercase tracking-widest hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors duration-300 backdrop-blur-sm"
+              className="px-10 py-4 border-2 border-current font-medium uppercase tracking-widest hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all duration-300 backdrop-blur-sm active:scale-95"
             >
               Réserver une prestation
             </Link>
@@ -96,16 +115,19 @@ const Home: React.FC = () => {
 
       {/* Featured Products */}
       {!loading && featuredProducts.length > 0 && (
-        <section className="py-24 bg-white/40 dark:bg-black/40 backdrop-blur-sm border-t border-b border-gray-200/20 dark:border-gray-800/20">
+        <section className="py-24 bg-white/40 dark:bg-black/40 backdrop-blur-sm border-t border-b border-gray-200/20 dark:border-gray-800/20 reveal">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
+            <div className="text-center mb-16 reveal">
               <h2 className="font-serif text-4xl md:text-5xl font-bold mb-4">Partitions à la une</h2>
               <div className="w-24 h-1 bg-black dark:bg-white mx-auto opacity-20 rounded-full"></div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-              {featuredProducts.map((product) => (
-                <div key={product.id || product._id} className="group flex flex-col bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md rounded-lg overflow-hidden border border-white/20 dark:border-white/5 shadow-lg hover:shadow-2xl transition-all duration-500">
+              {featuredProducts.map((product, index) => (
+                <div key={product.id || product._id} 
+                  className={`group flex flex-col bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md rounded-lg overflow-hidden border border-white/20 dark:border-white/5 shadow-lg hover:shadow-2xl transition-all duration-500 reveal`}
+                  style={{ transitionDelay: `${index * 150}ms` }}
+                >
                   <div className="relative aspect-auto overflow-hidden bg-gray-100 dark:bg-gray-800">
                     <picture>
                       <source srcSet={product.coverImage?.replace(/\.(jpe?g|png)$/i, '.webp')} type="image/webp" />
@@ -116,7 +138,7 @@ const Home: React.FC = () => {
                         height={300}
                         loading="lazy"
                         decoding="async"
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 aspect-[4/3]"
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 aspect-[4/3]"
                       />
                     </picture>
                     <div className="absolute top-4 right-4">
@@ -134,7 +156,7 @@ const Home: React.FC = () => {
                       <button
                         onClick={() => addToCart(product)}
                         aria-label={`Ajouter ${product.title} au panier`}
-                        className="bg-transparent border border-black dark:border-white rounded-lg text-black dark:text-white px-6 py-2 text-sm font-bold uppercase tracking-wider hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all"
+                        className="bg-transparent border border-black dark:border-white rounded-lg text-black dark:text-white px-6 py-2 text-sm font-bold uppercase tracking-wider hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all active:scale-95"
                       >
                         Ajouter
                       </button>
@@ -144,10 +166,10 @@ const Home: React.FC = () => {
               ))}
             </div>
 
-            <div className="text-center mt-16">
+            <div className="text-center mt-16 reveal">
               <Link
                 to="/store"
-                className="inline-flex items-center gap-3 text-lg font-serif italic hover:text-gray-700 dark:hover:text-gray-200 transition-colors"
+                className="inline-flex items-center gap-3 text-lg font-serif italic hover:text-gray-700 dark:hover:text-gray-200 transition-all hover:translate-x-2"
               >
                 Voir toutes les partitions <ArrowRight size={20} />
               </Link>
@@ -156,23 +178,95 @@ const Home: React.FC = () => {
         </section>
       )}
 
-      {/* About Section */}
-      <section className="py-24 relative">
-        <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
-          <h2 className="font-serif text-4xl md:text-5xl font-bold mb-10">À propos d'Alan</h2>
-          <div className="text-lg md:text-xl leading-relaxed opacity-90 mb-12 font-light space-y-6">
-            <p>
-              Alan Paul, pianiste et compositeur autodidacte, possède un parcours artistique marqué par une curiosité et une ouverture constantes aux différents styles musicaux. Adolescent, émerveillé par l’improvisation jazz, le style classique et les sonorités contemporaines, il travaille chaque jour au piano et développe un langage musical personnel, raffiné et vivant, dans lequel la maîtrise de l’improvisation occupe une place centrale.
-            </p>
-            <p>
-              Sur les terrains de sport, Alan Paul s’est fait remarquer par son rôle original à l’orgue. Il revisite avec inventivité les sons emblématiques des sports internationaux et les enrichit de gimmicks sonores variés, insufflant une énergie électrique et une ambiance immersive qui accompagnent chaque instant du match. Bien plus qu’un simple fond musical, son jeu participe pleinement à l’expérience collective vécue par le public et les joueurs.
-            </p>
-            <p>
-              En dehors des événements sportifs, Alan Paul consacre la plus grande partie de son temps à la composition. Profondément inspiré par la nature, il crée des œuvres originales qui expriment une quête permanente de découverte du monde. Qu’il se produise lors de galas prestigieux, de réceptions privées ou de concerts intimistes, il y déploie une énergie unique à travers un répertoire original. Ses prestations sont accessibles et chargées d’émotion, et l’étonnement reste le même pour tous.
-            </p>
-            <p>
-              À travers ses différentes interventions, Alan Paul continue d’explorer les multiples facettes de la musique en live, avec une exigence artistique sincère et une joie communicative qui séduisent un public toujours plus large.
-            </p>
+      {/* About Section - Restructured into 4 parts with images */}
+      <section className="py-24 relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <h2 className="font-serif text-4xl md:text-5xl font-bold mb-20 text-center reveal">À propos d'Alan</h2>
+          
+          <div className="space-y-32">
+            {/* Part 1: Intro */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+              <div className="order-2 md:order-1 reveal-left">
+                <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl group">
+                  <picture>
+                    <source srcSet={MEDIA_ITEMS.find(m => m.id === 'p1')?.urlWebp} type="image/webp" />
+                    <img 
+                      src={MEDIA_ITEMS.find(m => m.id === 'p1')?.url} 
+                      alt="Alan Paul - Débuts et parcours" 
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                  </picture>
+                </div>
+              </div>
+              <div className="order-1 md:order-2 space-y-6 reveal-right">
+                <p className="text-lg md:text-xl leading-relaxed opacity-90 font-light italic">
+                  Alan Paul, pianiste et compositeur autodidacte, possède un parcours artistique marqué par une curiosité et une ouverture constantes aux différents styles musicaux. Adolescent, émerveillé par l’improvisation jazz, le style classique et les sonorités contemporaines, il travaille chaque jour au piano et développe un langage musical personnel, raffiné et vivant, dans lequel la maîtrise de l’improvisation occupe une place centrale.
+                </p>
+              </div>
+            </div>
+
+            {/* Part 2: Sport */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+              <div className="space-y-6 reveal-left">
+                <p className="text-lg md:text-xl leading-relaxed opacity-90 font-light text-right italic">
+                  Sur les terrains de sport, Alan Paul s’est fait remarquer par son rôle original à l’orgue. Il revisite avec inventivité les sons emblématiques des sports internationaux et les enrichit de gimmicks sonores variés, insufflant une énergie électrique et une ambiance immersive qui accompagnent chaque instant du match. Bien plus qu’un simple fond musical, son jeu participe pleinement à l’expérience collective vécue par le public et les joueurs.
+                </p>
+              </div>
+              <div className="reveal-right">
+                <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl group">
+                  <picture>
+                    <source srcSet={MEDIA_ITEMS.find(m => m.id === 'p2')?.urlWebp} type="image/webp" />
+                    <img 
+                      src={MEDIA_ITEMS.find(m => m.id === 'p2')?.url} 
+                      alt="Alan Paul - Événements sportifs" 
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                  </picture>
+                </div>
+              </div>
+            </div>
+
+            {/* Part 3: Composition */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+              <div className="order-2 md:order-1 reveal-left">
+                <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl group">
+                  <picture>
+                    <source srcSet={MEDIA_ITEMS.find(m => m.id === 'p3')?.urlWebp} type="image/webp" />
+                    <img 
+                      src={MEDIA_ITEMS.find(m => m.id === 'p3')?.url} 
+                      alt="Alan Paul - Composition et nature" 
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                  </picture>
+                </div>
+              </div>
+              <div className="order-1 md:order-2 space-y-6 reveal-right">
+                <p className="text-lg md:text-xl leading-relaxed opacity-90 font-light italic">
+                  En dehors des événements sportifs, Alan Paul consacre la plus grande partie de son temps à la composition. Profondément inspiré par la nature, il crée des œuvres originales qui expriment une quête permanente de découverte du monde. Qu’il se produise lors de galas prestigieux, de réceptions privées ou de concerts intimistes, il y déploie une énergie unique à travers un répertoire original. Ses prestations sont accessibles et chargées d’émotion, et l’étonnement reste le même pour tous.
+                </p>
+              </div>
+            </div>
+
+            {/* Part 4: Conclusion */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+              <div className="space-y-6 reveal-left">
+                <p className="text-lg md:text-xl leading-relaxed opacity-90 font-light text-right italic">
+                  À travers ses différentes interventions, Alan Paul continue d’explorer les multiples facettes de la musique en live, avec une exigence artistique sincère et une joie communicative qui séduisent un public toujours plus large.
+                </p>
+              </div>
+              <div className="reveal-right">
+                <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl group">
+                  <picture>
+                    <source srcSet={MEDIA_ITEMS.find(m => m.id === 'p4')?.urlWebp} type="image/webp" />
+                    <img 
+                      src={MEDIA_ITEMS.find(m => m.id === 'p4')?.url} 
+                      alt="Alan Paul - Conclusion et partage" 
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                  </picture>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -181,11 +275,14 @@ const Home: React.FC = () => {
       {featuredMedia.length > 0 && (
         <section className="py-24 bg-gray-50/50 dark:bg-zinc-900/50 backdrop-blur-sm border-t border-gray-200/20 dark:border-gray-800/20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="font-serif text-4xl md:text-5xl font-bold mb-10">Performances Récentes</h2>
+            <h2 className="font-serif text-4xl md:text-5xl font-bold mb-10 reveal">Performances Récentes</h2>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
-              {featuredMedia.map((media) => (
-                <div key={media.id} className={`w-full ${media.aspectRatio === 'square' ? 'aspect-square max-w-[400px]' : 'aspect-video'} mx-auto overflow-hidden rounded-lg shadow-2xl flex items-center justify-center bg-black`}>
+              {featuredMedia.map((media, idx) => (
+                <div key={media.id} 
+                  className={`w-full ${media.aspectRatio === 'square' ? 'aspect-square max-w-[400px]' : 'aspect-video'} mx-auto overflow-hidden rounded-lg shadow-2xl flex items-center justify-center bg-black reveal`}
+                  style={{ transitionDelay: `${idx * 200}ms` }}
+                >
                   <iframe
                     src={media.url}
                     title={media.title}
@@ -199,10 +296,10 @@ const Home: React.FC = () => {
               ))}
             </div>
 
-            <div className="text-center mt-12">
+            <div className="text-center mt-12 reveal">
               <Link
                 to="/media"
-                className="inline-flex items-center gap-3 text-lg font-serif italic hover:text-gray-700 dark:hover:text-gray-200 transition-colors"
+                className="inline-flex items-center gap-3 text-lg font-serif italic hover:text-gray-700 dark:hover:text-gray-200 transition-all hover:translate-x-2"
               >
                 Voir toutes les vidéos <Play size={20} />
               </Link>
